@@ -37,4 +37,8 @@ init({
 
   // Allow the user to switch locale at runtime via the Preferences dialog.
   allowLocaleSwitching: true,
+
+  // Enables the "Projector Mode" color profile alongside the default dark theme.
+  // Required when supportsProjectorMode: true is used in PreferencesModel (src/main.ts).
+  colorProfiles: ["default", "projector"],
 });
