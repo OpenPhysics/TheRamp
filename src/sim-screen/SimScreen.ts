@@ -13,6 +13,7 @@ import { Screen } from "scenerystack/sim";
 import type { Tandem } from "scenerystack/tandem";
 import SimColors from "../SimColors.js";
 import { SimModel } from "./model/SimModel.js";
+import { SimKeyboardHelpContent } from "./view/SimKeyboardHelpContent.js";
 import { SimScreenView } from "./view/SimScreenView.js";
 
 // Require tandem to be explicit — accidental omission would break PhET-iO.
@@ -30,6 +31,7 @@ export class SimScreen extends Screen<SimModel, SimScreenView> {
         }),
       {
         backgroundColorProperty: SimColors.backgroundColorProperty,
+        createKeyboardHelpNode: () => new SimKeyboardHelpContent(),
         ...options,
       },
     );
