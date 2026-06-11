@@ -18,6 +18,7 @@ import "./brand.js";
 import { onReadyToLaunch, PreferencesModel, Sim } from "scenerystack/sim";
 import { Tandem } from "scenerystack/tandem";
 import { StringManager } from "./i18n/StringManager.js";
+import SimColors from "./SimColors.js";
 import { SimScreen } from "./sim-screen/SimScreen.js";
 
 onReadyToLaunch(() => {
@@ -28,6 +29,7 @@ onReadyToLaunch(() => {
       // The screen name Property updates automatically when the locale changes
       name: stringManager.getScreenNames().simStringProperty,
       tandem: Tandem.ROOT.createTandem("simScreen"),
+      backgroundColorProperty: SimColors.backgroundColorProperty,
     }),
   ];
 
