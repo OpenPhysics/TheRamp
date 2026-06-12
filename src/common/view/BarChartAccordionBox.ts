@@ -35,7 +35,7 @@ export interface BarChartAccordionBoxOptions {
 const LEGEND_ABBREVIATION_MAX_WIDTH = 100;
 const LEGEND_DESCRIPTION_MAX_WIDTH = 500;
 const BACKGROUND_WIDTH = 160;
-const BACKGROUND_HEIGHT = 520;
+const BACKGROUND_HEIGHT = 173;
 const PANEL_CORNER_RADIUS = 7;
 const DEFAULT_ZOOM_LEVEL = 0;
 const ZOOM_LEVEL_RANGE = new Range(-2, 4);

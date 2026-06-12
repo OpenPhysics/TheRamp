@@ -34,11 +34,11 @@ export interface BarChartNodeOptions {
 
 const DEFAULT_BAR_WIDTH = 16;
 const DEFAULT_BAR_SPACING = 5;
-const DEFAULT_MAX_BAR_HEIGHT_UP = 220;
-const DEFAULT_MAX_BAR_HEIGHT_DOWN = 60;
+const DEFAULT_MAX_BAR_HEIGHT_UP = 73;
+const DEFAULT_MAX_BAR_HEIGHT_DOWN = 20;
 const OVERFLOW_SIZE = 8;
 const LABEL_BACKGROUND_OPACITY = 0.7;
-const Y_AXIS_TOP_MARGIN = 25;
+const Y_AXIS_TOP_MARGIN = 8;
 
 function createUpTriangle(centerX: number, baseY: number, size: number): Shape {
   const half = size / 2;
@@ -132,6 +132,10 @@ export class BarChartNode extends Node {
         rotation: -Math.PI / 4,
       });
 
+      const labelContent = new Node({
+        children: group.labelNode ? [labelText, group.labelNode] : [labelText],
+      });
+
       const labelBackground = new Rectangle(0, 0, 1, 1, {
         fill: RampColors.chartBackgroundColorProperty,
         opacity: LABEL_BACKGROUND_OPACITY,
@@ -139,23 +143,23 @@ export class BarChartNode extends Node {
       });
 
       const labelContainer = new Node({
-        children: [labelBackground, labelText],
+        children: [labelBackground, labelContent],
       });
-
-      if (group.labelNode) {
-        group.labelNode.centerY = labelText.centerY;
-        group.labelNode.left = labelText.right + 2;
-        labelContainer.addChild(group.labelNode);
-      }
 
       const positionLabel = (): void => {
         labelText.right = barCenterX;
         labelText.top = 4;
+        if (group.labelNode) {
+          group.labelNode.centerY = labelText.centerY;
+          group.labelNode.left = labelText.right + 2;
+        }
+
+        const contentBounds = labelContent.localBounds;
         labelBackground.setRect(
-          labelContainer.localBounds.minX - 2,
-          labelContainer.localBounds.minY - 1,
-          labelContainer.localBounds.width + 4,
-          labelContainer.localBounds.height + 2,
+          contentBounds.minX - 2,
+          contentBounds.minY - 1,
+          contentBounds.width + 4,
+          contentBounds.height + 2,
         );
       };
       positionLabel();
@@ -208,8 +212,6 @@ export class BarChartNode extends Node {
         } else {
           overflowTriangle.visible = false;
         }
-
-        positionLabel();
       };
 
       for (const entry of group.entries) {
