@@ -27,6 +27,9 @@ export const MASS_RANGE = new Range(100, 500);
 /** Model-view scale, view px per model meter */
 export const MODEL_VIEW_SCALE = 26;
 
+/** Visual thickness of the ramp board, px */
+export const RAMP_BOARD_THICKNESS = 12;
+
 /** View position of the model origin (the ramp hinge / base) */
 export const WORLD_VIEW_ORIGIN = new Vector2(200, 390);
 

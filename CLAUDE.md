@@ -13,8 +13,9 @@ Two-screen sim, mirroring the Java modules:
 - **Introduction** (`src/intro/`) — Java `SimpleRampModule`
 - **More Features** (`src/more-features/`) — Java `RampModule` (advanced)
 
-Status: structural scaffold only. Screens, models, and views are stubs with TODO
-hooks; the ramp physics has not been ported yet.
+Status: full ramp physics, record/playback, charts, and options-driven views for
+both screens. Run `npm run verify` for the phase-10 automated gate. See
+`doc/implementation-notes.md` and `doc/plan/` for architecture.
 
 ## Key files
 

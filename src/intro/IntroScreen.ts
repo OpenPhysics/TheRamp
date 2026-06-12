@@ -9,6 +9,7 @@ import type { ScreenOptions } from "scenerystack/sim";
 import { Screen } from "scenerystack/sim";
 import type { Tandem } from "scenerystack/tandem";
 import { RampKeyboardHelpContent } from "../common/view/RampKeyboardHelpContent.js";
+import { createIntroScreenIcon } from "../common/view/RampScreenIcons.js";
 import RampColors from "../RampColors.js";
 import { IntroModel } from "./model/IntroModel.js";
 import { IntroScreenView } from "./view/IntroScreenView.js";
@@ -29,6 +30,7 @@ export class IntroScreen extends Screen<IntroModel, IntroScreenView> {
       {
         backgroundColorProperty: RampColors.backgroundColorProperty,
         createKeyboardHelpNode: () => new RampKeyboardHelpContent(),
+        homeScreenIcon: createIntroScreenIcon(),
         ...options,
       },
     );

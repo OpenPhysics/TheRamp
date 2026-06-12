@@ -23,17 +23,27 @@
   },
   "energy": {
     "title": "Énergie",
+    "legend": "Légende de l'énergie",
     "kinetic": "Cinétique",
     "potential": "Potentielle",
     "thermal": "Thermique",
-    "total": "Totale"
+    "total": "Totale",
+    "kineticEnergy": "Énergie cinétique",
+    "potentialEnergy": "Énergie potentielle",
+    "thermalEnergy": "Énergie thermique",
+    "totalEnergy": "Énergie totale"
   },
   "work": {
     "title": "Travail",
+    "legend": "Légende du travail",
     "applied": "Appliqué",
     "gravity": "Gravité",
     "friction": "Frottement",
-    "total": "Total"
+    "total": "Total",
+    "appliedWork": "Travail appliqué",
+    "gravityWork": "Travail de la gravité",
+    "frictionWork": "Travail de frottement",
+    "totalWork": "Travail total"
   },
   "objects": {
     "fileCabinet": "Classeur",

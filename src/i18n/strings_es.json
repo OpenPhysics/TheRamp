@@ -23,17 +23,27 @@
   },
   "energy": {
     "title": "Energía",
+    "legend": "Leyenda de energía",
     "kinetic": "Cinética",
     "potential": "Potencial",
     "thermal": "Térmica",
-    "total": "Total"
+    "total": "Total",
+    "kineticEnergy": "Energía cinética",
+    "potentialEnergy": "Energía potencial",
+    "thermalEnergy": "Energía térmica",
+    "totalEnergy": "Energía total"
   },
   "work": {
     "title": "Trabajo",
+    "legend": "Leyenda de trabajo",
     "applied": "Aplicado",
     "gravity": "Gravedad",
     "friction": "Fricción",
-    "total": "Total"
+    "total": "Total",
+    "appliedWork": "Trabajo aplicado",
+    "gravityWork": "Trabajo de gravedad",
+    "frictionWork": "Trabajo de fricción",
+    "totalWork": "Trabajo total"
   },
   "objects": {
     "fileCabinet": "Archivador",

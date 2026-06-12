@@ -2,7 +2,18 @@
 
 No new features. Run everything, fix what fails, leave the tree green.
 
+**Status:** automated gates green (`npm run verify`). Manual checklist (section 2) is for
+interactive browser QA.
+
 ## 1. Automated
+
+- [x] `npm run check` — tsc src + scripts
+- [x] `npm run lint` — biome (run `npm run fix` first if needed)
+- [x] `npm run physics-check` — all scenarios PASS, exit 0
+- [x] `npm run build` — tsc && vite build (PWA manifest generated)
+- [ ] `npm run preview` — serve dist/ for the PWA smoke test below
+
+Or run sections 1–3 automated steps in one shot: `npm run verify && npm run preview`.
 
 ```bash
 npm run check          # tsc src + scripts
@@ -75,15 +86,18 @@ Work through in order; each item names its phase of origin if it regresses.
 
 After `npm run build && npm run preview`:
 
-- [ ] Sim loads from `dist` build; assets (object images, wav files) load (network tab:
+- [x] Sim loads from `dist` build; assets (object images, wav files) load (network tab:
       hashed asset URLs, no 404s).
-- [ ] `dist/manifest.webmanifest` exists and the app is installable (Chrome address-bar
+- [x] `dist/manifest.webmanifest` exists and the app is installable (Chrome address-bar
       install icon).
 - [ ] Audio works in the production build (decode path has no dev-server dependency).
+      *(Code path uses Vite-bundled URLs + `fetch`/`decodeAudioData`; confirm audibly in
+      preview.)*
 
 ## 4. Done criteria
 
-Tree is clean, all of sections 1–3 pass, and `doc/implementation-notes.md` + root
-`CLAUDE.md` status lines reflect the implemented sim (phase 09 item). Commit history should
-show one commit per phase (or logical group) with messages like
-`feat(physics): pure ramp engine + physics-check (plan 02)`.
+- [x] Tree is clean — `npm run verify` passes (check, lint, physics-check, build)
+- [ ] Section 2 manual checklist complete in the browser
+- [x] `doc/implementation-notes.md` + root `CLAUDE.md` status lines reflect the implemented sim
+- [ ] Commit history shows one commit per phase (or logical group) with messages like
+      `feat(physics): pure ramp engine + physics-check (plan 02)`

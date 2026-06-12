@@ -31,6 +31,7 @@
     "check": "tsc --noEmit && tsc -p tsconfig.scripts.json --noEmit",
     "icons": "tsx scripts/generate-icons.ts",
     "physics-check": "tsx scripts/physics-check.ts",
+    "verify": "npm run check && npm run lint && npm run physics-check && npm run build",
     "clean": "rm -rf dist",
     "prepare": "git rev-parse --is-inside-work-tree >/dev/null 2>&1 && git config core.hooksPath .githooks || true"
   },

@@ -23,17 +23,27 @@
   },
   "energy": {
     "title": "Energy",
+    "legend": "Energy Legend",
     "kinetic": "Kinetic",
     "potential": "Potential",
     "thermal": "Thermal",
-    "total": "Total"
+    "total": "Total",
+    "kineticEnergy": "Kinetic Energy",
+    "potentialEnergy": "Potential Energy",
+    "thermalEnergy": "Thermal Energy",
+    "totalEnergy": "Total Energy"
   },
   "work": {
     "title": "Work",
+    "legend": "Work Legend",
     "applied": "Applied",
     "gravity": "Gravity",
     "friction": "Friction",
-    "total": "Total"
+    "total": "Total",
+    "appliedWork": "Applied Work",
+    "gravityWork": "Gravity Work",
+    "frictionWork": "Friction Work",
+    "totalWork": "Total Work"
   },
   "objects": {
     "fileCabinet": "File Cabinet",

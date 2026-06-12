@@ -4,9 +4,8 @@
 
 The Ramp is a SceneryStack reimplementation of PhET's Java simulation of the
 same name (`simulations-java/simulations/the-ramp`). It models forces on an
-inclined plane. This is currently a structural scaffold: the screens, model, and
-view classes exist as stubs with TODO hooks, but no ramp physics has been ported
-yet.
+inclined plane with full ramp physics, record/playback, energy/work charts, and
+screen-specific control sets.
 
 The sim has two screens, mirroring the original Java modules:
 
@@ -15,48 +14,66 @@ The sim has two screens, mirroring the original Java modules:
 
 ### High-Level Architecture
 
-Each screen follows the Model-View pattern:
+The implementation separates pure physics from reactive state and view concerns:
 
-- **Model Layer (`<screen>/model/`)**: Stub model with TODO hooks for `step()` and `reset()`
-- **View Layer (`<screen>/view/`)**: Placeholder background, label, and Reset All button
-- **Shared (`src/common/`)**: Cross-screen view content such as `RampKeyboardHelpContent`
-- **Bootstrap**: `brand.js` must load first in `main.ts`; `init.ts` configures locales and splash
+- **Physics engine** (`src/common/model/RampPhysicsEngine.ts`) — pure functions, no imports
+- **Axon façade** (`src/common/model/RampModel.ts`) — Properties mirroring engine state
+- **Time-series model** (`src/common/model/TimeSeriesModel.ts`) — record/playback buffers
+- **Options-driven views** (`src/common/view/RampScreenView.ts`) — shared layout; per-screen
+  feature flags in `RampScreenViewFeatures` select controls, plots, FBD, tape, etc.
 
-Data flows from Model → View through AXON-ready property patterns documented in
-each model file.
+Each screen wires a thin model subclass (`IntroModel` / `MoreFeaturesModel`) and
+view subclass (`IntroScreenView` / `MoreFeaturesScreenView`) into a `Screen`
+wrapper. Shared UI lives under `src/common/view/`.
+
+Development history and phased plans are documented in `doc/plan/`.
 
 ## Model Components
 
-`IntroModel` and `MoreFeaturesModel` are empty coordinators with commented
-examples for observable properties and simulation stepping. The next step is to
-port the Java `RampModel` / `RampPhysicalModel` physics. The two screens may end
-up sharing a common base model once the physics is in place.
+`RampModel` owns user inputs, physics state mirrors, collision events, vector
+visibility, and the time-series recorder. `IntroModel` and `MoreFeaturesModel`
+extend it without adding behavior (screen identity only).
+
+`VectorVisibilityModel` holds BooleanProperties for force-vector and coordinate-frame
+visibility; `model.reset()` restores defaults.
 
 ## View Components
 
-### Screen views as coordinators
+### RampScreenView
 
-`IntroScreenView` and `MoreFeaturesScreenView` demonstrate layout using
-`layoutBounds`, background fill from `RampColors.ts`, and a `ResetAllButton`
-wired to `model.reset()`.
+The base `ScreenView` composes:
 
-When extending a view:
+- `RampSceneNode` — world (sky, ramp, block, force vectors, readouts)
+- `RampControlPanel` — right column; content driven by `RampScreenViewFeatures`
+- `EnergyWorkBarChartsNode` — collapsible energy and work bar charts
+- `RampPlotsNode` — collapsible energy, work, and parallel-force time plots
+- `GoPauseClearPanel` (Intro) or `RecordPlaybackControlBar` (More Features)
+- Optional `FreeBodyDiagramNode`, `MeasuringTapeNode`, `ZeroPointPeLineNode`
 
-- Add specialized nodes under the screen's `view/` folder
-- Keep colors in `RampColors.ts` and strings in `src/i18n/strings_*.json`
-- Run `scripts/generate-icons.ts` after updating branding assets
+`RampScreenView.reset()` restores accordion expansion, tape/zero-point visibility,
+and measuring-tape positions in addition to calling `model.reset()`.
 
 ### Color Scheme
 
 `RampColors.ts` defines `ProfileColorProperty` instances for default and
 projector profiles, scoped to the `the-ramp` namespace (`RampNamespace.ts`).
 
+## Verification (phase 10)
+
+Automated gates (run via `npm run verify`):
+
+| Check | Result |
+|---|---|
+| `npm run check` | tsc on `src/` + `scripts/` |
+| `npm run lint` | biome, 60 files |
+| `npm run physics-check` | 21 scenarios, all PASS (static hold, break-away 459/460 N, frictionless slide, 600-step soak, ramp-top/ground collisions, surface handoff, clearHeat, snapshot determinism) |
+| `npm run build` | tsc + vite; PWA manifest + service worker in `dist/` |
+
+Production smoke (`npm run preview`): index and `manifest.webmanifest` serve 200; hashed assets under `dist/assets/` (images, wav).
+
+Manual browser checklist: `doc/plan/10-verification.md` section 2 (physics, vectors, controls, energy, record/playback, screens, locale, projector, resize).
+
 ## Outstanding Work
 
-- Port the ramp physics into `IntroModel` / `MoreFeaturesModel`
-- Replace placeholder view content with the ramp, objects, and control panels
-- Replace the placeholder icon/splash branding assets
-- Expand `RampKeyboardHelpContent` as interactive controls are added
-
-Note that no dispose functions have been used, which should be addressed once
-listeners are added.
+- PhET-iO instrumentation (tandems are mostly `OPT_OUT` today)
+- Dispose functions for long-lived listeners (not yet required for sim lifetime)
