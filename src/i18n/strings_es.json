@@ -3,5 +3,101 @@
   "screens": {
     "intro": "Introducción",
     "moreFeatures": "Más Detalles"
+  },
+  "forces": {
+    "applied": "Aplicada",
+    "gravity": "Gravedad",
+    "normal": "Normal",
+    "friction": "Fricción",
+    "wall": "Pared",
+    "total": "Total",
+    "parallelTitle": "Fuerzas paralelas"
+  },
+  "forceSymbols": {
+    "applied": "F<sub>A</sub>",
+    "gravity": "F<sub>G</sub>",
+    "normal": "F<sub>N</sub>",
+    "friction": "F<sub>f</sub>",
+    "wall": "F<sub>pared</sub>",
+    "total": "F<sub>net</sub>"
+  },
+  "energy": {
+    "title": "Energía",
+    "kinetic": "Cinética",
+    "potential": "Potencial",
+    "thermal": "Térmica",
+    "total": "Total"
+  },
+  "work": {
+    "title": "Trabajo",
+    "applied": "Aplicado",
+    "gravity": "Gravedad",
+    "friction": "Fricción",
+    "total": "Total"
+  },
+  "objects": {
+    "fileCabinet": "Archivador",
+    "refrigerator": "Refrigerador",
+    "piano": "Piano",
+    "crate": "Caja",
+    "sleepyDog": "Perro dormilón"
+  },
+  "controls": {
+    "chooseObject": "Elegir un objeto",
+    "frictionless": "Sin fricción",
+    "sound": "Sonido",
+    "reset": "Reiniciar",
+    "coolRamp": "Enfriar la rampa",
+    "measuringTape": "Cinta métrica",
+    "showZeroPointPe": "Mostrar el cero de energía potencial",
+    "freeBodyDiagram": "Diagrama de cuerpo libre",
+    "forcesToShow": "Fuerzas a mostrar",
+    "coordinateFrames": "Sistemas de referencia",
+    "entireVectors": "Vectores completos",
+    "parallelComponents": "Componentes paralelas",
+    "perpendicularComponents": "Componentes perpendiculares",
+    "xComponents": "Componentes en X",
+    "yComponents": "Componentes en Y",
+    "frictionCoefficient": "Coeficiente de fricción",
+    "mass": "Masa",
+    "position": "Posición del objeto",
+    "rampAngle": "Ángulo de la rampa",
+    "appliedForce": "Fuerza aplicada",
+    "graphs": "Gráficas",
+    "forces": "Fuerzas"
+  },
+  "timeControls": {
+    "go": "¡Adelante!",
+    "pause": "Pausa",
+    "clear": "Borrar",
+    "record": "Grabar",
+    "playback": "Reproducir",
+    "slowMotion": "Cámara lenta",
+    "rewind": "Rebobinar"
+  },
+  "units": {
+    "newtons": "N",
+    "joules": "J",
+    "meters": "m",
+    "kilograms": "kg",
+    "degrees": "grados",
+    "metersPerSecond": "m/s",
+    "seconds": "s"
+  },
+  "readouts": {
+    "anglePattern": "Ángulo = {{value}}°",
+    "heightPattern": "h = {{value}} m",
+    "speedPattern": "{{value}} m/s",
+    "timePattern": "{{value}} s",
+    "massPattern": "{{name}} ({{mass}} kg)",
+    "valueUnitsPattern": "{{value}} {{units}}",
+    "zeroPointPe": "EP = 0"
+  },
+  "messages": {
+    "confirmReset": "¿Seguro que quieres reiniciar todo?",
+    "confirmResetTitle": "Confirmar reinicio",
+    "confirmClearGraphs": "¿Seguro que quieres borrar las gráficas?",
+    "confirmClearTitle": "Confirmar borrado",
+    "overheated": "¡Sobrecalentado!"
   }
 }

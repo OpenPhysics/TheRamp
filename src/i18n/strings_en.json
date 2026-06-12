@@ -3,5 +3,101 @@
   "screens": {
     "intro": "Introduction",
     "moreFeatures": "More Features"
+  },
+  "forces": {
+    "applied": "Applied",
+    "gravity": "Gravity",
+    "normal": "Normal",
+    "friction": "Friction",
+    "wall": "Wall",
+    "total": "Total",
+    "parallelTitle": "Parallel Forces"
+  },
+  "forceSymbols": {
+    "applied": "F<sub>A</sub>",
+    "gravity": "F<sub>G</sub>",
+    "normal": "F<sub>N</sub>",
+    "friction": "F<sub>f</sub>",
+    "wall": "F<sub>wall</sub>",
+    "total": "F<sub>net</sub>"
+  },
+  "energy": {
+    "title": "Energy",
+    "kinetic": "Kinetic",
+    "potential": "Potential",
+    "thermal": "Thermal",
+    "total": "Total"
+  },
+  "work": {
+    "title": "Work",
+    "applied": "Applied",
+    "gravity": "Gravity",
+    "friction": "Friction",
+    "total": "Total"
+  },
+  "objects": {
+    "fileCabinet": "File Cabinet",
+    "refrigerator": "Refrigerator",
+    "piano": "Piano",
+    "crate": "Crate",
+    "sleepyDog": "Sleepy Dog"
+  },
+  "controls": {
+    "chooseObject": "Choose an Object",
+    "frictionless": "Frictionless",
+    "sound": "Sound",
+    "reset": "Reset",
+    "coolRamp": "Cool Ramp",
+    "measuringTape": "Measuring Tape",
+    "showZeroPointPe": "Show zero-point PE",
+    "freeBodyDiagram": "Free Body Diagram",
+    "forcesToShow": "Forces to Show",
+    "coordinateFrames": "Coordinate Frames",
+    "entireVectors": "Entire Vectors",
+    "parallelComponents": "Parallel Components",
+    "perpendicularComponents": "Perpendicular Components",
+    "xComponents": "X-Components",
+    "yComponents": "Y-Components",
+    "frictionCoefficient": "Coefficient of Friction",
+    "mass": "Mass",
+    "position": "Object Position",
+    "rampAngle": "Ramp Angle",
+    "appliedForce": "Applied Force",
+    "graphs": "Graphs",
+    "forces": "Forces"
+  },
+  "timeControls": {
+    "go": "Go!",
+    "pause": "Pause",
+    "clear": "Clear",
+    "record": "Record",
+    "playback": "Playback",
+    "slowMotion": "Slow Motion",
+    "rewind": "Rewind"
+  },
+  "units": {
+    "newtons": "N",
+    "joules": "J",
+    "meters": "m",
+    "kilograms": "kg",
+    "degrees": "degrees",
+    "metersPerSecond": "m/s",
+    "seconds": "s"
+  },
+  "readouts": {
+    "anglePattern": "Angle = {{value}}°",
+    "heightPattern": "h = {{value}} m",
+    "speedPattern": "{{value}} m/s",
+    "timePattern": "{{value}} s",
+    "massPattern": "{{name}} ({{mass}} kg)",
+    "valueUnitsPattern": "{{value}} {{units}}",
+    "zeroPointPe": "PE = 0"
+  },
+  "messages": {
+    "confirmReset": "Are you sure you'd like to reset everything?",
+    "confirmResetTitle": "Confirm Reset",
+    "confirmClearGraphs": "Are you sure you'd like to clear the graphs?",
+    "confirmClearTitle": "Confirm Clear",
+    "overheated": "Overheated."
   }
 }

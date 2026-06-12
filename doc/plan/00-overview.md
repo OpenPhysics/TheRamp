@@ -130,6 +130,7 @@ New files (N) and modified files (M). Phase column = where it's created.
 | `src/common/RampConstants.ts` (N) | 01 | UI/view constants (Ranges, MVT scale/origin, arrow scales, margins); imports dot + re-exports physics constants |
 | `src/assets/images/*` + `src/assets/audio/*` (N) | 01 | Copied Java assets + license files |
 | `src/assets/images.ts` (N) | 01 | imageKey → imported URL map |
+| `src/assets/audio.ts` (N) | 01 | audioKey → imported URL map |
 | `src/RampColors.ts` (M) | 01 | +22 ProfileColorProperties |
 | `src/i18n/strings_{en,fr,es}.json` (M) | 01 | +~75 keys (full content in doc 01) |
 | `src/i18n/StringManager.ts` (M) | 01 | Typed per-group getters |

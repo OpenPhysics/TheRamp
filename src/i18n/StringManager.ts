@@ -31,6 +31,10 @@ import stringsFr from "./strings_fr.json";
 void (stringsEn satisfies typeof stringsFr);
 // biome-ignore lint/complexity/noVoid: intentional compile-time type assertion
 void (stringsFr satisfies typeof stringsEn);
+// biome-ignore lint/complexity/noVoid: intentional compile-time type assertion
+void (stringsEn satisfies typeof stringsEs);
+// biome-ignore lint/complexity/noVoid: intentional compile-time type assertion
+void (stringsEs satisfies typeof stringsEn);
 
 // ── Build the reactive string property tree ───────────────────────────────────
 const stringProperties = LocalizedString.getNestedStringProperties({
@@ -78,5 +82,45 @@ export class StringManager {
       introStringProperty: stringProperties.screens.introStringProperty,
       moreFeaturesStringProperty: stringProperties.screens.moreFeaturesStringProperty,
     };
+  }
+
+  public getForceStrings(): typeof stringProperties.forces {
+    return stringProperties.forces;
+  }
+
+  public getForceSymbolStrings(): typeof stringProperties.forceSymbols {
+    return stringProperties.forceSymbols;
+  }
+
+  public getEnergyStrings(): typeof stringProperties.energy {
+    return stringProperties.energy;
+  }
+
+  public getWorkStrings(): typeof stringProperties.work {
+    return stringProperties.work;
+  }
+
+  public getObjectStrings(): typeof stringProperties.objects {
+    return stringProperties.objects;
+  }
+
+  public getControlStrings(): typeof stringProperties.controls {
+    return stringProperties.controls;
+  }
+
+  public getTimeControlStrings(): typeof stringProperties.timeControls {
+    return stringProperties.timeControls;
+  }
+
+  public getUnitStrings(): typeof stringProperties.units {
+    return stringProperties.units;
+  }
+
+  public getReadoutStrings(): typeof stringProperties.readouts {
+    return stringProperties.readouts;
+  }
+
+  public getMessageStrings(): typeof stringProperties.messages {
+    return stringProperties.messages;
   }
 }

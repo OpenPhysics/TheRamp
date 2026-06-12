@@ -533,7 +533,7 @@ Copy these files (exact commands, run from the repo root):
 
 ```bash
 mkdir -p src/assets/images src/assets/audio
-JAVA_DATA=~/svn/trunk/simulations-java/simulations/the-ramp/data/the-ramp
+JAVA_DATA=JAVA/data/the-ramp
 cp "$JAVA_DATA/images/cabinet.gif"     src/assets/images/
 cp "$JAVA_DATA/images/fridge.gif"      src/assets/images/
 cp "$JAVA_DATA/images/piano.png"       src/assets/images/
@@ -605,6 +605,6 @@ export const RampAudio = {
 1. `npm run check && npm run lint && npm run build` pass.
 2. `npm run dev`: sim boots; switching locale in Preferences → Language between
    English/Français/Español still updates the title and screen names.
-3. `git status` shows the 10 asset files + `images.ts` + `audio.ts` (and license/README).
+3. `git status` shows the 10 asset files + `images.ts` + `audio.ts` (and license files).
 4. No view file imports the new colors/strings yet — that's fine; Biome must not flag
    unused exports (exports are exempt from `noUnusedLocals`).
