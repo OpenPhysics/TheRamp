@@ -5,7 +5,7 @@
  * white chart background — modeled after PhET's Masses and Springs energy graph.
  */
 
-import type { ReadOnlyProperty } from "scenerystack/axon";
+import type { BooleanProperty, ReadOnlyProperty } from "scenerystack/axon";
 import { DerivedProperty, NumberProperty } from "scenerystack/axon";
 import { Range } from "scenerystack/dot";
 import type { ProfileColorProperty } from "scenerystack/scenery";
@@ -29,7 +29,7 @@ export interface BarChartAccordionBoxOptions {
   readonly legendTitleStringProperty: ReadOnlyProperty<string>;
   readonly legendItems: readonly LegendItem[];
   readonly groups: readonly BarChartGroup[];
-  readonly expandedProperty: import("scenerystack/axon").BooleanProperty;
+  readonly expandedProperty: BooleanProperty;
 }
 
 const LEGEND_ABBREVIATION_MAX_WIDTH = 100;
@@ -72,8 +72,8 @@ export class BarChartAccordionBox extends AccordionBox {
     });
 
     const background = new Rectangle(0, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGHT, {
-      fill: "white",
-      stroke: "gray",
+      fill: RampColors.chartBackgroundColorProperty,
+      stroke: RampColors.chartGridColorProperty,
       lineWidth: 0.8,
       cornerRadius: PANEL_CORNER_RADIUS,
     });
@@ -114,7 +114,7 @@ export class BarChartAccordionBox extends AccordionBox {
       children: options.legendItems.map((item) => {
         const colorSwatch = new Rectangle(0, 0, 13, 13, {
           fill: item.colorProperty,
-          stroke: "black",
+          stroke: RampColors.textColorProperty,
         });
 
         return new HBox({
@@ -127,6 +127,7 @@ export class BarChartAccordionBox extends AccordionBox {
                   colorSwatch,
                   new RichText(item.abbreviationStringProperty, {
                     font: legendAbbreviationFont,
+                    fill: RampColors.textColorProperty,
                     maxWidth: LEGEND_ABBREVIATION_MAX_WIDTH,
                   }),
                 ],

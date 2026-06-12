@@ -13,14 +13,8 @@ export class SkyAndGroundNode extends Node {
   public constructor(visibleBoundsProperty: ReadOnlyProperty<Bounds2>) {
     super();
 
-    const skyRect = new Rectangle(0, 0, 1, 1);
-    const earthRect = new Rectangle(0, 0, 1, 1);
-    RampColors.skyColorProperty.link((color) => {
-      skyRect.fill = color;
-    });
-    RampColors.earthColorProperty.link((color) => {
-      earthRect.fill = color;
-    });
+    const skyRect = new Rectangle(0, 0, 1, 1, { fill: RampColors.skyColorProperty });
+    const earthRect = new Rectangle(0, 0, 1, 1, { fill: RampColors.earthColorProperty });
 
     this.addChild(skyRect);
     this.addChild(earthRect);

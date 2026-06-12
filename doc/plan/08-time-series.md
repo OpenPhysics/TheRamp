@@ -115,6 +115,12 @@ expanded plots intentionally overlay the lower world area (Java does the same).
 
 ## 4. `src/common/view/RecordPlaybackControlBar.ts` (new)
 
+> **REVISED (post-plan)**: play/pause + speed selection now use the standard scenery-phet
+> `TimeControlNode`; rewind and clear use the icon buttons `RestartButton` and
+> `EraserButton`. The bar is anchored to the screen bottom with the plots stacked above it
+> (commits "Replace custom time controls with scenery-phet TimeControlNode" and "anchor
+> playback bar to the screen bottom").
+
 `class RecordPlaybackControlBar extends HBox` (spacing 8), constructed with
 `(timeSeriesModel, requestClear: () => void)` where `requestClear` shows the phase-06
 confirm dialog then calls `clear()`:
@@ -122,17 +128,20 @@ confirm dialog then calls `clear()`:
 - `TextPushButton(timeControls.record…)` → `record()`; enabled when
   `recordTime < MAX_RECORDING_TIME`.
 - `TextPushButton(timeControls.playback…)` → `playback()`; enabled when `recordTime > 0`.
-- `PlayPauseButton(timeSeriesModel.isPlayingProperty, { radius: 18 })` (scenery-phet).
-- `TextPushButton(timeControls.rewind…)` → `rewind()`; enabled when mode is playback or
-  recordTime > 0.
-- `Checkbox(slowMotionAdapterProperty, new Text(timeControls.slowMotion…))` — adapter
-  `BooleanProperty(false)` lazy-linked to `playbackSpeedProperty.value = checked ? 0.5 : 1`.
-- `TextPushButton(timeControls.clear…)` → `requestClear()`.
+- `RestartButton` (`accessibleName: timeControls.rewind`) → `rewind()`; enabled when mode
+  is playback or recordTime > 0.
+- `TimeControlNode(timeSeriesModel.isPlayingProperty, …)` with
+  `timeSpeeds: [TimeSpeed.SLOW, TimeSpeed.NORMAL]` and an `EnumerationProperty<TimeSpeed>`
+  adapter two-way-linked to `playbackSpeedProperty` (SLOW = 0.5 / NORMAL = 1),
+  `includeStepForwardButton: false`, play/pause radius 18, `tandem: Tandem.OPT_OUT`.
+- `EraserButton` (`accessibleName: timeControls.clear`) → `requestClear()`.
 
-Placement: `centerX` over the plots, `bottom: plotsNode.top − 4`. Constructed only when
+Placement: `centerX: layoutBounds.centerX, bottom: layoutBounds.maxY − SCREEN_VIEW_MARGIN`,
+with `plotsNode.bottom = bar.top − 4`. Constructed only when
 `features.hasRecordPlaybackBar` is true; the phase-06 `GoPauseClearPanel` is constructed
 only when `hasRecordPlaybackBar` is **false** (it moves next to the plots:
-`left: plotsNode.right + 10, bottom: plotsNode.bottom`).
+`left: plotsNode.right + 10, bottom: plotsNode.bottom`, with the plots anchored at
+`bottom: layoutBounds.maxY − SCREEN_VIEW_MARGIN`).
 
 ## 5. RampScreenView wiring (modify)
 

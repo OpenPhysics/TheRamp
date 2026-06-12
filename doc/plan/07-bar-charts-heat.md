@@ -3,61 +3,72 @@
 Goal: the two bar-chart sets and the full thermal-energy story (glow is already wired from
 phase 04 — this phase adds the Overheated indicator and Cool Ramp sound).
 
+> **REVISED (post-plan)**: the bar charts were redesigned after the original plan, modeled
+> on PhET's Masses and Springs energy graph. The generic bar set gained stacked groups, a
+> zoom range, and an overflow indicator; each chart lives in a `BarChartAccordionBox` with
+> zoom buttons and a legend dialog. Sections 1–2 below describe the **implemented** design.
+
 ## 1. `src/common/view/BarChartNode.ts` (new) — generic bar set
 
 ```ts
-export interface BarEntry {
-  readonly labelStringProperty: ReadOnlyProperty<string>;
+export interface BarDataEntry {
   readonly colorProperty: ProfileColorProperty;
   readonly valueProperty: ReadOnlyProperty<number>;
 }
+export interface BarChartGroup {
+  readonly entries: readonly BarDataEntry[]; // >1 entry ⇒ stacked bar (used for Total)
+  readonly labelStringProperty: ReadOnlyProperty<string>;
+  readonly labelNode?: Node | null; // optional extra node next to the label (trash button)
+}
 export class BarChartNode extends Node {
-  public constructor(entries: readonly BarEntry[]) { … }
+  public constructor(groups: readonly BarChartGroup[], options?: BarChartNodeOptions) { … }
 }
 ```
 
-Geometry (fixed, no options needed):
+Geometry / behavior:
 
 - Baseline at local y = 0; bars grow **up** for positive values, down for negative
-  (PE/works can be negative). Max bar extent ±`MAX_BAR_HEIGHT = 220` px up, 60 px down.
-- Bar width 16 px, pitch 30 px; chart width = `entries.length * 30`.
-- Bar height = `value * ENERGY_BAR_SCALE` (0.005 px/J ⇒ 30 000 J = 150 px), clamped to the
-  max extents; when clamped, draw a small triangle `Path` (8×8) at the clipped end in the
-  same color to indicate overflow.
-- Baseline `Line` across the full width, stroke `RampColors.chartGridColorProperty`.
-- Implementation: one `Rectangle` per entry, fill `entry.colorProperty`; a `link` on each
-  `valueProperty` calls `setRect(x, Math.min(0, -h), 16, Math.abs(h))` with
-  `h = clamp(value * ENERGY_BAR_SCALE, -60, 220)` (remember view y is down: a positive
-  value's rect is `setRect(x, -h, 16, h)`).
-- Labels: `Text(labelStringProperty)` under the baseline, rotated `-Math.PI / 4`, anchored
-  `rightTop` at the bar's baseline foot, `font: new PhetFont(11)`,
-  `fill: RampColors.textColorProperty`, `maxWidth: 60`.
+  (PE/works can be negative). Max bar extent 220 px up, 60 px down (options).
+- Bar width 18 px, spacing 5 px; a vertical axis `ArrowNode`
+  (fill `RampColors.readoutTextColorProperty`) marks the y-axis; baseline `Line` stroke
+  `RampColors.chartGridColorProperty`.
+- Bar height = `value * scaleProperty.value` where `scaleProperty` defaults to
+  `ENERGY_BAR_SCALE` and is driven by the zoom level (below); heights clamp to the max
+  extents with an 8 px overflow triangle in the last entry's color at the clipped end.
+- Groups with multiple entries stack segments (positive up from the baseline, negative
+  down), so the Total bar is the visible sum of its components.
+- Labels: `Text(labelStringProperty)` under the baseline, rotated `-Math.PI / 4`,
+  `font: new PhetFont(11)`, `fill: RampColors.readoutTextColorProperty` (the chart
+  background is light in both profiles), `maxWidth: 60`, over a translucent
+  `chartBackgroundColorProperty` backing rectangle; `labelNode` (if any) sits to the right.
+- `update()` recomputes all bars (called when an accordion box expands).
 
-## 2. `src/common/view/EnergyWorkBarChartsNode.ts` (new)
+## 2. `src/common/view/BarChartAccordionBox.ts` + `EnergyWorkBarChartsNode.ts` (new)
 
-An `HBox` (spacing 10) of two `AccordionBox`es:
+`BarChartAccordionBox extends AccordionBox` — one chart on a 160×520
+`chartBackgroundColorProperty` rounded rectangle, plus:
 
-**Energy** (`energy.title`):
+- **Zoom**: `zoomLevelProperty: NumberProperty(0, range −2…4)`; bar scale =
+  `ENERGY_BAR_SCALE * 2^zoomLevel`; `ZoomButton` pair (in/out) with enable-at-range-ends;
+  `resetZoom()` is called from `RampScreenView.reset()`.
+- **Legend**: an `InfoButton` opens a `Dialog` (from `scenerystack/sim`) listing each
+  series — color swatch, abbreviation `RichText`, description `Text` — built from
+  `LegendItem[]`; the dialog is created lazily and disposed via `hideCallback`.
 
-| label | color | valueProperty |
-|---|---|---|
-| `energy.kinetic` | `kineticEnergyColorProperty` | `model.kineticEnergyProperty` |
-| `energy.potential` | `potentialEnergyColorProperty` | `model.potentialEnergyProperty` |
-| `energy.thermal` | `thermalEnergyColorProperty` | `model.thermalEnergyProperty` |
-| `energy.total` | `totalEnergyColorProperty` | `model.totalEnergyProperty` |
+`EnergyWorkBarChartsNode` — an `HBox` (spacing 10) of two `BarChartAccordionBox`es:
 
-**Work** (`work.title`):
+**Energy** (`energy.title`): kinetic / potential / thermal single-entry groups plus a
+stacked **Total** group `[kinetic, potential, thermal]`; colors `*EnergyColorProperty`;
+the thermal group's `labelNode` is a `MoveToTrashLegendButton` (arrow color
+`thermalEnergyColorProperty`) that calls `model.clearHeat()` + plays the cool sound,
+enabled only while `thermalEnergyProperty > 0`.
 
-| label | color | valueProperty |
-|---|---|---|
-| `work.applied` | `appliedWorkColorProperty` | `model.appliedWorkProperty` |
-| `work.gravity` | `gravityWorkColorProperty` | `model.gravityWorkProperty` |
-| `work.friction` | `frictionWorkColorProperty` | `model.frictiveWorkProperty` |
-| `work.total` | `totalWorkColorProperty` | `model.totalWorkProperty` |
+**Work** (`work.title`): applied / gravity / friction (`model.frictiveWorkProperty`)
+single-entry groups plus stacked **Total** `[applied, gravity, friction]`; colors
+`*WorkColorProperty`.
 
-AccordionBox options as in phase 05 (panel colors, Text titleNode). Each box gets its own
-`BooleanProperty` for `expandedProperty`, owned by `RampScreenView` and reset in
-`RampScreenView.reset()`; initial value comes from the features bag (extend it):
+Each box gets its own `BooleanProperty` for `expandedProperty`, owned by `RampScreenView`
+and reset in `RampScreenView.reset()`; initial value comes from the features bag (extend it):
 
 ```ts
 export interface RampScreenViewFeatures {

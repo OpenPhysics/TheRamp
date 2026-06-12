@@ -80,34 +80,21 @@ function arrow(
 // ── Shared ramp builder ─────────────────────────────────────────────────────
 function buildBase(): Node[] {
   // Sky
-  const sky = new Rectangle(0, 0, W, GROUND_Y, 6, 6);
-  RampColors.skyColorProperty.link((c) => {
-    sky.fill = c;
-  });
+  const sky = new Rectangle(0, 0, W, GROUND_Y, 6, 6, { fill: RampColors.skyColorProperty });
 
   // Earth strip below ground line
-  const earth = new Rectangle(0, GROUND_Y, W, H - GROUND_Y);
-  RampColors.earthColorProperty.link((c) => {
-    earth.fill = c;
-  });
+  const earth = new Rectangle(0, GROUND_Y, W, H - GROUND_Y, { fill: RampColors.earthColorProperty });
 
   // Ramp body (solid triangle)
   const rampShape = Shape.polygon([new Vector2(BLX, BLY), new Vector2(BRX, BRY), new Vector2(TRX, TRY)]);
-  const rampFill = new Path(rampShape);
-  RampColors.rampSurfaceColorProperty.link((c) => {
-    rampFill.fill = c;
-  });
+  const rampFill = new Path(rampShape, { fill: RampColors.rampSurfaceColorProperty });
 
   // Ramp outline (slightly darker edge for definition)
-  const rampStroke = new Path(rampShape, { lineWidth: 1.5 });
-  RampColors.earthColorProperty.link((c) => {
-    rampStroke.stroke = c;
-  });
+  const rampStroke = new Path(rampShape, { lineWidth: 1.5, stroke: RampColors.earthColorProperty });
 
   // Block on ramp (rotated flush to the surface)
-  const block = new Rectangle(-BLOCK_SIZE / 2, -BLOCK_SIZE / 2, BLOCK_SIZE, BLOCK_SIZE, 2, 2);
-  RampColors.accentColorProperty.link((c) => {
-    block.fill = c;
+  const block = new Rectangle(-BLOCK_SIZE / 2, -BLOCK_SIZE / 2, BLOCK_SIZE, BLOCK_SIZE, 2, 2, {
+    fill: RampColors.accentColorProperty,
   });
   block.translation = new Vector2(BCX, BCY);
   block.rotation = RAMP_ANGLE;
@@ -122,10 +109,7 @@ function createIntroIconNode(): Node {
   const children = buildBase();
 
   // Sun (top-left corner)
-  const sun = new Circle(7, { centerX: 14, centerY: 12 });
-  RampColors.totalEnergyColorProperty.link((c) => {
-    sun.fill = c;
-  });
+  const sun = new Circle(7, { centerX: 14, centerY: 12, fill: RampColors.totalEnergyColorProperty });
 
   // Applied force — orange arrow up the slope
   const AX = BCX + 22 * SX;

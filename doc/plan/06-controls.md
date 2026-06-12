@@ -110,17 +110,26 @@ model.rampAngleProperty.lazyLink((radians) => {
 
 ## 5. `src/common/view/GoPauseClearPanel.ts` (new)
 
-`HBox` (spacing 10) of three `TextPushButton`s:
+> **REVISED (post-plan)**: the original design used three `TextPushButton`s (Go!/Pause/Clear).
+> It was replaced with the standard scenery-phet `TimeControlNode` for consistency with other
+> SceneryStack sims (commit "Replace custom time controls with scenery-phet TimeControlNode").
 
-- **Go!** (`timeControls.go`) → `model.timeSeriesModel.ensureRecordMode();
-  model.timeSeriesModel.isPlayingProperty.value = true;`
-  `enabledProperty` = DerivedProperty over `[isPlayingProperty, recordTimeProperty]`:
-  enabled when not playing and `recordTime < MAX_RECORDING_TIME`.
-- **Pause** (`timeControls.pause`) → `isPlayingProperty.value = false;` enabled when playing.
-- **Clear** (`timeControls.clear`) → confirm dialog → `model.timeSeriesModel.clear()`.
+`HBox` (spacing 10) of:
 
-Position: bottom-center of the screen (`centerX: layoutBounds.centerX, bottom: maxY − MARGIN`).
-(Phase 08/09 reposition it next to the plots; both screens get it for now.)
+- **`TimeControlNode(timeSeriesModel.isPlayingProperty, …)`** with
+  `timeSpeeds: [TimeSpeed.SLOW, TimeSpeed.NORMAL]` and a `timeSpeedProperty` adapter
+  (`EnumerationProperty<TimeSpeed>` two-way-linked to `playbackSpeedProperty`,
+  SLOW = 0.5 / NORMAL = 1), `includeStepForwardButton: false`, play/pause radius 18,
+  `tandem: Tandem.OPT_OUT`. The play/pause button's `enabledProperty` is a DerivedProperty
+  over `[isPlayingProperty, recordTimeProperty]`: enabled when playing or
+  `recordTime < MAX_RECORDING_TIME`.
+  A `lazyLink` on `isPlayingProperty` calls `timeSeriesModel.record()` when playback starts
+  while the mode is not `"record"` (pressing play always (re)starts recording on Intro).
+- **`EraserButton`** (`accessibleName: timeControls.clear`) → confirm dialog →
+  `model.timeSeriesModel.clear()`.
+
+Position: bottom of the screen next to the plots (anchored in phase 08/09; both screens get
+it for now).
 
 ## 6. `src/common/view/RampControlPanel.ts` (new)
 
@@ -155,7 +164,7 @@ The whole VBox gets `maxWidth: 230`.
 
 ## Acceptance criteria (manual)
 
-1. Sim starts paused; **Go!** starts recording (block physics runs), **Pause** freezes it,
+1. Sim starts paused; **play** starts recording (block physics runs), **pause** freezes it,
    arrows still track slider changes while paused (setupForcesOnly path).
 2. Intro: radio-button list of all five objects with masses ("Piano (225 kg)"); selecting
    the dog swaps the image, mass and friction (dog slides at much shallower angles).

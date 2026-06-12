@@ -23,13 +23,12 @@ export class GroundSurfaceNode extends Node {
   public constructor() {
     super();
 
-    const groundLine = new Line(44, WORLD_VIEW_ORIGIN.y, WORLD_VIEW_ORIGIN.x, WORLD_VIEW_ORIGIN.y, {
-      lineWidth: 3,
-    });
-    RampColors.rampSurfaceColorProperty.link((color) => {
-      groundLine.stroke = color;
-    });
-    this.addChild(groundLine);
+    this.addChild(
+      new Line(44, WORLD_VIEW_ORIGIN.y, WORLD_VIEW_ORIGIN.x, WORLD_VIEW_ORIGIN.y, {
+        lineWidth: 3,
+        stroke: RampColors.rampSurfaceColorProperty,
+      }),
+    );
   }
 }
 
@@ -49,12 +48,8 @@ export class RampSurfaceNode extends Node {
     const board = new Rectangle(0, -RAMP_BOARD_THICKNESS, boardLength, RAMP_BOARD_THICKNESS, {
       lineWidth: 1,
       cursor: "pointer",
-    });
-    heatFillProperty.link((color) => {
-      board.fill = color;
-    });
-    RampColors.panelBorderColorProperty.link((color) => {
-      board.stroke = color;
+      fill: heatFillProperty,
+      stroke: RampColors.panelBorderColorProperty,
     });
 
     const topBarrier = new BarrierNode();

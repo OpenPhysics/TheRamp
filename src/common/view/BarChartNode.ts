@@ -95,7 +95,7 @@ export class BarChartNode extends Node {
 
     this.addChild(
       new ArrowNode(0, 0, 0, -(this.maxBarHeightUp - Y_AXIS_TOP_MARGIN), {
-        fill: "black",
+        fill: RampColors.readoutTextColorProperty,
         stroke: null,
         headHeight: 8,
         headWidth: 8,
@@ -123,15 +123,18 @@ export class BarChartNode extends Node {
         visible: false,
       });
 
+      // The chart background is RampColors.chartBackgroundColorProperty (light in both
+      // profiles), so labels use the readout text color rather than the panel text color.
       const labelText = new Text(group.labelStringProperty, {
         font: new PhetFont(11),
-        fill: RampColors.textColorProperty,
+        fill: RampColors.readoutTextColorProperty,
         maxWidth: 60,
         rotation: -Math.PI / 4,
       });
 
       const labelBackground = new Rectangle(0, 0, 1, 1, {
-        fill: `rgba(255, 255, 255, ${LABEL_BACKGROUND_OPACITY})`,
+        fill: RampColors.chartBackgroundColorProperty,
+        opacity: LABEL_BACKGROUND_OPACITY,
         stroke: null,
       });
 
@@ -194,11 +197,13 @@ export class BarChartNode extends Node {
 
         if (clampedTop) {
           overflowTriangle.shape = createUpTriangle(barCenterX, -positiveOffset, OVERFLOW_SIZE);
-          overflowTriangle.fill = group.entries[group.entries.length - 1]?.colorProperty ?? "black";
+          overflowTriangle.fill =
+            group.entries[group.entries.length - 1]?.colorProperty ?? RampColors.readoutTextColorProperty;
           overflowTriangle.visible = true;
         } else if (clampedBottom) {
           overflowTriangle.shape = createDownTriangle(barCenterX, negativeOffset, OVERFLOW_SIZE);
-          overflowTriangle.fill = group.entries[group.entries.length - 1]?.colorProperty ?? "black";
+          overflowTriangle.fill =
+            group.entries[group.entries.length - 1]?.colorProperty ?? RampColors.readoutTextColorProperty;
           overflowTriangle.visible = true;
         } else {
           overflowTriangle.visible = false;

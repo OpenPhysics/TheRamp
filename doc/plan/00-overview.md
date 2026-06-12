@@ -155,17 +155,20 @@ New files (N) and modified files (M). Phase column = where it's created.
 | `src/common/view/ForceArrowNode.ts` (N) | 05 | One labeled force arrow |
 | `src/common/view/ForceVectorSetNode.ts` (N) | 05 | 5 coordinate frames × 6 forces at the block |
 | `src/common/view/FreeBodyDiagramNode.ts` (N) | 05 | 200×200 FBD in AccordionBox; drag applies force |
+| `src/common/view/ConfirmDialog.ts` (N) | 06 | `showConfirmDialog` helper (scenerystack `Dialog`) |
 | `src/common/view/RampControlPanel.ts` (N) | 06 | Options-assembled right-side panel |
 | `src/common/view/ObjectSelectionPanel.ts` (N) | 06 | Radio-button object chooser (Intro) |
 | `src/common/view/ObjectComboBox.ts` (N) | 06 | ComboBox object chooser (More Features) |
 | `src/common/view/AppliedForceControl.ts` (N) | 06 | NumberControl ±1000 N |
 | `src/common/view/GoPauseClearPanel.ts` (N) | 06 | Go!/Pause/Clear with confirm dialog |
-| `src/common/view/BarChartNode.ts` (N) | 07 | Generic labeled bar set |
-| `src/common/view/EnergyWorkBarChartsNode.ts` (N) | 07 | Energy + Work AccordionBoxes |
+| `src/common/view/BarChartNode.ts` (N) | 07 | Generic labeled bar set (stacked groups, zoomable scale) |
+| `src/common/view/BarChartAccordionBox.ts` (N) | 07 | Chart panel with zoom buttons + legend dialog |
+| `src/common/view/EnergyWorkBarChartsNode.ts` (N) | 07 | Energy + Work BarChartAccordionBoxes |
 | `src/common/view/OverheatNode.ts` (N) | 07 | "Overheated." + Cool Ramp button |
 | `src/common/view/TimePlotNode.ts` (N) | 08 | One bamboo time plot + cursor + readouts in AccordionBox |
 | `src/common/view/RampPlotsNode.ts` (N) | 08 | Stacks the three plots; series registry |
 | `src/common/view/RecordPlaybackControlBar.ts` (N) | 08 | Record/Play/Slow/Pause/Rewind/Clear |
+| `src/common/view/ZeroPointPeLineNode.ts` (N) | 09 | Draggable zero-point-PE dashed line |
 | `src/common/view/RampScreenIcons.ts` (N) | 09 | Drawn ScreenIcons |
 | `src/common/view/RampKeyboardHelpContent.ts` (M) | 09 | + slider help section |
 | `src/intro/IntroScreen.ts`, `src/more-features/MoreFeaturesScreen.ts` (M) | 09 | Pass ScreenIcons |
@@ -203,6 +206,7 @@ Defined in `RampPhysicsConstants.ts` (P = physics, zero-import file) or
 | `PLOT_ENERGY_RANGE` | `new Range(-30000, 30000)` J | V |
 | `PLOT_FORCE_RANGE` | `new Range(-1000, 1000)` N | V |
 | `SCREEN_VIEW_MARGIN` | `10` px | V |
+| `RAMP_BOARD_THICKNESS` | `12` px (visual ramp board thickness) | V |
 | Collision sound tiers | |Δp| < 50 silent · < 2000 smash0 · < 4000 smash1 · else smash2 | doc 03 |
 
 ## Verified SceneryStack 3.0 API map
@@ -212,13 +216,13 @@ All verified against `node_modules/scenerystack/dist/prod/*.d.ts` in this repo.
 
 | Need | Import from | Names |
 |---|---|---|
-| Properties | `scenerystack/axon` | `Property, NumberProperty, BooleanProperty, DerivedProperty, StringUnionProperty, Emitter, Multilink, PatternStringProperty` |
+| Properties | `scenerystack/axon` | `Property, NumberProperty, BooleanProperty, DerivedProperty, StringUnionProperty, EnumerationProperty, Emitter, Multilink, PatternStringProperty` |
 | Math | `scenerystack/dot` | `Vector2, Bounds2, Range`, **top-level `clamp` and `linear` functions** (there is NO `Utils.clamp` in scenerystack 3.0) |
 | MVT | `scenerystack/phetcommon` | `ModelViewTransform2.createSinglePointScaleInvertedYMapping(modelPoint, viewPoint, scale)` |
 | Charts | `scenerystack/bamboo` | `ChartTransform, ChartRectangle, LinePlot, GridLineSet, TickMarkSet, TickLabelSet, AxisLine` |
 | UI | `scenerystack/sun` | `Panel, Checkbox, VerticalCheckboxGroup, HSlider, ComboBox, VerticalAquaRadioButtonGroup, RectangularPushButton, TextPushButton, AccordionBox` |
 | Dialog | `scenerystack/sim` | **`Dialog` is exported from `scenerystack/sim`, NOT from sun** |
-| scenery-phet | `scenerystack/scenery-phet` | `ArrowNode, NumberControl, NumberDisplay, PhetFont, MeasuringTapeNode, ResetAllButton, PlayPauseButton, RecordStopButton, StepForwardButton, TimeControlNode` |
+| scenery-phet | `scenerystack/scenery-phet` | `ArrowNode, NumberControl, NumberDisplay, PhetFont, MeasuringTapeNode, ResetAllButton, TimeControlNode, TimeSpeed, RestartButton, EraserButton, ZoomButton, InfoButton, MoveToTrashLegendButton` |
 | Scenery | `scenerystack/scenery` | `Node, Rectangle, Path, Line, Circle, Image, Text, RichText, HBox, VBox, DragListener, Color, ProfileColorProperty, LinearGradient` |
 | Sound | `scenerystack/tambo` | `SoundClip, WrappedAudioBuffer, phetAudioContext, soundManager` |
 | Async lock | `scenerystack/phet-core` | `asyncLoader` |

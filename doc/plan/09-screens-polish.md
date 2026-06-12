@@ -24,6 +24,7 @@ export interface RampScreenViewFeatures {
   energyPlotExpanded?: boolean;
   workPlotExpanded?: boolean;
   forcePlotExpanded?: boolean;
+  plotViewWidth?: number; // bamboo chart viewWidth override (default 480)
 }
 ```
 
@@ -41,6 +42,7 @@ export interface RampScreenViewFeatures {
 | energyBarsExpanded / workBarsExpanded | false | true |
 | energyPlotExpanded / workPlotExpanded | false | true |
 | forcePlotExpanded | true | false |
+| plotViewWidth | (default 480) | 420 (record/playback bar needs the room) |
 
 (Java: the Intro module minimizes all bar graphs and plots except the parallel-force plot;
 the advanced module shows everything.)

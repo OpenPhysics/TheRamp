@@ -61,6 +61,7 @@ export class GoPauseClearPanel extends HBox {
     });
 
     const eraserButton = new EraserButton({
+      accessibleName: timeControls.clearStringProperty,
       listener: () => {
         showConfirmDialog(
           messages.confirmClearTitleStringProperty,

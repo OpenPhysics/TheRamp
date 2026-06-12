@@ -86,6 +86,7 @@ export class RecordPlaybackControlBar extends HBox {
         timeSeriesModel.rewind();
       },
       enabledProperty: rewindEnabledProperty,
+      accessibleName: timeControls.rewindStringProperty,
     });
 
     const transport = new HBox({
@@ -96,6 +97,7 @@ export class RecordPlaybackControlBar extends HBox {
 
     const eraserButton = new EraserButton({
       listener: requestClear,
+      accessibleName: timeControls.clearStringProperty,
     });
 
     super({

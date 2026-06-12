@@ -68,13 +68,11 @@ export class RampSceneNode extends Node {
       }),
       {
         font: new PhetFont(14),
+        fill: RampColors.readoutTextColorProperty,
         left: WORLD_VIEW_ORIGIN.x + 8,
         top: WORLD_VIEW_ORIGIN.y + 6,
       },
     );
-    RampColors.readoutTextColorProperty.link((color) => {
-      angleReadout.fill = color;
-    });
 
     const heightReadout = new Text(
       new PatternStringProperty(readoutStrings.heightPatternStringProperty, {
@@ -82,11 +80,9 @@ export class RampSceneNode extends Node {
       }),
       {
         font: new PhetFont(14),
+        fill: RampColors.readoutTextColorProperty,
       },
     );
-    RampColors.readoutTextColorProperty.link((color) => {
-      heightReadout.fill = color;
-    });
 
     const rampBoardLength = RAMP_LENGTH * MODEL_VIEW_SCALE;
     model.rampAngleProperty.link((angle) => {

@@ -77,12 +77,9 @@
     "forces": "Forces"
   },
   "timeControls": {
-    "go": "Go!",
-    "pause": "Pause",
     "clear": "Clear",
     "record": "Record",
     "playback": "Playback",
-    "slowMotion": "Slow Motion",
     "rewind": "Rewind"
   },
   "units": {

@@ -77,12 +77,9 @@ Replace the **entire contents** of `src/i18n/strings_en.json` with:
     "forces": "Forces"
   },
   "timeControls": {
-    "go": "Go!",
-    "pause": "Pause",
     "clear": "Clear",
     "record": "Record",
     "playback": "Playback",
-    "slowMotion": "Slow Motion",
     "rewind": "Rewind"
   },
   "units": {
@@ -185,12 +182,9 @@ Replace the **entire contents** of `src/i18n/strings_fr.json` with:
     "forces": "Forces"
   },
   "timeControls": {
-    "go": "Allez !",
-    "pause": "Pause",
     "clear": "Effacer",
     "record": "Enregistrer",
     "playback": "Lecture",
-    "slowMotion": "Ralenti",
     "rewind": "Rembobiner"
   },
   "units": {
@@ -293,12 +287,9 @@ Replace the **entire contents** of `src/i18n/strings_es.json` with:
     "forces": "Fuerzas"
   },
   "timeControls": {
-    "go": "¡Adelante!",
-    "pause": "Pausa",
     "clear": "Borrar",
     "record": "Grabar",
     "playback": "Reproducir",
-    "slowMotion": "Cámara lenta",
     "rewind": "Rebobinar"
   },
   "units": {

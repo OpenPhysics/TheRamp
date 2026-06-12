@@ -77,12 +77,9 @@
     "forces": "Fuerzas"
   },
   "timeControls": {
-    "go": "¡Adelante!",
-    "pause": "Pausa",
     "clear": "Borrar",
     "record": "Grabar",
     "playback": "Reproducir",
-    "slowMotion": "Cámara lenta",
     "rewind": "Rebobinar"
   },
   "units": {
