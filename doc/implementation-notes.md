@@ -26,8 +26,6 @@ Each screen wires a thin model subclass (`IntroModel` / `MoreFeaturesModel`) and
 view subclass (`IntroScreenView` / `MoreFeaturesScreenView`) into a `Screen`
 wrapper. Shared UI lives under `src/common/view/`.
 
-Development history and phased plans are documented in `doc/plan/`.
-
 ## Model Components
 
 `RampModel` owns user inputs, physics state mirrors, collision events, vector
@@ -58,7 +56,7 @@ and measuring-tape positions in addition to calling `model.reset()`.
 `RampColors.ts` defines `ProfileColorProperty` instances for default and
 projector profiles, scoped to the `the-ramp` namespace (`RampNamespace.ts`).
 
-## Verification (phase 10)
+## Verification
 
 Automated gates (run via `npm run verify`):
 
@@ -71,7 +69,9 @@ Automated gates (run via `npm run verify`):
 
 Production smoke (`npm run preview`): index and `manifest.webmanifest` serve 200; hashed assets under `dist/assets/` (images, wav).
 
-Manual browser checklist: `doc/plan/10-verification.md` section 2 (physics, vectors, controls, energy, record/playback, screens, locale, projector, resize).
+Manual browser QA (`npm run dev`): physics and collisions, force vectors and FBD,
+controls and friction, energy/work charts and heat, record/playback, Intro vs More
+Features split, locale switching, projector mode, and window resize.
 
 ## Outstanding Work
 

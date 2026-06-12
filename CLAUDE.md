@@ -6,7 +6,8 @@ Sim-specific context for AI assistants. General SceneryStack guidance: [OpenPhys
 
 A SceneryStack reimplementation of PhET's Java simulation **The Ramp** (forces on
 an inclined plane). The reference Java source is at
-`~/svn/trunk/simulations-java/simulations/the-ramp/`.
+`~/svn/trunk/simulations-java/simulations/the-ramp/` (a local `JAVA/` copy may exist
+but is gitignored).
 
 Two-screen sim, mirroring the Java modules:
 
@@ -14,8 +15,8 @@ Two-screen sim, mirroring the Java modules:
 - **More Features** (`src/more-features/`) — Java `RampModule` (advanced)
 
 Status: full ramp physics, record/playback, charts, and options-driven views for
-both screens. Run `npm run verify` for the phase-10 automated gate. See
-`doc/implementation-notes.md` and `doc/plan/` for architecture.
+both screens. Run `npm run verify` for the automated gate. See
+`doc/implementation-notes.md` for architecture.
 
 ## Key files
 
