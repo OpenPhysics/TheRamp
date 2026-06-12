@@ -9,6 +9,7 @@ deliberate and marked "PORT NOTE").
 
 Reference Java source (read-only, for context only):
 `~/svn/trunk/simulations-java/simulations/the-ramp/src/edu/colorado/phet/theramp/`
+or within this repo,  `JAVA/src/edu/colorado/phet/theramp/`
 
 ## What is being built
 
