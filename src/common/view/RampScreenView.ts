@@ -115,8 +115,6 @@ export class RampScreenView extends ScreenView {
       features.plotViewWidth,
     );
     this.plotsNode.left = SCREEN_VIEW_MARGIN;
-    this.plotsNode.bottom = this.layoutBounds.maxY - SCREEN_VIEW_MARGIN;
-    this.addChild(this.plotsNode);
 
     const hasRecordPlaybackBar = features.hasRecordPlaybackBar ?? false;
     if (hasRecordPlaybackBar) {
@@ -130,12 +128,16 @@ export class RampScreenView extends ScreenView {
         );
       });
       recordPlaybackControlBar.centerX = this.layoutBounds.centerX;
-      recordPlaybackControlBar.bottom = this.plotsNode.top - 4;
+      recordPlaybackControlBar.bottom = this.layoutBounds.maxY - SCREEN_VIEW_MARGIN;
+      this.plotsNode.bottom = recordPlaybackControlBar.top - 4;
+      this.addChild(this.plotsNode);
       this.addChild(recordPlaybackControlBar);
     } else {
+      this.plotsNode.bottom = this.layoutBounds.maxY - SCREEN_VIEW_MARGIN;
       this.goPauseClearPanel = new GoPauseClearPanel(model);
       this.goPauseClearPanel.left = this.plotsNode.right + 10;
       this.goPauseClearPanel.bottom = this.plotsNode.bottom;
+      this.addChild(this.plotsNode);
       this.addChild(this.goPauseClearPanel);
     }
 

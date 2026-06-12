@@ -161,6 +161,9 @@ export class BarChartAccordionBox extends AccordionBox {
       listener: () => {
         if (!legendDialog) {
           legendDialog = new Dialog(dialogContent, {
+            fill: RampColors.panelBackgroundColorProperty,
+            stroke: RampColors.panelBorderColorProperty,
+            closeButtonColor: RampColors.textColorProperty,
             ySpacing: 20,
             bottomMargin: 20,
             title: new Text(options.legendTitleStringProperty, {

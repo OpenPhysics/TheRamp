@@ -40,14 +40,14 @@ function createNumberControl(
     titleNodeOptions: typeof numberControlTitleOptions;
     numberDisplayOptions: {
       decimalPlaces: number;
-      textOptions: { font: PhetFont; fill: typeof RampColors.textColorProperty };
+      textOptions: { font: PhetFont; fill: typeof RampColors.readoutTextColorProperty };
     };
     sliderOptions?: { startDrag?: () => void };
   } = {
     titleNodeOptions: numberControlTitleOptions,
     numberDisplayOptions: {
       decimalPlaces,
-      textOptions: { font: LABEL_FONT, fill: RampColors.textColorProperty },
+      textOptions: { font: LABEL_FONT, fill: RampColors.readoutTextColorProperty },
     },
   };
   if (sliderOptions !== undefined) {

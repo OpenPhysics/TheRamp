@@ -48,6 +48,9 @@ export function showConfirmDialog(
   });
 
   dialog = new Dialog(content, {
+    fill: RampColors.panelBackgroundColorProperty,
+    stroke: RampColors.panelBorderColorProperty,
+    closeButtonColor: RampColors.textColorProperty,
     title,
     hideCallback: () => dialog.dispose(),
   });

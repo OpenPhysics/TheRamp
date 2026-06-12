@@ -36,7 +36,13 @@ export class ObjectComboBox extends ComboBox<RampObjectDescription> {
         }),
     }));
 
-    super(model.selectedObjectProperty, items, listParent);
+    super(model.selectedObjectProperty, items, listParent, {
+      buttonFill: RampColors.backgroundColorProperty,
+      buttonStroke: RampColors.panelBorderColorProperty,
+      listFill: RampColors.panelBackgroundColorProperty,
+      listStroke: RampColors.panelBorderColorProperty,
+      highlightFill: RampColors.accentColorProperty,
+    });
 
     model.selectedObjectProperty.lazyLink(() => {
       model.timeSeriesModel.ensureRecordMode();
