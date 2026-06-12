@@ -11,15 +11,25 @@ import { phetAudioContext, SoundClip, soundManager, WrappedAudioBuffer } from "s
 export function loadSoundClip(url: string): SoundClip {
   const wrappedAudioBuffer = new WrappedAudioBuffer();
   const unlock = asyncLoader.createLock(url);
+  let unlocked = false;
+  const safeUnlock = () => {
+    if (!unlocked) {
+      unlock();
+      unlocked = true;
+    }
+  };
+
   fetch(url)
     .then((response) => response.arrayBuffer())
     .then((arrayBuffer) => phetAudioContext.decodeAudioData(arrayBuffer))
     .then((audioBuffer) => {
       wrappedAudioBuffer.audioBufferProperty.set(audioBuffer);
-      unlock();
+      safeUnlock();
     })
     .catch(() => {
-      unlock(); // sim must still launch if audio fails to decode
+      // Silent stub so SoundClip always has a valid buffer and the sim still launches.
+      wrappedAudioBuffer.audioBufferProperty.set(phetAudioContext.createBuffer(1, 1, phetAudioContext.sampleRate));
+      safeUnlock();
     });
   const soundClip = new SoundClip(wrappedAudioBuffer);
   soundManager.addSoundGenerator(soundClip);
