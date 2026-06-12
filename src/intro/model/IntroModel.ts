@@ -1,19 +1,20 @@
 /**
- * SimModel.ts
+ * IntroModel.ts
  *
- * The top-level model for the simulation screen.
+ * The top-level model for the Introduction screen — the simpler of The Ramp's
+ * two screens (the Java "Simple Ramp" module).
  *
- * Add your simulation's state here using reactive Property objects from
+ * Add the simulation's state here using reactive Property objects from
  * scenerystack/axon. The view observes these properties and updates automatically.
  *
  * ── Example ──────────────────────────────────────────────────────────────────
  *   import { BooleanProperty, NumberProperty } from "scenerystack/axon";
  *
  *   public readonly isRunningProperty = new BooleanProperty(false);
- *   public readonly timeProperty = new NumberProperty(0);    // seconds
+ *   public readonly rampAngleProperty = new NumberProperty(Math.PI / 6); // radians
  *
  * ── Step cycle ────────────────────────────────────────────────────────────────
- * The Sim calls step(dt) on every animation frame. Advance your model state
+ * The Sim calls step(dt) on every animation frame. Advance the model state
  * in that method (e.g. integrate equations, update positions).
  *
  * ── Reset ─────────────────────────────────────────────────────────────────────
@@ -22,7 +23,7 @@
  */
 import type { TModel } from "scenerystack/joist";
 
-export class SimModel implements TModel {
+export class IntroModel implements TModel {
   /**
    * Resets all model state to initial values.
    * Called when the user presses the Reset All button.

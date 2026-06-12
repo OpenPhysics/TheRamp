@@ -1,6 +1,7 @@
 {
-  "title": "Plantilla de Simulación",
+  "title": "La Rampa",
   "screens": {
-    "sim": "Sim"
+    "intro": "Introducción",
+    "moreFeatures": "Más Detalles"
   }
 }

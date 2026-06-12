@@ -1,6 +1,7 @@
 {
-  "title": "Sim Template",
+  "title": "The Ramp",
   "screens": {
-    "sim": "Sim"
+    "intro": "Introduction",
+    "moreFeatures": "More Features"
   }
 }

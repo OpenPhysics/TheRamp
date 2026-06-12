@@ -1,7 +1,7 @@
 /**
- * SimScreenView.ts
+ * MoreFeaturesScreenView.ts
  *
- * The top-level view for the simulation screen.
+ * The top-level view for the More Features screen.
  *
  * All visual nodes are added here. Follow these conventions:
  *   - Use this.layoutBounds for positioning (never magic pixel values)
@@ -9,10 +9,10 @@
  *   - Override step(dt) for frame-by-frame animation
  *
  * ── Adding content ────────────────────────────────────────────────────────────
- * 1. Create Node subclasses in separate files (e.g. SimControlPanel.ts)
+ * 1. Create Node subclasses in separate files (e.g. RampNode.ts)
  * 2. Instantiate them here and call this.addChild(...)
  * 3. Link them to model properties:
- *      model.isRunningProperty.link( isRunning => { ... } );
+ *      model.rampAngleProperty.link( angle => { ... } );
  *
  * ── Layout bounds ─────────────────────────────────────────────────────────────
  * SceneryStack uses a virtual 1024×618 coordinate space by default.
@@ -24,29 +24,29 @@ import { Rectangle, Text } from "scenerystack/scenery";
 import { ResetAllButton } from "scenerystack/scenery-phet";
 import type { ScreenViewOptions } from "scenerystack/sim";
 import { ScreenView } from "scenerystack/sim";
-import SimColors from "../../SimColors.js";
-import type { SimModel } from "../model/SimModel.js";
+import RampColors from "../../RampColors.js";
+import type { MoreFeaturesModel } from "../model/MoreFeaturesModel.js";
 
 // Margin between screen edges and buttons/panels (in layout-bounds coordinates)
 const SCREEN_VIEW_MARGIN = 20;
 
-export class SimScreenView extends ScreenView {
-  public constructor(model: SimModel, options?: ScreenViewOptions) {
+export class MoreFeaturesScreenView extends ScreenView {
+  public constructor(model: MoreFeaturesModel, options?: ScreenViewOptions) {
     super(options);
 
     // ── Background ────────────────────────────────────────────────────────────
     // A full-screen rectangle that follows the active color profile.
     // Replace or remove once you add real content.
     const backgroundRect = new Rectangle(0, 0, this.layoutBounds.width, this.layoutBounds.height, {
-      fill: SimColors.backgroundColorProperty,
+      fill: RampColors.backgroundColorProperty,
     });
     this.addChild(backgroundRect);
 
     // ── Placeholder label ─────────────────────────────────────────────────────
-    // Replace this with your actual simulation content.
-    const placeholderText = new Text("Sim Template", {
+    // Replace this with the More Features screen's actual content.
+    const placeholderText = new Text("More Features", {
       font: "bold 36px sans-serif",
-      fill: SimColors.textColorProperty,
+      fill: RampColors.textColorProperty,
       center: this.layoutBounds.center,
     });
     this.addChild(placeholderText);

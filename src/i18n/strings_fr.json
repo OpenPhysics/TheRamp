@@ -1,6 +1,7 @@
 {
-  "title": "Modèle de Simulation",
+  "title": "La rampe",
   "screens": {
-    "sim": "Sim"
+    "intro": "Introduction",
+    "moreFeatures": "Plus d'options"
   }
 }

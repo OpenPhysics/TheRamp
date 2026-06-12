@@ -71,10 +71,12 @@ export class StringManager {
    * Each property updates automatically when the locale changes.
    */
   public getScreenNames(): {
-    readonly simStringProperty: ReadOnlyProperty<string>;
+    readonly introStringProperty: ReadOnlyProperty<string>;
+    readonly moreFeaturesStringProperty: ReadOnlyProperty<string>;
   } {
     return {
-      simStringProperty: stringProperties.screens.simStringProperty,
+      introStringProperty: stringProperties.screens.introStringProperty,
+      moreFeaturesStringProperty: stringProperties.screens.moreFeaturesStringProperty,
     };
   }
 }

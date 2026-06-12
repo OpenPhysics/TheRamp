@@ -1,5 +1,5 @@
 /**
- * SimColors.ts
+ * RampColors.ts
  *
  * Defines all dynamic colors for the simulation using ProfileColorProperty.
  *
@@ -10,28 +10,28 @@
  * SceneryStack switches profiles automatically; no manual toggling is needed.
  *
  * ── Usage ─────────────────────────────────────────────────────────────────────
- * Import SimColors and pass properties directly to Node's fillProperty or
+ * Import RampColors and pass properties directly to Node's fillProperty or
  * strokeProperty options:
  *
- *   import SimColors from "../../SimColors.js";
+ *   import RampColors from "../../RampColors.js";
  *
  *   new Rectangle( 0, 0, 100, 50, {
- *     fillProperty: SimColors.backgroundColorProperty,
+ *     fillProperty: RampColors.backgroundColorProperty,
  *   });
  *
  * ── How to add a color ────────────────────────────────────────────────────────
- * Add a new ProfileColorProperty entry to the SimColors object below.
+ * Add a new ProfileColorProperty entry to the RampColors object below.
  * Always provide both "default" and "projector" values.
  */
 import { ProfileColorProperty } from "scenerystack/scenery";
-import SimNamespace from "./SimNamespace.js";
+import RampNamespace from "./RampNamespace.js";
 
-const SimColors = {
+const RampColors = {
   /**
    * Background color for the simulation screen.
    * Deep navy in default mode; white in projector mode.
    */
-  backgroundColorProperty: new ProfileColorProperty(SimNamespace, "background", {
+  backgroundColorProperty: new ProfileColorProperty(RampNamespace, "background", {
     default: "#1a1a2e",
     projector: "#ffffff",
   }),
@@ -40,7 +40,7 @@ const SimColors = {
    * Primary accent color for highlights, selected items, and key UI elements.
    * Sky blue in default mode; dark navy in projector mode.
    */
-  accentColorProperty: new ProfileColorProperty(SimNamespace, "accent", {
+  accentColorProperty: new ProfileColorProperty(RampNamespace, "accent", {
     default: "#4fc3f7",
     projector: "#1a1a2e",
   }),
@@ -49,7 +49,7 @@ const SimColors = {
    * Background fill for control panels and dialogs.
    * Deep blue in default mode; light gray in projector mode.
    */
-  panelBackgroundColorProperty: new ProfileColorProperty(SimNamespace, "panelBackground", {
+  panelBackgroundColorProperty: new ProfileColorProperty(RampNamespace, "panelBackground", {
     default: "#16213e",
     projector: "#f5f5f5",
   }),
@@ -58,7 +58,7 @@ const SimColors = {
    * Border/stroke color for control panels and dialogs.
    * Teal-navy in default mode; medium gray in projector mode.
    */
-  panelBorderColorProperty: new ProfileColorProperty(SimNamespace, "panelBorder", {
+  panelBorderColorProperty: new ProfileColorProperty(RampNamespace, "panelBorder", {
     default: "#0f3460",
     projector: "#999999",
   }),
@@ -67,10 +67,10 @@ const SimColors = {
    * Text color for labels, readouts, and general UI text.
    * Near-white in default mode; near-black in projector mode.
    */
-  textColorProperty: new ProfileColorProperty(SimNamespace, "text", {
+  textColorProperty: new ProfileColorProperty(RampNamespace, "text", {
     default: "#e0e0e0",
     projector: "#1a1a1a",
   }),
 };
 
-export default SimColors;
+export default RampColors;

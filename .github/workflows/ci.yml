@@ -29,7 +29,7 @@ jobs:
   compliance:
     uses: OpenPhysics/.github/.github/workflows/shared-compliance-check.yml@main
     with:
-      repo-name: TemplateSingleSim
+      repo-name: TheRamp
 
   dependency-review:
     if: github.event_name == 'pull_request'

@@ -1,12 +1,18 @@
-# Sim Template
+# The Ramp
 
-A reusable single-screen simulation template built with [SceneryStack](https://scenerystack.org/),
+A SceneryStack reimplementation of PhET's classic **The Ramp** simulation —
+forces on an inclined plane. Built with [SceneryStack](https://scenerystack.org/),
 Vite 8, TypeScript 6, and Biome 2.
+
+The sim has two screens, mirroring the original Java modules:
+
+- **Introduction** — the simple ramp
+- **More Features** — the advanced ramp
 
 ## Features
 
-- Single-screen SceneryStack scaffold with model/view separation
-- English and French localization via `StringManager`
+- Two-screen SceneryStack scaffold with per-screen model/view separation
+- English, French, and Spanish localization via `StringManager`
 - Default and projector color profiles
 - Progressive Web App (installable, offline-capable)
 - Git hooks for Biome pre-commit checks
@@ -34,7 +40,7 @@ npm start        # dev server → http://localhost:5173
 | `npm run icons` | Regenerate PNG icons from `public/icons/icon.svg` |
 | `npm run clean` | Remove `dist/` |
 
-New sims start at `version: "0.0.0"` in `package.json`. Bump only when cutting a release (for example `npm version patch` and a matching git tag). Keep `name` in kebab-case; it is separate from the SceneryStack sim identifier in `src/init.ts`.
+The sim starts at `version: "0.0.0"` in `package.json`. Bump only when cutting a release (for example `npm version patch` and a matching git tag). The kebab-case `name` (`the-ramp`) matches the SceneryStack sim identifier in `src/init.ts`.
 
 ## Tech Stack
 
