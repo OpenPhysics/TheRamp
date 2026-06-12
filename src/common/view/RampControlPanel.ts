@@ -112,13 +112,25 @@ function createMassControl(model: RampModel): NumberControl {
 function createFrictionControl(model: RampModel): NumberControl {
   const controls = StringManager.getInstance().getControlStrings();
 
-  const coefficientProperty = new NumberProperty(0.5, { range: FRICTION_RANGE });
+  const coefficientProperty = new NumberProperty(
+    clamp(model.kineticFrictionProperty.value, FRICTION_RANGE.min, FRICTION_RANGE.max),
+    { range: FRICTION_RANGE },
+  );
 
   let syncing = false;
   coefficientProperty.lazyLink((coeff) => {
     if (!(syncing || model.frictionlessProperty.value)) {
       model.staticFrictionProperty.value = coeff;
       model.kineticFrictionProperty.value = coeff;
+    }
+  });
+
+  // Sync slider back from model — needed so Reset All and object changes keep the slider honest.
+  model.kineticFrictionProperty.lazyLink((coeff) => {
+    if (!syncing) {
+      syncing = true;
+      coefficientProperty.value = clamp(coeff, FRICTION_RANGE.min, FRICTION_RANGE.max);
+      syncing = false;
     }
   });
 

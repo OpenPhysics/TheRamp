@@ -230,7 +230,6 @@ export function clearHeat(state: RampPhysicsState): RampPhysicsState {
 export function stepPhysics(current: RampPhysicsState, previousEnd: RampPhysicsState, dt: number): StepResult {
   // 1. forces and acceleration
   let s = setupForces(current);
-  const keBeforeStep = getKineticEnergy(s);
 
   // 2. integrate with velocity sign-change capture (static-friction catch)
   const a = Math.abs(s.acceleration) < ACCELERATION_EPSILON ? 0 : s.acceleration;
@@ -256,7 +255,10 @@ export function stepPhysics(current: RampPhysicsState, previousEnd: RampPhysicsS
   if (frictionless) {
     let thermalEnergy = current.thermalEnergy;
     if (collision !== null) {
-      thermalEnergy += keBeforeStep; // all KE lost in the wall impact becomes heat
+      // Use KE at impact (v just before the wall stopped the block), not KE at step start.
+      // When a large force accelerates the block into the wall in one step the two can
+      // differ significantly — using the wrong value understates thermal energy.
+      thermalEnergy += 0.5 * s.mass * boundary.velocityBeforeStop * boundary.velocityBeforeStop;
     }
     s = {
       ...s,

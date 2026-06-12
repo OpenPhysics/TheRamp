@@ -155,7 +155,7 @@ export class RampScreenView extends ScreenView {
         visibleProperty: this.measuringTapeVisibleProperty,
         basePositionProperty: new Property(new Vector2(420, 450)),
         tipPositionProperty: new Property(new Vector2(520, 450)),
-        textColor: RampColors.readoutTextColorProperty.value,
+        textColor: RampColors.readoutTextColorProperty,
       });
       this.addChild(measuringTape);
       this.measuringTape = measuringTape;

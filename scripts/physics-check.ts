@@ -339,6 +339,47 @@ function scenarioClearHeat(): void {
   check("clearHeat energy invariant", approx(getTotalEnergy(cleared), cleared.appliedWork));
 }
 
+// 9a. Frictionless wall collision: large-dt energy accounting
+// Block starts near the top of the ramp at rest; a large applied force accelerates it into
+// the wall in a single MAX_DT step.  keBeforeStep would be 0 in this case, so the bug
+// produces thermalEnergy ≈ 0 J instead of the correct value.
+function scenarioFrictionlessWallCollisionLargeDt(): void {
+  const MAX_DT = 0.2;
+  let initial = createInitialState();
+  initial = {
+    ...initial,
+    staticFriction: 0,
+    kineticFriction: 0,
+    rampAngle: (10 * Math.PI) / 180,
+    positionInSurface: 14.5,
+    velocity: 0,
+  };
+  initial = initWorks(setupForces(initial));
+
+  const result = run(initial, 10, MAX_DT, () => 1000);
+
+  // With the correct fix thermal energy must be > 0 after at least one wall collision.
+  const hasCollision = result.collisions.length > 0;
+  check("frictionless large-dt wall collision occurred", hasCollision);
+
+  const finalThermal = result.state.thermalEnergy;
+  check(
+    "frictionless large-dt wall collision thermal > 0",
+    finalThermal > 0,
+    `thermal=${finalThermal}`,
+  );
+
+  // Energy invariant must hold throughout.
+  let invariantOk = true;
+  for (const s of result.trace) {
+    if (!approx(getTotalEnergy(s), s.appliedWork, 1e-6)) {
+      invariantOk = false;
+      break;
+    }
+  }
+  check("frictionless large-dt wall collision energy invariant", invariantOk);
+}
+
 // 9. Snapshot determinism
 function scenarioSnapshotDeterminism(): void {
   const dt = 1 / 60;
@@ -380,6 +421,7 @@ scenarioWallCollisionRampTop();
 scenarioWallCollisionGroundLeft();
 scenarioSurfaceHandoff();
 scenarioClearHeat();
+scenarioFrictionlessWallCollisionLargeDt();
 scenarioSnapshotDeterminism();
 
 if (failures > 0) {
