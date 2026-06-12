@@ -172,7 +172,7 @@ export class RampPlotsNode extends VBox {
     );
 
     super({
-      spacing: 4,
+      spacing: 2,
       align: "left",
       children: [energyPlot, workPlot, forcePlot],
     });

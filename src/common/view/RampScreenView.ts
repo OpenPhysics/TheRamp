@@ -117,6 +117,7 @@ export class RampScreenView extends ScreenView {
     this.plotsNode.left = SCREEN_VIEW_MARGIN;
 
     const hasRecordPlaybackBar = features.hasRecordPlaybackBar ?? false;
+    this.plotsNode.bottom = this.layoutBounds.maxY - SCREEN_VIEW_MARGIN;
     if (hasRecordPlaybackBar) {
       this.goPauseClearPanel = null;
       const recordPlaybackControlBar = new RecordPlaybackControlBar(model.timeSeriesModel, () => {
@@ -129,11 +130,9 @@ export class RampScreenView extends ScreenView {
       });
       recordPlaybackControlBar.centerX = this.layoutBounds.centerX;
       recordPlaybackControlBar.bottom = this.layoutBounds.maxY - SCREEN_VIEW_MARGIN;
-      this.plotsNode.bottom = recordPlaybackControlBar.top - 4;
       this.addChild(this.plotsNode);
       this.addChild(recordPlaybackControlBar);
     } else {
-      this.plotsNode.bottom = this.layoutBounds.maxY - SCREEN_VIEW_MARGIN;
       this.goPauseClearPanel = new GoPauseClearPanel(model);
       this.goPauseClearPanel.left = this.plotsNode.right + 10;
       this.goPauseClearPanel.bottom = this.plotsNode.bottom;

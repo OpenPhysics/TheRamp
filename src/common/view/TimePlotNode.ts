@@ -201,6 +201,13 @@ export class TimePlotNode extends AccordionBox {
         fill: RampColors.textColorProperty,
       }),
       expandedProperty,
+      // Collapsed plots show only the title bar (Java minimized state), not the full chart width.
+      useExpandedBoundsWhenCollapsed: false,
+      useContentWidthWhenCollapsed: false,
+      titleAlignX: "left",
+      buttonYMargin: 2,
+      titleYMargin: 2,
+      cornerRadius: 7,
     });
   }
 }

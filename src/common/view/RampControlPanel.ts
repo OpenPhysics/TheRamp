@@ -6,15 +6,16 @@
 import { BooleanProperty, DerivedProperty, NumberProperty, type ReadOnlyProperty } from "scenerystack/axon";
 import { clamp, Range } from "scenerystack/dot";
 import { HBox, type Node, Text, VBox } from "scenerystack/scenery";
-import { NumberControl, PhetFont } from "scenerystack/scenery-phet";
+import { NumberControl, PhetFont, ResetButton } from "scenerystack/scenery-phet";
 import type { VerticalCheckboxGroupItem } from "scenerystack/sun";
-import { AccordionBox, Checkbox, Panel, TextPushButton, VerticalCheckboxGroup } from "scenerystack/sun";
+import { AccordionBox, Checkbox, Panel, VerticalCheckboxGroup } from "scenerystack/sun";
 import { Tandem } from "scenerystack/tandem";
 import { StringManager } from "../../i18n/StringManager.js";
 import RampColors from "../../RampColors.js";
 import type { RampModel } from "../model/RampModel.js";
 import { APPLIED_FORCE_RANGE, FRICTION_RANGE, MASS_RANGE, POSITION_RANGE } from "../RampConstants.js";
 import { showConfirmDialog } from "./ConfirmDialog.js";
+import { CoolRampButton } from "./CoolRampButton.js";
 import { ObjectComboBox } from "./ObjectComboBox.js";
 import { ObjectSelectionPanel } from "./ObjectSelectionPanel.js";
 import type { RampScreenView, RampScreenViewFeatures } from "./RampScreenView.js";
@@ -324,8 +325,10 @@ export class RampControlPanel extends Panel {
       new HBox({
         spacing: 8,
         children: [
-          new TextPushButton(controls.resetStringProperty, {
-            font: LABEL_FONT,
+          new ResetButton({
+            radius: 18,
+            tandem: Tandem.OPT_OUT,
+            accessibleName: controls.resetStringProperty,
             listener: () => {
               showConfirmDialog(
                 messages.confirmResetTitleStringProperty,
@@ -338,8 +341,9 @@ export class RampControlPanel extends Panel {
               );
             },
           }),
-          new TextPushButton(controls.coolRampStringProperty, {
-            font: LABEL_FONT,
+          new CoolRampButton({
+            radius: 18,
+            accessibleName: controls.coolRampStringProperty,
             listener: () => {
               model.clearHeat();
               playCoolSound();

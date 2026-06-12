@@ -6,11 +6,11 @@
 import { DerivedProperty } from "scenerystack/axon";
 import { Text, VBox } from "scenerystack/scenery";
 import { PhetFont } from "scenerystack/scenery-phet";
-import { TextPushButton } from "scenerystack/sun";
 import { StringManager } from "../../i18n/StringManager.js";
 import RampColors from "../../RampColors.js";
 import type { RampModel } from "../model/RampModel.js";
 import { OVERHEAT_THERMAL_ENERGY } from "../model/RampPhysicsConstants.js";
+import { CoolRampButton } from "./CoolRampButton.js";
 
 export class OverheatNode extends VBox {
   public constructor(model: RampModel, playCoolSound: () => void) {
@@ -25,8 +25,9 @@ export class OverheatNode extends VBox {
           font: new PhetFont({ size: 16, weight: "bold" }),
           fill: RampColors.thermalEnergyColorProperty,
         }),
-        new TextPushButton(controls.coolRampStringProperty, {
-          font: new PhetFont(16),
+        new CoolRampButton({
+          radius: 22,
+          accessibleName: controls.coolRampStringProperty,
           listener: () => {
             model.clearHeat();
             playCoolSound();

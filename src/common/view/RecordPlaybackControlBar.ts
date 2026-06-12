@@ -5,15 +5,15 @@
  */
 import { DerivedProperty, EnumerationProperty } from "scenerystack/axon";
 import { HBox } from "scenerystack/scenery";
-import { EraserButton, PhetFont, RestartButton, TimeControlNode, TimeSpeed } from "scenerystack/scenery-phet";
-import { TextPushButton } from "scenerystack/sun";
+import { EraserButton, RestartButton, TimeControlNode, TimeSpeed } from "scenerystack/scenery-phet";
 import { Tandem } from "scenerystack/tandem";
 import { StringManager } from "../../i18n/StringManager.js";
 import { MAX_RECORDING_TIME } from "../model/RampPhysicsConstants.js";
 import type { TimeSeriesModel } from "../model/TimeSeriesModel.js";
+import { PlaybackButton } from "./PlaybackButton.js";
+import { RecordButton } from "./RecordButton.js";
 
-const LABEL_FONT = new PhetFont(13);
-const TRANSPORT_BUTTON_RADIUS = 16;
+const TRANSPORT_BUTTON_RADIUS = 18;
 const TRANSPORT_SPACING = 10;
 
 const SPEED_VALUE = new Map<TimeSpeed, number>([
@@ -44,20 +44,22 @@ export class RecordPlaybackControlBar extends HBox {
       (mode, recordTime) => mode === "playback" || recordTime > 0,
     );
 
-    const recordButton = new TextPushButton(timeControls.recordStringProperty, {
-      font: LABEL_FONT,
+    const recordButton = new RecordButton({
+      radius: TRANSPORT_BUTTON_RADIUS,
       listener: () => {
         timeSeriesModel.record();
       },
       enabledProperty: recordEnabledProperty,
+      accessibleName: timeControls.recordStringProperty,
     });
 
-    const playbackButton = new TextPushButton(timeControls.playbackStringProperty, {
-      font: LABEL_FONT,
+    const playbackButton = new PlaybackButton({
+      radius: TRANSPORT_BUTTON_RADIUS,
       listener: () => {
         timeSeriesModel.playback();
       },
       enabledProperty: playbackEnabledProperty,
+      accessibleName: timeControls.playbackStringProperty,
     });
 
     const timeSpeedProperty = new EnumerationProperty(valueToSpeed(timeSeriesModel.playbackSpeedProperty.value));
@@ -75,7 +77,7 @@ export class RecordPlaybackControlBar extends HBox {
       playPauseStepButtonOptions: {
         includeStepForwardButton: false,
         playPauseStepXSpacing: TRANSPORT_SPACING,
-        playPauseButtonOptions: { radius: 18 },
+        playPauseButtonOptions: { radius: TRANSPORT_BUTTON_RADIUS },
       },
       tandem: Tandem.OPT_OUT,
     });
