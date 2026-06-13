@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 38" width="130" height="38">
+  <!-- Board deck -->
+  <rect x="8" y="8" width="114" height="14" rx="7" fill="#c87840" stroke="#8b5a2b" stroke-width="1.5"/>
+  <!-- Grip tape -->
+  <rect x="12" y="9" width="106" height="12" rx="5" fill="#1a1a1a" opacity="0.88"/>
+  <!-- Grip texture dots (subtle) -->
+  <g fill="#333" opacity="0.5">
+    <circle cx="28" cy="15" r="1.2"/><circle cx="40" cy="15" r="1.2"/><circle cx="52" cy="15" r="1.2"/>
+    <circle cx="64" cy="15" r="1.2"/><circle cx="76" cy="15" r="1.2"/><circle cx="88" cy="15" r="1.2"/>
+    <circle cx="100" cy="15" r="1.2"/>
+  </g>
+  <!-- Left truck assembly -->
+  <rect x="16" y="20" width="18" height="5" rx="2" fill="#b0b8c0" stroke="#888" stroke-width="0.8"/>
+  <!-- Left wheels -->
+  <circle cx="21" cy="30" r="7" fill="#666" stroke="#444" stroke-width="1.2"/>
+  <circle cx="21" cy="30" r="3" fill="#444"/>
+  <circle cx="21" cy="30" r="1.2" fill="#888"/>
+  <circle cx="30" cy="30" r="7" fill="#666" stroke="#444" stroke-width="1.2"/>
+  <circle cx="30" cy="30" r="3" fill="#444"/>
+  <circle cx="30" cy="30" r="1.2" fill="#888"/>
+  <!-- Right truck assembly -->
+  <rect x="96" y="20" width="18" height="5" rx="2" fill="#b0b8c0" stroke="#888" stroke-width="0.8"/>
+  <!-- Right wheels -->
+  <circle cx="100" cy="30" r="7" fill="#666" stroke="#444" stroke-width="1.2"/>
+  <circle cx="100" cy="30" r="3" fill="#444"/>
+  <circle cx="100" cy="30" r="1.2" fill="#888"/>
+  <circle cx="109" cy="30" r="7" fill="#666" stroke="#444" stroke-width="1.2"/>
+  <circle cx="109" cy="30" r="3" fill="#444"/>
+  <circle cx="109" cy="30" r="1.2" fill="#888"/>
+</svg>

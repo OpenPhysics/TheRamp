@@ -8,11 +8,10 @@ import { Vector2 } from "scenerystack/dot";
 import { MeasuringTapeNode, type MeasuringTapeUnits, ResetAllButton } from "scenerystack/scenery-phet";
 import type { ScreenViewOptions } from "scenerystack/sim";
 import { ScreenView } from "scenerystack/sim";
-import { RampAudio } from "../../assets/audio.js";
 import { StringManager } from "../../i18n/StringManager.js";
 import RampColors from "../../RampColors.js";
 import { CollisionSoundPlayer } from "../audio/CollisionSoundPlayer.js";
-import { loadSoundClip } from "../audio/loadSoundClip.js";
+import { SynthesizedSounds } from "../audio/synthesizeSoundClip.js";
 import type { RampModel } from "../model/RampModel.js";
 import { MODEL_VIEW_SCALE, SCREEN_VIEW_MARGIN } from "../RampConstants.js";
 import { showConfirmDialog } from "./ConfirmDialog.js";
@@ -83,7 +82,7 @@ export class RampScreenView extends ScreenView {
       this.addChild(freeBodyDiagramNode);
     }
 
-    const coolSound = loadSoundClip(RampAudio.slapooh);
+    const coolSound = SynthesizedSounds.chime();
     const playCoolSound = (): void => {
       if (model.soundEnabledProperty.value) {
         coolSound.play();
