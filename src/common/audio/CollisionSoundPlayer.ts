@@ -1,14 +1,13 @@
 import type { Emitter, ReadOnlyProperty } from "scenerystack/axon";
-import { RampAudio } from "../../assets/audio.js";
 import type { CollisionInfo } from "../model/RampPhysicsEngine.js";
-import { loadSoundClip } from "./loadSoundClip.js";
+import { SynthesizedSounds } from "./synthesizeSoundClip.js";
 
 /** Plays tiered impact sounds on wall collisions (Java CollisionHandler). */
 export class CollisionSoundPlayer {
   public constructor(collisionEmitter: Emitter<[CollisionInfo]>, enabledProperty: ReadOnlyProperty<boolean>) {
-    const smash0 = loadSoundClip(RampAudio.smash0);
-    const smash1 = loadSoundClip(RampAudio.smash1);
-    const smash2 = loadSoundClip(RampAudio.smash2);
+    const smash0 = SynthesizedSounds.impactSoft();
+    const smash1 = SynthesizedSounds.impactMedium();
+    const smash2 = SynthesizedSounds.impactHard();
     collisionEmitter.addListener((collision) => {
       if (!enabledProperty.value) {
         return;

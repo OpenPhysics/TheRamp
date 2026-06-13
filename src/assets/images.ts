@@ -4,12 +4,12 @@
  * Central map from image keys to bundled asset URLs. RampObjectDescription
  * (a zero-import model file) refers to images by key; views resolve keys here.
  */
-import cabinetUrl from "./images/cabinet.gif";
-import crateUrl from "./images/crate.gif";
-import fridgeUrl from "./images/fridge.gif";
-import ollieUrl from "./images/ollie.gif";
-import pianoUrl from "./images/piano.png";
-import skateboardUrl from "./images/skateboard.png";
+import cabinetUrl from "./images/cabinet.svg";
+import crateUrl from "./images/crate.svg";
+import fridgeUrl from "./images/fridge.svg";
+import ollieUrl from "./images/ollie.svg";
+import pianoUrl from "./images/piano.svg";
+import skateboardUrl from "./images/skateboard.svg";
 
 export const RampImages = {
   cabinet: cabinetUrl,

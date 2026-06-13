@@ -40,6 +40,7 @@ export class BlockNode extends Node {
       const surfaceTopOffset = model.surfaceProperty.value === "ramp" ? -RAMP_BOARD_THICKNESS : 0;
       const skateboardVisible = skateboardImage.visible;
       skateboardImage.bottom = surfaceTopOffset;
+      skateboardImage.centerX = 0;
       objectImage.centerX = 0;
       objectImage.bottom = skateboardVisible ? skateboardImage.top + 4 : surfaceTopOffset + selectedObject.yOffset;
     };
@@ -63,6 +64,11 @@ export class BlockNode extends Node {
     new Multilink([model.selectedObjectProperty, model.massProperty], () => {
       applyObjectScale();
     });
+
+    // Re-apply placement after the image loads; the initial applyObjectPlacement call fires before
+    // the SVG's intrinsic dimensions are known (bounds.maxY == 0), so `bottom` lands at the wrong
+    // y-translation. localBoundsProperty fires when the image actually resolves its size.
+    objectImage.localBoundsProperty.lazyLink(() => applyObjectPlacement());
 
     new Multilink(
       [model.blockLocationProperty, model.surfaceProperty, model.rampAngleProperty],
