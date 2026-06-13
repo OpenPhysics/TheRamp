@@ -5,8 +5,8 @@
  */
 import { BooleanProperty, DerivedProperty, NumberProperty, type ReadOnlyProperty } from "scenerystack/axon";
 import { clamp, Range } from "scenerystack/dot";
-import { HBox, type Node, Text, VBox } from "scenerystack/scenery";
-import { NumberControl, PhetFont, ResetButton } from "scenerystack/scenery-phet";
+import { type Node, Text, VBox } from "scenerystack/scenery";
+import { NumberControl, PhetFont } from "scenerystack/scenery-phet";
 import type { VerticalCheckboxGroupItem } from "scenerystack/sun";
 import { AccordionBox, Checkbox, Panel, VerticalCheckboxGroup } from "scenerystack/sun";
 import { Tandem } from "scenerystack/tandem";
@@ -14,11 +14,10 @@ import { StringManager } from "../../i18n/StringManager.js";
 import RampColors from "../../RampColors.js";
 import type { RampModel } from "../model/RampModel.js";
 import { APPLIED_FORCE_RANGE, FRICTION_RANGE, MASS_RANGE, POSITION_RANGE } from "../RampConstants.js";
-import { showConfirmDialog } from "./ConfirmDialog.js";
 import { CoolRampButton } from "./CoolRampButton.js";
 import { ObjectComboBox } from "./ObjectComboBox.js";
 import { ObjectSelectionPanel } from "./ObjectSelectionPanel.js";
-import type { RampScreenView, RampScreenViewFeatures } from "./RampScreenView.js";
+import type { RampScreenViewFeatures } from "./RampScreenView.js";
 
 const LABEL_FONT = new PhetFont(13);
 const TITLE_FONT = new PhetFont({ size: 14, weight: "bold" });
@@ -265,7 +264,6 @@ function createCoordinateFramesSection(model: RampModel): AccordionBox {
 export class RampControlPanel extends Panel {
   public constructor(
     model: RampModel,
-    screenView: RampScreenView,
     listParent: Node,
     features: RampScreenViewFeatures,
     playCoolSound: () => void,
@@ -273,7 +271,6 @@ export class RampControlPanel extends Panel {
     zeroPointVisibleProperty: BooleanProperty,
   ) {
     const controls = StringManager.getInstance().getControlStrings();
-    const messages = StringManager.getInstance().getMessageStrings();
 
     const children: Node[] = [];
 
@@ -334,34 +331,13 @@ export class RampControlPanel extends Panel {
           maxWidth: 150,
         }),
       ),
-      new HBox({
-        spacing: 8,
-        children: [
-          new ResetButton({
-            radius: 18,
-            tandem: Tandem.OPT_OUT,
-            accessibleName: controls.resetStringProperty,
-            listener: () => {
-              showConfirmDialog(
-                messages.confirmResetTitleStringProperty,
-                messages.confirmResetStringProperty,
-                controls.resetStringProperty,
-                () => {
-                  model.reset();
-                  screenView.reset();
-                },
-              );
-            },
-          }),
-          new CoolRampButton({
-            radius: 18,
-            accessibleName: controls.coolRampStringProperty,
-            listener: () => {
-              model.clearHeat();
-              playCoolSound();
-            },
-          }),
-        ],
+      new CoolRampButton({
+        radius: 18,
+        accessibleName: controls.coolRampStringProperty,
+        listener: () => {
+          model.clearHeat();
+          playCoolSound();
+        },
       }),
     );
 

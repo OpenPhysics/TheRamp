@@ -104,7 +104,6 @@ export class RampScreenView extends ScreenView {
     this.addChild(overheatNode);
 
     const messages = StringManager.getInstance().getMessageStrings();
-    const controls = StringManager.getInstance().getControlStrings();
 
     this.plotsNode = new RampPlotsNode(
       model,
@@ -163,7 +162,6 @@ export class RampScreenView extends ScreenView {
     this.controlPanel = new RampControlPanel(
       model,
       this,
-      this,
       features,
       playCoolSound,
       this.measuringTapeVisibleProperty,
@@ -179,15 +177,8 @@ export class RampScreenView extends ScreenView {
 
     const resetAllButton = new ResetAllButton({
       listener: () => {
-        showConfirmDialog(
-          messages.confirmResetTitleStringProperty,
-          messages.confirmResetStringProperty,
-          controls.resetStringProperty,
-          () => {
-            model.reset();
-            this.reset();
-          },
-        );
+        model.reset();
+        this.reset();
       },
       right: this.layoutBounds.maxX - SCREEN_VIEW_MARGIN,
       bottom: this.layoutBounds.maxY - SCREEN_VIEW_MARGIN,
