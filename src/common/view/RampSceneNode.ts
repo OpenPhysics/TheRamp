@@ -7,8 +7,9 @@
 import type { ReadOnlyProperty } from "scenerystack/axon";
 import { DerivedProperty, PatternStringProperty } from "scenerystack/axon";
 import { type Bounds2, Vector2 } from "scenerystack/dot";
+import { Shape } from "scenerystack/kite";
 import { ModelViewTransform2 } from "scenerystack/phetcommon";
-import { Node, Text } from "scenerystack/scenery";
+import { Node, Path, Text } from "scenerystack/scenery";
 import { PhetFont } from "scenerystack/scenery-phet";
 import { StringManager } from "../../i18n/StringManager.js";
 import RampColors from "../../RampColors.js";
@@ -42,6 +43,21 @@ export class RampSceneNode extends Node {
     const leftBarrier = new BarrierNode();
     leftBarrier.right = 44;
     leftBarrier.bottom = WORLD_VIEW_ORIGIN.y;
+
+    // Triangular wedge that props up the ramp (matches icon geometry)
+    const wedgeNode = new Path(null, {
+      fill: RampColors.rampSurfaceColorProperty,
+      stroke: RampColors.panelBorderColorProperty,
+      lineWidth: 1,
+    });
+
+    // Pie-sector arc at the hinge showing the current ramp angle
+    const ANGLE_ARC_RADIUS = 46;
+    const angleArcNode = new Path(null, {
+      stroke: RampColors.readoutTextColorProperty,
+      lineWidth: 1.5,
+      fill: "rgba(255,255,255,0.18)",
+    });
 
     const rampSurfaceNode = new RampSurfaceNode(model);
     const blockNode = new BlockNode(model, this.modelViewTransform);
@@ -86,20 +102,41 @@ export class RampSceneNode extends Node {
 
     const rampBoardLength = RAMP_LENGTH * MODEL_VIEW_SCALE;
     model.rampAngleProperty.link((angle) => {
-      heightReadout.visible = angle > 0.05;
-      if (angle > 0.05) {
-        const rampTopX = WORLD_VIEW_ORIGIN.x + rampBoardLength * Math.cos(angle);
-        const rampTopY = WORLD_VIEW_ORIGIN.y - rampBoardLength * Math.sin(angle);
-        heightReadout.left = rampTopX + 10;
-        heightReadout.centerY = (rampTopY + WORLD_VIEW_ORIGIN.y) / 2;
+      const raised = angle > 0.05;
+      angleArcNode.visible = raised;
+
+      const cosA = Math.cos(angle);
+      const sinA = Math.sin(angle);
+      const tipX = WORLD_VIEW_ORIGIN.x + rampBoardLength * cosA;
+      const tipY = WORLD_VIEW_ORIGIN.y - rampBoardLength * sinA;
+
+      // Right-triangle wedge: hinge → ground below tip → ramp tip (always visible)
+      wedgeNode.shape = new Shape()
+        .moveTo(WORLD_VIEW_ORIGIN.x, WORLD_VIEW_ORIGIN.y)
+        .lineTo(tipX, WORLD_VIEW_ORIGIN.y)
+        .lineTo(tipX, tipY)
+        .close();
+
+      heightReadout.left = tipX + 10;
+      heightReadout.centerY = (tipY + WORLD_VIEW_ORIGIN.y) / 2;
+
+      if (raised) {
+        // Pie-sector from horizontal (0) sweeping up to ramp direction (−angle in screen coords)
+        angleArcNode.shape = new Shape()
+          .moveTo(WORLD_VIEW_ORIGIN.x, WORLD_VIEW_ORIGIN.y)
+          .lineTo(WORLD_VIEW_ORIGIN.x + ANGLE_ARC_RADIUS, WORLD_VIEW_ORIGIN.y)
+          .arc(WORLD_VIEW_ORIGIN.x, WORLD_VIEW_ORIGIN.y, ANGLE_ARC_RADIUS, 0, -angle, true)
+          .close();
       }
     });
 
     this.addChild(skyAndGroundNode);
     this.addChild(groundSurfaceNode);
     this.addChild(leftBarrier);
+    this.addChild(wedgeNode); // wedge sits below the ramp board
     this.addChild(rampSurfaceNode);
     this.addChild(blockNode);
+    this.addChild(angleArcNode); // arc drawn over the scene, under text readouts
     this.addChild(angleReadout);
     this.addChild(heightReadout);
     this.addChild(new ForceVectorSetNode(model, this.blockTailProperty));
