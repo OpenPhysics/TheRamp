@@ -363,11 +363,7 @@ function scenarioFrictionlessWallCollisionLargeDt(): void {
   check("frictionless large-dt wall collision occurred", hasCollision);
 
   const finalThermal = result.state.thermalEnergy;
-  check(
-    "frictionless large-dt wall collision thermal > 0",
-    finalThermal > 0,
-    `thermal=${finalThermal}`,
-  );
+  check("frictionless large-dt wall collision thermal > 0", finalThermal > 0, `thermal=${finalThermal}`);
 
   // Energy invariant must hold throughout.
   let invariantOk = true;
