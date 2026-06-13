@@ -1,47 +1,45 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 160" width="110" height="160">
-  <!-- Main cabinet body -->
-  <rect x="4" y="4" width="102" height="126" rx="3" fill="#1c0c04" stroke="#3a1a08" stroke-width="2"/>
-  <!-- Top cap highlight -->
-  <rect x="4" y="4" width="102" height="8" rx="3" fill="#2e1408"/>
-  <!-- Upper decorative panel -->
-  <rect x="10" y="16" width="90" height="38" rx="2" fill="#240e06" stroke="#3a1a08" stroke-width="1"/>
-  <!-- Music desk (angled shelf for sheet music) -->
-  <rect x="14" y="26" width="82" height="3" rx="1" fill="#4a2010"/>
-  <!-- Staff lines on desk -->
-  <line x1="18" y1="32" x2="92" y2="32" stroke="#3a2010" stroke-width="1"/>
-  <line x1="18" y1="36" x2="92" y2="36" stroke="#3a2010" stroke-width="1"/>
-  <line x1="18" y1="40" x2="92" y2="40" stroke="#3a2010" stroke-width="1"/>
-  <line x1="18" y1="44" x2="92" y2="44" stroke="#3a2010" stroke-width="1"/>
-  <line x1="18" y1="48" x2="92" y2="48" stroke="#3a2010" stroke-width="1"/>
-  <!-- Fallboard (key cover, slightly open) -->
-  <rect x="4" y="58" width="102" height="10" rx="1" fill="#2e1408" stroke="#3a1a08" stroke-width="1.5"/>
-  <!-- Keyboard area -->
-  <rect x="4" y="68" width="102" height="26" rx="1" fill="#f2ede6" stroke="#1c0c04" stroke-width="1.5"/>
-  <!-- White key dividers (7 keys visible) -->
-  <line x1="18" y1="68" x2="18" y2="94" stroke="#c8c0b8" stroke-width="0.8"/>
-  <line x1="32" y1="68" x2="32" y2="94" stroke="#c8c0b8" stroke-width="0.8"/>
-  <line x1="46" y1="68" x2="46" y2="94" stroke="#c8c0b8" stroke-width="0.8"/>
-  <line x1="60" y1="68" x2="60" y2="94" stroke="#c8c0b8" stroke-width="0.8"/>
-  <line x1="74" y1="68" x2="74" y2="94" stroke="#c8c0b8" stroke-width="0.8"/>
-  <line x1="88" y1="68" x2="88" y2="94" stroke="#c8c0b8" stroke-width="0.8"/>
-  <!-- Black keys -->
-  <rect x="12" y="68" width="8" height="16" rx="1" fill="#1a1a1a"/>
-  <rect x="26" y="68" width="8" height="16" rx="1" fill="#1a1a1a"/>
-  <rect x="40" y="68" width="8" height="16" rx="1" fill="#1a1a1a"/>
-  <rect x="54" y="68" width="8" height="16" rx="1" fill="#1a1a1a"/>
-  <rect x="68" y="68" width="8" height="16" rx="1" fill="#1a1a1a"/>
-  <rect x="82" y="68" width="8" height="16" rx="1" fill="#1a1a1a"/>
-  <!-- Keyslip panel below keys -->
-  <rect x="4" y="94" width="102" height="10" rx="1" fill="#2e1408" stroke="#3a1a08" stroke-width="1"/>
-  <!-- Lower toe-board panel -->
-  <rect x="4" y="104" width="102" height="22" rx="1" fill="#1c0c04" stroke="#3a1a08" stroke-width="1.5"/>
-  <!-- Pedal lyre bracket -->
-  <rect x="42" y="118" width="26" height="8" rx="2" fill="#2e1408" stroke="#3a1a08" stroke-width="1"/>
-  <!-- Pedals -->
-  <ellipse cx="50" cy="128" rx="6" ry="3.5" fill="#c8a020" stroke="#a08010" stroke-width="1"/>
-  <ellipse cx="60" cy="128" rx="6" ry="3.5" fill="#c8a020" stroke="#a08010" stroke-width="1"/>
-  <!-- Left leg -->
-  <rect x="8" y="126" width="14" height="28" rx="3" fill="#240e06" stroke="#1c0c04" stroke-width="1"/>
-  <!-- Right leg -->
-  <rect x="88" y="126" width="14" height="28" rx="3" fill="#240e06" stroke="#1c0c04" stroke-width="1"/>
+  <!-- Upright piano – right-side view; keyboard faces right -->
+
+  <!-- Cabinet body (back at left, front at right) -->
+  <rect x="18" y="8" width="54" height="118" rx="3" fill="#1c0c04" stroke="#3a1a08" stroke-width="2"/>
+
+  <!-- Top lid -->
+  <rect x="18" y="8" width="54" height="8" rx="3" fill="#2e1408"/>
+
+  <!-- Back shadow strip -->
+  <rect x="18" y="16" width="5" height="110" fill="#140804"/>
+
+  <!-- Front face: upper door panel -->
+  <rect x="66" y="16" width="7" height="38" rx="1" fill="#240e06" stroke="#3a1a08" stroke-width="0.8"/>
+
+  <!-- Music desk: hinged shelf at top-front, angled for sheet music -->
+  <polygon points="72,22 93,13 95,17 74,27" fill="#3c1a09" stroke="#2a1208" stroke-width="1"/>
+
+  <!-- Front face: fallboard (key cover) -->
+  <rect x="66" y="54" width="8" height="20" rx="1" fill="#2e1408" stroke="#3a1a08" stroke-width="0.8"/>
+
+  <!-- Keyboard (protrudes from front face) -->
+  <rect x="72" y="74" width="20" height="22" rx="1" fill="#f2ede6" stroke="#1c0c04" stroke-width="1.5"/>
+  <line x1="72" y1="79" x2="92" y2="79" stroke="#c0b8b0" stroke-width="0.8"/>
+  <line x1="72" y1="83" x2="92" y2="83" stroke="#c0b8b0" stroke-width="0.8"/>
+  <line x1="72" y1="87" x2="92" y2="87" stroke="#c0b8b0" stroke-width="0.8"/>
+  <line x1="72" y1="91" x2="92" y2="91" stroke="#c0b8b0" stroke-width="0.8"/>
+  <!-- Black key tip at front edge -->
+  <rect x="72" y="74" width="5" height="14" rx="1" fill="#1a1a1a"/>
+
+  <!-- Keyslip strip below keyboard -->
+  <rect x="72" y="96" width="20" height="7" rx="1" fill="#2e1408" stroke="#3a1a08" stroke-width="1"/>
+
+  <!-- Lower cabinet (pedal section) -->
+  <rect x="18" y="103" width="54" height="23" rx="1" fill="#1c0c04" stroke="#3a1a08" stroke-width="1.5"/>
+
+  <!-- Pedal arm and pedal (viewed from side) -->
+  <rect x="50" y="112" width="4" height="13" rx="1" fill="#2e1408" stroke="#3a1a08" stroke-width="0.8"/>
+  <ellipse cx="52" cy="129" rx="3.5" ry="6.5" fill="#c8a020" stroke="#a08010" stroke-width="1"/>
+
+  <!-- Back leg -->
+  <rect x="20" y="126" width="12" height="28" rx="3" fill="#240e06" stroke="#1c0c04" stroke-width="1"/>
+  <!-- Front leg -->
+  <rect x="60" y="126" width="12" height="28" rx="3" fill="#240e06" stroke="#1c0c04" stroke-width="1"/>
 </svg>
