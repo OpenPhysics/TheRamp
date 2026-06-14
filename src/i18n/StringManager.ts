@@ -123,4 +123,13 @@ export class StringManager {
   public getMessageStrings(): typeof stringProperties.messages {
     return stringProperties.messages;
   }
+
+  /**
+   * Accessibility (Interactive Description) StringProperties: screen-summary
+   * regions, the live current-details template, and per-control names/help text.
+   * See ../../ACCESSIBILITY.md for the shared convention.
+   */
+  public getA11yStrings(): typeof stringProperties.a11y {
+    return stringProperties.a11y;
+  }
 }

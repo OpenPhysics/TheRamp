@@ -106,5 +106,17 @@
     "confirmClearGraphs": "Are you sure you'd like to clear the graphs?",
     "confirmClearTitle": "Confirm Clear",
     "overheated": "Overheated."
+  },
+  "a11y": {
+    "screenSummary": {
+      "playArea": "The play area shows an object resting on a ramp that can be tilted from flat to steep. Force arrows, a free-body diagram, and energy and work charts visualize the physics.",
+      "controlArea": "The controls choose the object and set the ramp angle, applied force, mass, and friction. You can toggle a frictionless ramp and sound, play, pause, or record and replay the motion. A Reset All button returns the simulation to its starting state.",
+      "interactionHint": "Choose an object and adjust the ramp angle and applied force, then observe how the object moves."
+    },
+    "currentDetails": "The {{object}} is on a ramp tilted at {{angle}} degrees. Applied force is {{force}} newtons and the object is moving at {{speed}} meters per second.",
+    "block": {
+      "accessibleName": "Object on the ramp",
+      "accessibleHelpText": "Use the left and right arrow keys to push the object along the ramp. Release the key to stop pushing."
+    }
   }
 }

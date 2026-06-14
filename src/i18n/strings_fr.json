@@ -106,5 +106,17 @@
     "confirmClearGraphs": "Voulez-vous vraiment effacer les graphiques ?",
     "confirmClearTitle": "Confirmer l'effacement",
     "overheated": "Surchauffe !"
+  },
+  "a11y": {
+    "screenSummary": {
+      "playArea": "La zone de jeu montre un objet posé sur une rampe inclinable, du plat au pentu. Des flèches de force, un diagramme de corps libre et des graphiques d'énergie et de travail visualisent la physique.",
+      "controlArea": "Les commandes choisissent l'objet et règlent l'angle de la rampe, la force appliquée, la masse et le frottement. Vous pouvez activer une rampe sans frottement et le son, lire, mettre en pause, ou enregistrer et rejouer le mouvement. Un bouton Tout réinitialiser ramène la simulation à son état initial.",
+      "interactionHint": "Choisissez un objet et ajustez l'angle de la rampe et la force appliquée, puis observez comment l'objet se déplace."
+    },
+    "currentDetails": "Le {{object}} est sur une rampe inclinée à {{angle}} degrés. La force appliquée est de {{force}} newtons et l'objet se déplace à {{speed}} mètres par seconde.",
+    "block": {
+      "accessibleName": "Objet sur la rampe",
+      "accessibleHelpText": "Utilisez les touches fléchées gauche et droite pour pousser l'objet le long de la rampe. Relâchez la touche pour arrêter de pousser."
+    }
   }
 }

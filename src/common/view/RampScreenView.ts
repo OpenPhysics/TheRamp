@@ -5,6 +5,7 @@
  */
 import { BooleanProperty, Property } from "scenerystack/axon";
 import { Vector2 } from "scenerystack/dot";
+import { Node } from "scenerystack/scenery";
 import { MeasuringTapeNode, type MeasuringTapeUnits, ResetAllButton } from "scenerystack/scenery-phet";
 import type { ScreenViewOptions } from "scenerystack/sim";
 import { ScreenView } from "scenerystack/sim";
@@ -22,6 +23,7 @@ import { OverheatNode } from "./OverheatNode.js";
 import { RampControlPanel } from "./RampControlPanel.js";
 import { RampPlotsNode } from "./RampPlotsNode.js";
 import { RampSceneNode } from "./RampSceneNode.js";
+import { RampScreenSummaryContent } from "./RampScreenSummaryContent.js";
 import { RecordPlaybackControlBar } from "./RecordPlaybackControlBar.js";
 import { ZeroPointPeLineNode } from "./ZeroPointPeLineNode.js";
 
@@ -59,7 +61,12 @@ export class RampScreenView extends ScreenView {
   private measuringTape: MeasuringTapeNode | null = null;
 
   public constructor(model: RampModel, features: RampScreenViewFeatures = {}, options?: ScreenViewOptions) {
-    super(options);
+    // Register the accessible screen summary (Interactive Description). Shared by
+    // both Ramp screens; current details are derived live from the model.
+    super({
+      screenSummaryContent: new RampScreenSummaryContent(model),
+      ...options,
+    });
 
     this.energyBarsExpandedProperty = new BooleanProperty(features.energyBarsExpanded ?? false);
     this.workBarsExpandedProperty = new BooleanProperty(features.workBarsExpanded ?? false);
@@ -115,10 +122,13 @@ export class RampScreenView extends ScreenView {
     this.plotsNode.left = SCREEN_VIEW_MARGIN;
 
     const hasRecordPlaybackBar = features.hasRecordPlaybackBar ?? false;
+    // Tracked for pdomOrder (keyboard/reading traversal). Null on screens that
+    // use the GoPauseClearPanel instead.
+    let recordPlaybackControlBar: RecordPlaybackControlBar | null = null;
     this.plotsNode.bottom = this.layoutBounds.maxY - SCREEN_VIEW_MARGIN;
     if (hasRecordPlaybackBar) {
       this.goPauseClearPanel = null;
-      const recordPlaybackControlBar = new RecordPlaybackControlBar(model.timeSeriesModel, () => {
+      recordPlaybackControlBar = new RecordPlaybackControlBar(model.timeSeriesModel, () => {
         showConfirmDialog(
           messages.confirmClearTitleStringProperty,
           messages.confirmClearGraphsStringProperty,
@@ -184,6 +194,25 @@ export class RampScreenView extends ScreenView {
       bottom: this.layoutBounds.maxY - SCREEN_VIEW_MARGIN,
     });
     this.addChild(resetAllButton);
+
+    // ── Accessibility: keyboard / reading traversal order ───────────────────────
+    // Make Tab order and screen-reader reading order deterministic and
+    // independent of child z-order: the draggable object first, then the
+    // controls, then play/record controls, the measuring tape, and Reset All
+    // last. ScreenView throws if you set pdomOrder on itself, so use a wrapper
+    // Node. Conditionally-absent nodes are filtered out.
+    this.addChild(
+      new Node({
+        pdomOrder: [
+          this.sceneNode,
+          this.controlPanel,
+          this.goPauseClearPanel,
+          recordPlaybackControlBar,
+          this.measuringTape ?? null,
+          resetAllButton,
+        ].filter((node) => node !== null),
+      }),
+    );
   }
 
   /**

@@ -106,5 +106,17 @@
     "confirmClearGraphs": "¿Seguro que quieres borrar las gráficas?",
     "confirmClearTitle": "Confirmar borrado",
     "overheated": "¡Sobrecalentado!"
+  },
+  "a11y": {
+    "screenSummary": {
+      "playArea": "El área de juego muestra un objeto apoyado sobre una rampa que se puede inclinar de plana a empinada. Flechas de fuerza, un diagrama de cuerpo libre y gráficas de energía y trabajo visualizan la física.",
+      "controlArea": "Los controles eligen el objeto y ajustan el ángulo de la rampa, la fuerza aplicada, la masa y la fricción. Puedes activar una rampa sin fricción y el sonido, reproducir, pausar, o grabar y reproducir el movimiento. Un botón Restablecer todo devuelve la simulación a su estado inicial.",
+      "interactionHint": "Elige un objeto y ajusta el ángulo de la rampa y la fuerza aplicada, luego observa cómo se mueve el objeto."
+    },
+    "currentDetails": "El {{object}} está sobre una rampa inclinada a {{angle}} grados. La fuerza aplicada es de {{force}} newtons y el objeto se mueve a {{speed}} metros por segundo.",
+    "block": {
+      "accessibleName": "Objeto sobre la rampa",
+      "accessibleHelpText": "Usa las teclas de flecha izquierda y derecha para empujar el objeto a lo largo de la rampa. Suelta la tecla para dejar de empujar."
+    }
   }
 }

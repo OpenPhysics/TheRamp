@@ -6,15 +6,25 @@
 import { DerivedProperty, Multilink } from "scenerystack/axon";
 import { clamp } from "scenerystack/dot";
 import type { ModelViewTransform2 } from "scenerystack/phetcommon";
-import { DragListener, Image, Node } from "scenerystack/scenery";
+import { DragListener, Image, KeyboardListener, Node } from "scenerystack/scenery";
 import { RampImages } from "../../assets/images.js";
+import { StringManager } from "../../i18n/StringManager.js";
 import type { RampModel } from "../model/RampModel.js";
 import type { RampObjectDescription } from "../model/RampObjectDescription.js";
 import { APPLIED_FORCE_PER_PIXEL, APPLIED_FORCE_RANGE, RAMP_BOARD_THICKNESS } from "../RampConstants.js";
 
 export class BlockNode extends Node {
   public constructor(model: RampModel, modelViewTransform: ModelViewTransform2) {
-    super({ cursor: "ew-resize" });
+    const a11y = StringManager.getInstance().getA11yStrings();
+    super({
+      cursor: "ew-resize",
+      // Accessibility: make the draggable object focusable and labeled so it is
+      // reachable and operable from the keyboard (see KeyboardListener below).
+      tagName: "div",
+      focusable: true,
+      accessibleName: a11y.block.accessibleNameStringProperty,
+      accessibleHelpText: a11y.block.accessibleHelpTextStringProperty,
+    });
 
     const skateboardImage = new Image(RampImages.skateboard, {
       maxWidth: 60,
@@ -94,6 +104,23 @@ export class BlockNode extends Node {
           );
         },
         end: () => {
+          model.appliedForceProperty.value = 0;
+        },
+      }),
+    );
+
+    // Keyboard equivalent of the drag: hold an arrow key to push the object,
+    // release to stop — mirroring the mouse drag's momentary applied force.
+    this.addInputListener(
+      new KeyboardListener({
+        keys: ["arrowLeft", "arrowRight"],
+        fireOnHold: true,
+        press: (_event, keysPressed) => {
+          model.timeSeriesModel.ensureRecordMode();
+          model.appliedForceProperty.value =
+            keysPressed === "arrowRight" ? APPLIED_FORCE_RANGE.max : APPLIED_FORCE_RANGE.min;
+        },
+        release: () => {
           model.appliedForceProperty.value = 0;
         },
       }),

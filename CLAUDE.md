@@ -24,6 +24,7 @@ both screens. Run `npm run verify` for the automated gate. See
 | `src/RampNamespace.ts` | `the-ramp` namespace for color property names |
 | `src/i18n/StringManager.ts` | Singleton localized string accessor |
 | `src/common/view/RampKeyboardHelpContent.ts` | Keyboard-help dialog content (shared by all screens) |
+| `src/common/view/RampScreenSummaryContent.ts` | Accessible screen summary with live current-details (shared by all screens) |
 | `src/intro/IntroScreen.ts` | Introduction screen wrapper |
 | `src/intro/model/IntroModel.ts` | Introduction state and logic |
 | `src/intro/view/IntroScreenView.ts` | Introduction visual nodes and layout |
@@ -31,6 +32,14 @@ both screens. Run `npm run verify` for the automated gate. See
 | `src/more-features/model/MoreFeaturesModel.ts` | More Features state and logic |
 | `src/more-features/view/MoreFeaturesScreenView.ts` | More Features visual nodes and layout |
 | `scripts/generate-icons.ts` | PNG icons from `public/icons/icon.svg` |
+
+## Accessibility
+
+Follows the shared [OpenPhysics accessibility convention](https://github.com/OpenPhysics/OpenPhysics/blob/main/ACCESSIBILITY.md).
+`RampScreenView` registers `RampScreenSummaryContent` (live current-details derived from the
+model) and sets an explicit `pdomOrder`; the draggable `BlockNode` is keyboard-operable via a
+`KeyboardListener` (arrow keys push the object). A11y strings live under the `a11y` key in each
+locale JSON, exposed via `StringManager.getA11yStrings()`.
 
 ## PWA
 
