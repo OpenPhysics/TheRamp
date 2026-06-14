@@ -16,7 +16,7 @@ The sim has two screens, mirroring the original Java modules:
 - Default and projector color profiles
 - Progressive Web App (installable, offline-capable)
 - Git hooks for Biome pre-commit checks
-- Shared GitHub Actions CI via `OpenPhysics/.github`
+- Shared GitHub Actions CI via `OpenPhysics/Baton`
 
 ## Quick Start
 
@@ -49,7 +49,7 @@ The sim starts at `version: "0.0.0"` in `package.json`. Bump only when cutting a
 | [SceneryStack](https://scenerystack.org/) | ^3.0.0 | Simulation framework |
 | [Vite](https://vitejs.dev/) | ^8 | Build tool + dev server |
 | [TypeScript](https://www.typescriptlang.org/) | ^6 | Type-safe JavaScript |
-| [Biome](https://biomejs.dev/) | ^2.4 | Linting + formatting |
+| [Biome](https://biomejs.dev/) | ^2.5 | Linting + formatting |
 | [vite-plugin-pwa](https://vite-pwa-org.netlify.app/) | ^1 | PWA + service worker |
 
 ## License
