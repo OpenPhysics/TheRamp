@@ -117,6 +117,20 @@
     "block": {
       "accessibleName": "Objet sur la rampe",
       "accessibleHelpText": "Utilisez les touches fléchées gauche et droite pour pousser l'objet le long de la rampe. Relâchez la touche pour arrêter de pousser."
+    },
+    "controls": {
+      "zoomIn": "Zoom avant",
+      "zoomOut": "Zoom arrière",
+      "energyGraphInfo": "Légende du graphique d'énergie",
+      "clearThermal": "Effacer l'énergie thermique",
+      "rampSurface": "Surface de la rampe — faites glisser pour changer l'angle"
     }
+  },
+  "preferences": {
+    "title": "Simulation",
+    "initialRampAngle": "Angle initial de la rampe",
+    "frictionless": "Sans frottement",
+    "soundEnabled": "Son activé",
+    "showComponents": "Afficher les composantes des forces"
   }
 }

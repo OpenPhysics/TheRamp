@@ -117,6 +117,20 @@
     "block": {
       "accessibleName": "Objeto sobre la rampa",
       "accessibleHelpText": "Usa las teclas de flecha izquierda y derecha para empujar el objeto a lo largo de la rampa. Suelta la tecla para dejar de empujar."
+    },
+    "controls": {
+      "zoomIn": "Acercar",
+      "zoomOut": "Alejar",
+      "energyGraphInfo": "Leyenda del gráfico de energía",
+      "clearThermal": "Borrar energía térmica",
+      "rampSurface": "Superficie de la rampa — arrastra para cambiar el ángulo"
     }
+  },
+  "preferences": {
+    "title": "Simulación",
+    "initialRampAngle": "Ángulo inicial de la rampa",
+    "frictionless": "Sin fricción",
+    "soundEnabled": "Sonido activado",
+    "showComponents": "Mostrar componentes de fuerza"
   }
 }

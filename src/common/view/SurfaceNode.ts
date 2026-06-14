@@ -6,6 +6,7 @@
 import { DerivedProperty } from "scenerystack/axon";
 import { clamp } from "scenerystack/dot";
 import { Color, DragListener, Line, Node, Rectangle } from "scenerystack/scenery";
+import { StringManager } from "../../i18n/StringManager.js";
 import RampColors from "../../RampColors.js";
 import type { RampModel } from "../model/RampModel.js";
 import { OVERHEAT_THERMAL_ENERGY } from "../model/RampPhysicsConstants.js";
@@ -50,6 +51,9 @@ export class RampSurfaceNode extends Node {
       cursor: "pointer",
       fill: heatFillProperty,
       stroke: RampColors.panelBorderColorProperty,
+      tagName: "div",
+      focusable: true,
+      accessibleName: StringManager.getInstance().getA11yStrings().controls.rampSurfaceStringProperty,
     });
 
     const topBarrier = new BarrierNode();

@@ -117,6 +117,20 @@
     "block": {
       "accessibleName": "Object on the ramp",
       "accessibleHelpText": "Use the left and right arrow keys to push the object along the ramp. Release the key to stop pushing."
+    },
+    "controls": {
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out",
+      "energyGraphInfo": "Energy graph legend",
+      "clearThermal": "Clear thermal energy",
+      "rampSurface": "Ramp surface — drag to change the ramp angle"
     }
+  },
+  "preferences": {
+    "title": "Simulation",
+    "initialRampAngle": "Initial Ramp Angle",
+    "frictionless": "Frictionless",
+    "soundEnabled": "Sound Enabled",
+    "showComponents": "Show Force Components"
   }
 }

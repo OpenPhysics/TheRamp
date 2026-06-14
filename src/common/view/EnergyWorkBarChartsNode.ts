@@ -32,6 +32,7 @@ export class EnergyWorkBarChartsNode extends HBox {
         playCoolSound();
       },
       scale: 0.7,
+      accessibleName: StringManager.getInstance().getA11yStrings().controls.clearThermalStringProperty,
       tandem: Tandem.OPT_OUT,
     });
     model.thermalEnergyProperty.link((value) => {

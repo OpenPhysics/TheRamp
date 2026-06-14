@@ -52,7 +52,7 @@ export class ObjectSelectionPanel extends VBox {
             },
           ),
       })),
-      { spacing: 4 },
+      { spacing: 4, accessibleName: controls.chooseObjectStringProperty },
     );
 
     model.selectedObjectProperty.lazyLink(() => {

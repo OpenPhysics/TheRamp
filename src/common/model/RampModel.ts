@@ -13,12 +13,13 @@ import {
   StringUnionProperty,
 } from "scenerystack/axon";
 import { Vector2 } from "scenerystack/dot";
+import type { RampPreferencesModel } from "../../preferences/RampPreferencesModel.js";
+import rampQueryParameters from "../../preferences/rampQueryParameters.js";
 import {
   ANGLE_RANGE,
   APPLIED_FORCE_RANGE,
   GROUND_LENGTH,
   INITIAL_POSITION_IN_SURFACE,
-  INITIAL_RAMP_ANGLE,
   MAX_DT,
   POSITION_RANGE,
   RAMP_LENGTH,
@@ -54,20 +55,31 @@ function getDefaultObject(): RampObjectDescription {
 const defaultObject = getDefaultObject();
 const initialState = createInitialState();
 
+/** Degrees → radians; the public rampAngle query parameter is in degrees. */
+const DEG_TO_RAD = Math.PI / 180;
+
 export class RampModel implements TimeSeriesClient {
   // --- inputs (user-writable) ---
-  public readonly rampAngleProperty = new NumberProperty(INITIAL_RAMP_ANGLE, { range: ANGLE_RANGE });
-  public readonly appliedForceProperty = new NumberProperty(0, { range: APPLIED_FORCE_RANGE });
+  public readonly rampAngleProperty = new NumberProperty(rampQueryParameters.rampAngle * DEG_TO_RAD, {
+    range: ANGLE_RANGE,
+  });
+  public readonly appliedForceProperty = new NumberProperty(rampQueryParameters.appliedForce, {
+    range: APPLIED_FORCE_RANGE,
+  });
   public readonly selectedObjectProperty = new Property<RampObjectDescription>(defaultObject);
-  public readonly massProperty = new NumberProperty(defaultObject.mass);
-  public readonly staticFrictionProperty = new NumberProperty(defaultObject.staticFriction);
-  public readonly kineticFrictionProperty = new NumberProperty(defaultObject.kineticFriction);
-  public readonly frictionlessProperty = new BooleanProperty(false);
+  public readonly massProperty = new NumberProperty(rampQueryParameters.mass);
+  public readonly staticFrictionProperty = new NumberProperty(
+    rampQueryParameters.frictionless ? 0 : rampQueryParameters.staticFriction,
+  );
+  public readonly kineticFrictionProperty = new NumberProperty(
+    rampQueryParameters.frictionless ? 0 : rampQueryParameters.kineticFriction,
+  );
+  public readonly frictionlessProperty = new BooleanProperty(rampQueryParameters.frictionless);
   public readonly zeroPointYProperty = new NumberProperty(0);
   public readonly globalPositionProperty = new NumberProperty(INITIAL_POSITION_IN_SURFACE + GROUND_LENGTH, {
     range: POSITION_RANGE,
   });
-  public readonly soundEnabledProperty = new BooleanProperty(true);
+  public readonly soundEnabledProperty = new BooleanProperty(rampQueryParameters.soundEnabled);
 
   // --- state mirrors + outputs ---
   public readonly surfaceProperty = new StringUnionProperty<SurfaceId>(initialState.surface, {
@@ -124,13 +136,35 @@ export class RampModel implements TimeSeriesClient {
 
   private lastEndState: RampPhysicsState = createInitialState();
   private isWritingState = false;
-  private savedStaticFriction = defaultObject.staticFriction;
-  private savedKineticFriction = defaultObject.kineticFriction;
+  private savedStaticFriction = rampQueryParameters.staticFriction;
+  private savedKineticFriction = rampQueryParameters.kineticFriction;
 
-  public constructor() {
+  private readonly preferences: RampPreferencesModel;
+
+  public constructor(preferences: RampPreferencesModel) {
+    this.preferences = preferences;
     this.writeStateToProperties(this.lastEndState);
     this.setupInputListeners();
+    this.applyPreferences();
     this.setupForcesOnly();
+  }
+
+  /**
+   * Applies the simulation preferences (Preferences → Simulation) to the model.
+   * Called on construction and Reset All so that changes to the preference
+   * defaults take effect. Each preference's own initial value comes from a
+   * query parameter (see rampQueryParameters).
+   */
+  private applyPreferences(): void {
+    this.rampAngleProperty.value = this.preferences.initialRampAngleProperty.value * DEG_TO_RAD;
+    this.soundEnabledProperty.value = this.preferences.soundEnabledProperty.value;
+    // Setting frictionlessProperty triggers its listener, which swaps the
+    // friction coefficients using the saved values.
+    this.frictionlessProperty.value = this.preferences.frictionlessProperty.value;
+
+    const showComponents = this.preferences.showComponentsProperty.value;
+    this.vectorVisibility.entireVectorsProperty.value = !showComponents;
+    this.vectorVisibility.parallelComponentsProperty.value = showComponents;
   }
 
   public step(dt: number): void {
@@ -204,11 +238,12 @@ export class RampModel implements TimeSeriesClient {
     this.zeroPointYProperty.reset();
     this.globalPositionProperty.reset();
     this.soundEnabledProperty.reset();
-    this.savedStaticFriction = defaultObject.staticFriction;
-    this.savedKineticFriction = defaultObject.kineticFriction;
+    this.savedStaticFriction = rampQueryParameters.staticFriction;
+    this.savedKineticFriction = rampQueryParameters.kineticFriction;
     this.lastEndState = createInitialState();
     this.writeStateToProperties(this.lastEndState);
     this.vectorVisibility.reset();
+    this.applyPreferences();
     this.setupForcesOnly();
   }
 

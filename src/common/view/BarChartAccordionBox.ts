@@ -14,6 +14,7 @@ import { InfoButton, PhetFont, ZoomButton } from "scenerystack/scenery-phet";
 import { Dialog } from "scenerystack/sim";
 import { AccordionBox, ColorConstants } from "scenerystack/sun";
 import { Tandem } from "scenerystack/tandem";
+import { StringManager } from "../../i18n/StringManager.js";
 import RampColors from "../../RampColors.js";
 import { ENERGY_BAR_SCALE } from "../RampConstants.js";
 import { type BarChartGroup, BarChartNode } from "./BarChartNode.js";
@@ -83,12 +84,15 @@ export class BarChartAccordionBox extends AccordionBox {
       children: [background, barChartNode],
     });
 
+    const a11yControls = StringManager.getInstance().getA11yStrings().controls;
     const zoomInButton = new ZoomButton({
       in: true,
+      accessibleName: a11yControls.zoomInStringProperty,
       ...zoomButtonOptions,
     });
     const zoomOutButton = new ZoomButton({
       in: false,
+      accessibleName: a11yControls.zoomOutStringProperty,
       ...zoomButtonOptions,
     });
 
@@ -158,6 +162,7 @@ export class BarChartAccordionBox extends AccordionBox {
     const infoButton = new InfoButton({
       maxHeight: 1.1 * zoomInButton.height,
       centerY: zoomOutButton.centerY,
+      accessibleName: a11yControls.energyGraphInfoStringProperty,
       tandem: Tandem.OPT_OUT,
       listener: () => {
         if (!legendDialog) {

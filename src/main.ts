@@ -20,20 +20,27 @@ import { Tandem } from "scenerystack/tandem";
 import { StringManager } from "./i18n/StringManager.js";
 import { IntroScreen } from "./intro/IntroScreen.js";
 import { MoreFeaturesScreen } from "./more-features/MoreFeaturesScreen.js";
+import { RampPreferencesModel } from "./preferences/RampPreferencesModel.js";
+import { RampPreferencesNode } from "./preferences/RampPreferencesNode.js";
 import RampColors from "./RampColors.js";
 
 onReadyToLaunch(() => {
   const stringManager = StringManager.getInstance();
   const screenNames = stringManager.getScreenNames();
 
+  // Simulation-specific preferences; initial values come from rampQueryParameters.
+  const rampPreferences = new RampPreferencesModel(Tandem.ROOT.createTandem("preferences"));
+
   const screens = [
     new IntroScreen({
+      preferences: rampPreferences,
       // The screen name Property updates automatically when the locale changes
       name: screenNames.introStringProperty,
       tandem: Tandem.ROOT.createTandem("introScreen"),
       backgroundColorProperty: RampColors.backgroundColorProperty,
     }),
     new MoreFeaturesScreen({
+      preferences: rampPreferences,
       name: screenNames.moreFeaturesStringProperty,
       tandem: Tandem.ROOT.createTandem("moreFeaturesScreen"),
       backgroundColorProperty: RampColors.backgroundColorProperty,
@@ -47,6 +54,13 @@ onReadyToLaunch(() => {
         supportsProjectorMode: true,
         // Enables keyboard-navigation highlight outlines
         supportsInteractiveHighlights: true,
+      },
+      simulationOptions: {
+        customPreferences: [
+          {
+            createContent: (tandem: Tandem) => new RampPreferencesNode(rampPreferences, tandem),
+          },
+        ],
       },
       localizationOptions: {
         // Adds a language picker in Preferences → Language

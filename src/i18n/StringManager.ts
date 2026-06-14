@@ -132,4 +132,11 @@ export class StringManager {
   public getA11yStrings(): typeof stringProperties.a11y {
     return stringProperties.a11y;
   }
+
+  /**
+   * Simulation-specific preference labels shown in Preferences → Simulation.
+   */
+  public getPreferences(): typeof stringProperties.preferences {
+    return stringProperties.preferences;
+  }
 }
