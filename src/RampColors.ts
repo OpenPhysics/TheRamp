@@ -203,6 +203,12 @@ const RampColors = {
     default: "#1A1A1A",
     projector: "#1A1A1A",
   }),
+
+  /** Snowflake stroke on the "cool ramp" button. */
+  coolRampSnowflakeColorProperty: new ProfileColorProperty(RampNamespace, "coolRampSnowflake", {
+    default: "#3399FF",
+    projector: "#1F66B5",
+  }),
 };
 
 export default RampColors;

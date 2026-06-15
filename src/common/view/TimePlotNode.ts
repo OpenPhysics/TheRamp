@@ -6,7 +6,7 @@
 import type { BooleanProperty, ReadOnlyProperty } from "scenerystack/axon";
 import { DerivedProperty } from "scenerystack/axon";
 import { ChartRectangle, ChartTransform, GridLineSet, LinePlot, TickLabelSet, TickMarkSet } from "scenerystack/bamboo";
-import { clamp, Range, Vector2 } from "scenerystack/dot";
+import { clamp, Range, toFixed, Vector2 } from "scenerystack/dot";
 import { Orientation } from "scenerystack/phet-core";
 import { DragListener, HBox, Line, Node, Text, VBox } from "scenerystack/scenery";
 import { PhetFont } from "scenerystack/scenery-phet";
@@ -162,7 +162,7 @@ export class TimePlotNode extends AccordionBox {
         fill: RampColors.textColorProperty,
       });
 
-      const formattedValueProperty = new DerivedProperty([descriptor.liveProperty], (value) => value.toFixed(0));
+      const formattedValueProperty = new DerivedProperty([descriptor.liveProperty], (value) => toFixed(value, 0));
       formattedValueProperty.link((text) => {
         valueText.string = text;
       });

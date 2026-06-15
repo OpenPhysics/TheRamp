@@ -8,9 +8,9 @@ import type { StrictOmit } from "scenerystack/phet-core";
 import { Path } from "scenerystack/scenery";
 import { RoundPushButton, type RoundPushButtonOptions } from "scenerystack/sun";
 import { Tandem } from "scenerystack/tandem";
+import RampColors from "../../RampColors.js";
 
 const DEFAULT_RADIUS = 20;
-const SNOWFLAKE_COLOR = "#3399FF";
 
 function createSnowflakeIcon(radius: number): Path {
   const armLength = radius * 0.55;
@@ -21,7 +21,7 @@ function createSnowflakeIcon(radius: number): Path {
     shape.lineTo(armLength * Math.cos(angle), armLength * Math.sin(angle));
   }
   return new Path(shape, {
-    stroke: SNOWFLAKE_COLOR,
+    stroke: RampColors.coolRampSnowflakeColorProperty,
     lineWidth: 2,
     lineCap: "round",
   });

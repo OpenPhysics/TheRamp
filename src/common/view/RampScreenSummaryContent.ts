@@ -10,7 +10,9 @@
  * Follows the OpenPhysics accessibility convention; see ../../../ACCESSIBILITY.md
  * and the canonical TemplateSingleSim/SimScreenSummaryContent.ts.
  */
+
 import { DerivedProperty } from "scenerystack/axon";
+import { toFixed } from "scenerystack/dot";
 import { StringUtils } from "scenerystack/phetcommon";
 import { ScreenSummaryContent } from "scenerystack/sim";
 import { StringManager } from "../../i18n/StringManager.js";
@@ -52,7 +54,7 @@ export class RampScreenSummaryContent extends ScreenSummaryContent {
           object: nameProperties[selectedObject.nameKey].value,
           angle: Math.round((rampAngle * 180) / Math.PI),
           force: Math.round(appliedForce),
-          speed: speed.toFixed(1),
+          speed: toFixed(speed, 1),
         }),
     );
 

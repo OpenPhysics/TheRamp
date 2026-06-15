@@ -6,7 +6,7 @@
 
 import type { ReadOnlyProperty } from "scenerystack/axon";
 import { DerivedProperty, PatternStringProperty } from "scenerystack/axon";
-import { type Bounds2, Vector2 } from "scenerystack/dot";
+import { type Bounds2, toFixed, Vector2 } from "scenerystack/dot";
 import { Shape } from "scenerystack/kite";
 import { ModelViewTransform2 } from "scenerystack/phetcommon";
 import { Node, Path, Text } from "scenerystack/scenery";
@@ -75,7 +75,7 @@ export class RampSceneNode extends Node {
 
     const readoutStrings = StringManager.getInstance().getReadoutStrings();
     const angleDegreesProperty = new DerivedProperty([model.rampAngleProperty], (angle) =>
-      ((angle * 180) / Math.PI).toFixed(1),
+      toFixed((angle * 180) / Math.PI, 1),
     );
 
     const angleReadout = new Text(
@@ -92,7 +92,7 @@ export class RampSceneNode extends Node {
 
     const heightReadout = new Text(
       new PatternStringProperty(readoutStrings.heightPatternStringProperty, {
-        value: new DerivedProperty([model.rampHeightProperty], (height) => height.toFixed(1)),
+        value: new DerivedProperty([model.rampHeightProperty], (height) => toFixed(height, 1)),
       }),
       {
         font: new PhetFont(14),
