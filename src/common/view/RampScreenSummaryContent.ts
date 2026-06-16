@@ -7,7 +7,7 @@
  * derived from the model so a screen-reader user can re-read the situation
  * (object, ramp angle, applied force, speed) at any time.
  *
- * Follows the OpenPhysics accessibility convention; see ../../../ACCESSIBILITY.md
+ * Follows the OpenPhysics accessibility convention; see ../../../Baton/ACCESSIBILITY.md
  * and the canonical TemplateSingleSim/SimScreenSummaryContent.ts.
  */
 

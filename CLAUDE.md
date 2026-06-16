@@ -35,7 +35,7 @@ both screens. Run `npm run verify` for the automated gate. See
 
 ## Accessibility
 
-Follows the shared [OpenPhysics accessibility convention](https://github.com/OpenPhysics/OpenPhysics/blob/main/ACCESSIBILITY.md).
+Follows the shared [OpenPhysics accessibility convention](https://github.com/OpenPhysics/Baton/blob/main/ACCESSIBILITY.md).
 `RampScreenView` registers `RampScreenSummaryContent` (live current-details derived from the
 model) and sets an explicit `pdomOrder`; the draggable `BlockNode` is keyboard-operable via a
 `KeyboardListener` (arrow keys push the object). A11y strings live under the `a11y` key in each

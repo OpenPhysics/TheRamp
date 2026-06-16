@@ -127,7 +127,7 @@ export class StringManager {
   /**
    * Accessibility (Interactive Description) StringProperties: screen-summary
    * regions, the live current-details template, and per-control names/help text.
-   * See ../../ACCESSIBILITY.md for the shared convention.
+   * See ../../../Baton/ACCESSIBILITY.md for the shared convention.
    */
   public getA11yStrings(): typeof stringProperties.a11y {
     return stringProperties.a11y;
