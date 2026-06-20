@@ -290,19 +290,29 @@ export class RampModel implements TimeSeriesClient {
   }
 
   private setupInputListeners(): void {
+    this.setupForceParameterListeners();
+    this.setupPositionListener();
+    this.setupObjectSelectionListener();
+    this.setupFrictionlessListener();
+  }
+
+  /** Angle, applied force, mass, frictions, and zero-point all re-derive forces immediately. */
+  private setupForceParameterListeners(): void {
     const onForcesOnly = (): void => {
       if (!this.isWritingState) {
         this.setupForcesOnly();
       }
     };
-
     this.rampAngleProperty.lazyLink(onForcesOnly);
     this.appliedForceProperty.lazyLink(onForcesOnly);
     this.massProperty.lazyLink(onForcesOnly);
     this.staticFrictionProperty.lazyLink(onForcesOnly);
     this.kineticFrictionProperty.lazyLink(onForcesOnly);
     this.zeroPointYProperty.lazyLink(onForcesOnly);
+  }
 
+  /** Position slider: translate 1D arc-length → surface + positionInSurface. */
+  private setupPositionListener(): void {
     this.globalPositionProperty.lazyLink((value) => {
       if (this.isWritingState) {
         return;
@@ -317,13 +327,17 @@ export class RampModel implements TimeSeriesClient {
       }
       this.setupForcesOnly();
     });
+  }
 
+  /** Object picker: propagate the selected object's mass and friction coefficients. */
+  private setupObjectSelectionListener(): void {
     this.selectedObjectProperty.lazyLink((obj) => {
       if (this.isWritingState) {
         return;
       }
       this.massProperty.value = obj.mass;
       if (this.frictionlessProperty.value) {
+        // Keep the saved coefficients in sync so restoring friction picks up the new object's values.
         this.savedStaticFriction = obj.staticFriction;
         this.savedKineticFriction = obj.kineticFriction;
       } else {
@@ -331,7 +345,10 @@ export class RampModel implements TimeSeriesClient {
         this.kineticFrictionProperty.value = obj.kineticFriction;
       }
     });
+  }
 
+  /** Frictionless toggle: swap coefficients to/from zero, preserving the originals. */
+  private setupFrictionlessListener(): void {
     this.frictionlessProperty.lazyLink((frictionless) => {
       if (this.isWritingState) {
         return;
