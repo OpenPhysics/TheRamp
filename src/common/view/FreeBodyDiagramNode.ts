@@ -121,12 +121,12 @@ export class FreeBodyDiagramNode extends AccordionBox {
 
     new Multilink(
       [
-        model.appliedParallelProperty,
-        model.gravityParallelProperty,
-        model.frictionParallelProperty,
-        model.wallParallelProperty,
-        model.netParallelProperty,
-        model.normalPerpendicularProperty,
+        model.forces.appliedParallelProperty,
+        model.forces.gravityParallelProperty,
+        model.forces.frictionParallelProperty,
+        model.forces.wallParallelProperty,
+        model.forces.netParallelProperty,
+        model.forces.normalPerpendicularProperty,
         model.massProperty,
         model.surfaceProperty,
         model.rampAngleProperty,

@@ -35,25 +35,25 @@ function createEnergySeries(model: RampModel): SeriesDescriptor[] {
     {
       labelStringProperty: energyStrings.kineticStringProperty,
       colorProperty: RampColors.kineticEnergyColorProperty,
-      liveProperty: model.kineticEnergyProperty,
+      liveProperty: model.energy.kineticEnergyProperty,
       accessor: getKineticEnergy,
     },
     {
       labelStringProperty: energyStrings.potentialStringProperty,
       colorProperty: RampColors.potentialEnergyColorProperty,
-      liveProperty: model.potentialEnergyProperty,
+      liveProperty: model.energy.potentialEnergyProperty,
       accessor: getPotentialEnergy,
     },
     {
       labelStringProperty: energyStrings.thermalStringProperty,
       colorProperty: RampColors.thermalEnergyColorProperty,
-      liveProperty: model.thermalEnergyProperty,
+      liveProperty: model.energy.thermalEnergyProperty,
       accessor: (s) => s.thermalEnergy,
     },
     {
       labelStringProperty: energyStrings.totalStringProperty,
       colorProperty: RampColors.totalEnergyColorProperty,
-      liveProperty: model.totalEnergyProperty,
+      liveProperty: model.energy.totalEnergyProperty,
       accessor: getTotalEnergy,
     },
   ];
@@ -66,25 +66,25 @@ function createWorkSeries(model: RampModel): SeriesDescriptor[] {
     {
       labelStringProperty: workStrings.appliedStringProperty,
       colorProperty: RampColors.appliedWorkColorProperty,
-      liveProperty: model.appliedWorkProperty,
+      liveProperty: model.energy.appliedWorkProperty,
       accessor: (s) => s.appliedWork,
     },
     {
       labelStringProperty: workStrings.gravityStringProperty,
       colorProperty: RampColors.gravityWorkColorProperty,
-      liveProperty: model.gravityWorkProperty,
+      liveProperty: model.energy.gravityWorkProperty,
       accessor: (s) => s.gravityWork,
     },
     {
       labelStringProperty: workStrings.frictionStringProperty,
       colorProperty: RampColors.frictionWorkColorProperty,
-      liveProperty: model.frictiveWorkProperty,
+      liveProperty: model.energy.frictiveWorkProperty,
       accessor: (s) => s.frictiveWork,
     },
     {
       labelStringProperty: workStrings.totalStringProperty,
       colorProperty: RampColors.totalWorkColorProperty,
-      liveProperty: model.totalWorkProperty,
+      liveProperty: model.energy.totalWorkProperty,
       accessor: getTotalWork,
     },
   ];
@@ -97,25 +97,25 @@ function createParallelForceSeries(model: RampModel): SeriesDescriptor[] {
     {
       labelStringProperty: forceStrings.appliedStringProperty,
       colorProperty: RampColors.appliedForceColorProperty,
-      liveProperty: model.appliedParallelProperty,
+      liveProperty: model.forces.appliedParallelProperty,
       accessor: (s) => s.appliedParallel,
     },
     {
       labelStringProperty: forceStrings.frictionStringProperty,
       colorProperty: RampColors.frictionForceColorProperty,
-      liveProperty: model.frictionParallelProperty,
+      liveProperty: model.forces.frictionParallelProperty,
       accessor: (s) => s.frictionParallel,
     },
     {
       labelStringProperty: forceStrings.gravityStringProperty,
       colorProperty: RampColors.gravityForceColorProperty,
-      liveProperty: model.gravityParallelProperty,
+      liveProperty: model.forces.gravityParallelProperty,
       accessor: (s) => s.gravityParallel,
     },
     {
       labelStringProperty: forceStrings.wallStringProperty,
       colorProperty: RampColors.wallForceColorProperty,
-      liveProperty: model.wallParallelProperty,
+      liveProperty: model.forces.wallParallelProperty,
       accessor: (s) => s.wallParallel,
     },
   ];
