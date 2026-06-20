@@ -41,7 +41,7 @@ export class RampSurfaceNode extends Node {
     this.translation = WORLD_VIEW_ORIGIN;
 
     const heatFillProperty = new DerivedProperty(
-      [model.thermalEnergyProperty, RampColors.rampSurfaceColorProperty, RampColors.rampSurfaceHotColorProperty],
+      [model.energy.thermalEnergyProperty, RampColors.rampSurfaceColorProperty, RampColors.rampSurfaceHotColorProperty],
       (thermal, cold, hot) => Color.interpolateRGBA(cold, hot, clamp(thermal / OVERHEAT_THERMAL_ENERGY, 0, 1)),
     );
 

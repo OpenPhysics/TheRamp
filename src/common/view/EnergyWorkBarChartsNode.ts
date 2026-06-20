@@ -35,35 +35,35 @@ export class EnergyWorkBarChartsNode extends HBox {
       accessibleName: StringManager.getInstance().getA11yStrings().controls.clearThermalStringProperty,
       tandem: Tandem.OPT_OUT,
     });
-    model.thermalEnergyProperty.link((value) => {
+    model.energy.thermalEnergyProperty.link((value) => {
       clearThermalButton.enabled = value > 0;
       clearThermalButton.pickable = value > 0;
     });
 
     const kineticEntry = {
       colorProperty: RampColors.kineticEnergyColorProperty,
-      valueProperty: model.kineticEnergyProperty,
+      valueProperty: model.energy.kineticEnergyProperty,
     };
     const potentialEntry = {
       colorProperty: RampColors.potentialEnergyColorProperty,
-      valueProperty: model.potentialEnergyProperty,
+      valueProperty: model.energy.potentialEnergyProperty,
     };
     const thermalEntry = {
       colorProperty: RampColors.thermalEnergyColorProperty,
-      valueProperty: model.thermalEnergyProperty,
+      valueProperty: model.energy.thermalEnergyProperty,
     };
 
     const appliedEntry = {
       colorProperty: RampColors.appliedWorkColorProperty,
-      valueProperty: model.appliedWorkProperty,
+      valueProperty: model.energy.appliedWorkProperty,
     };
     const gravityEntry = {
       colorProperty: RampColors.gravityWorkColorProperty,
-      valueProperty: model.gravityWorkProperty,
+      valueProperty: model.energy.gravityWorkProperty,
     };
     const frictionEntry = {
       colorProperty: RampColors.frictionWorkColorProperty,
-      valueProperty: model.frictiveWorkProperty,
+      valueProperty: model.energy.frictiveWorkProperty,
     };
 
     const energyBox = new BarChartAccordionBox({

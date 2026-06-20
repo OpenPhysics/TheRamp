@@ -34,13 +34,14 @@ import {
   getKineticEnergy,
   getPotentialEnergy,
   getTotalEnergy,
-  getTotalWork,
   type RampPhysicsState,
   type SurfaceId,
   setupForces,
   stepPhysics,
   withGlobalPosition,
 } from "./RampPhysicsEngine.js";
+import { RampEnergyModel } from "./RampEnergyModel.js";
+import { RampForcesModel } from "./RampForcesModel.js";
 import { type TimeSeriesClient, TimeSeriesModel } from "./TimeSeriesModel.js";
 import { VectorVisibilityModel } from "./VectorVisibilityModel.js";
 
@@ -89,21 +90,11 @@ export class RampModel implements TimeSeriesClient {
   public readonly velocityProperty = new NumberProperty(initialState.velocity);
   public readonly accelerationProperty = new NumberProperty(initialState.acceleration);
 
-  public readonly appliedParallelProperty = new NumberProperty(initialState.appliedParallel);
-  public readonly gravityParallelProperty = new NumberProperty(initialState.gravityParallel);
-  public readonly frictionParallelProperty = new NumberProperty(initialState.frictionParallel);
-  public readonly wallParallelProperty = new NumberProperty(initialState.wallParallel);
-  public readonly netParallelProperty = new NumberProperty(initialState.netParallel);
-  public readonly normalPerpendicularProperty = new NumberProperty(initialState.normalPerpendicular);
+  /** Grouped force output properties: applied, gravity, friction, wall, net (parallel) + normal (perpendicular). */
+  public readonly forces = new RampForcesModel();
 
-  public readonly kineticEnergyProperty = new NumberProperty(getKineticEnergy(initialState));
-  public readonly potentialEnergyProperty = new NumberProperty(getPotentialEnergy(initialState));
-  public readonly thermalEnergyProperty = new NumberProperty(initialState.thermalEnergy);
-  public readonly totalEnergyProperty = new NumberProperty(getTotalEnergy(initialState));
-  public readonly appliedWorkProperty = new NumberProperty(initialState.appliedWork);
-  public readonly gravityWorkProperty = new NumberProperty(initialState.gravityWork);
-  public readonly frictiveWorkProperty = new NumberProperty(initialState.frictiveWork);
-  public readonly totalWorkProperty = new NumberProperty(getTotalWork(initialState));
+  /** Grouped energy/work output properties: KE, PE, thermal, total energy + applied/gravity/fractive/total work. */
+  public readonly energy = new RampEnergyModel();
 
   public readonly blockLocationProperty = new DerivedProperty(
     [this.surfaceProperty, this.positionInSurfaceProperty, this.rampAngleProperty],
@@ -186,16 +177,13 @@ export class RampModel implements TimeSeriesClient {
     const s = setupForces(this.buildCurrentState());
     this.isWritingState = true;
     try {
-      this.appliedParallelProperty.value = s.appliedParallel;
-      this.gravityParallelProperty.value = s.gravityParallel;
-      this.frictionParallelProperty.value = s.frictionParallel;
-      this.wallParallelProperty.value = s.wallParallel;
-      this.netParallelProperty.value = s.netParallel;
-      this.normalPerpendicularProperty.value = s.normalPerpendicular;
+      this.forces.set(s);
       this.accelerationProperty.value = s.acceleration;
-      this.kineticEnergyProperty.value = getKineticEnergy(s);
-      this.potentialEnergyProperty.value = getPotentialEnergy(s);
-      this.totalEnergyProperty.value = getTotalEnergy(s);
+      // Thermal energy and work accumulators are unchanged by a static force
+      // recompute; only the instantaneous energy terms update here.
+      this.energy.kineticEnergyProperty.value = getKineticEnergy(s);
+      this.energy.potentialEnergyProperty.value = getPotentialEnergy(s);
+      this.energy.totalEnergyProperty.value = getTotalEnergy(s);
     } finally {
       this.isWritingState = false;
     }
@@ -270,39 +258,37 @@ export class RampModel implements TimeSeriesClient {
       this.velocityProperty.value = state.velocity;
       this.accelerationProperty.value = state.acceleration;
       this.globalPositionProperty.value = getGlobalPosition(state);
-      this.appliedParallelProperty.value = state.appliedParallel;
-      this.gravityParallelProperty.value = state.gravityParallel;
-      this.frictionParallelProperty.value = state.frictionParallel;
-      this.wallParallelProperty.value = state.wallParallel;
-      this.netParallelProperty.value = state.netParallel;
-      this.normalPerpendicularProperty.value = state.normalPerpendicular;
-      this.kineticEnergyProperty.value = getKineticEnergy(state);
-      this.potentialEnergyProperty.value = getPotentialEnergy(state);
-      this.thermalEnergyProperty.value = state.thermalEnergy;
-      this.totalEnergyProperty.value = getTotalEnergy(state);
-      this.appliedWorkProperty.value = state.appliedWork;
-      this.gravityWorkProperty.value = state.gravityWork;
-      this.frictiveWorkProperty.value = state.frictiveWork;
-      this.totalWorkProperty.value = getTotalWork(state);
+      this.forces.set(state);
+      this.energy.setAll(state);
     } finally {
       this.isWritingState = false;
     }
   }
 
   private setupInputListeners(): void {
+    this.setupForceParameterListeners();
+    this.setupPositionListener();
+    this.setupObjectSelectionListener();
+    this.setupFrictionlessListener();
+  }
+
+  /** Angle, applied force, mass, frictions, and zero-point all re-derive forces immediately. */
+  private setupForceParameterListeners(): void {
     const onForcesOnly = (): void => {
       if (!this.isWritingState) {
         this.setupForcesOnly();
       }
     };
-
     this.rampAngleProperty.lazyLink(onForcesOnly);
     this.appliedForceProperty.lazyLink(onForcesOnly);
     this.massProperty.lazyLink(onForcesOnly);
     this.staticFrictionProperty.lazyLink(onForcesOnly);
     this.kineticFrictionProperty.lazyLink(onForcesOnly);
     this.zeroPointYProperty.lazyLink(onForcesOnly);
+  }
 
+  /** Position slider: translate 1D arc-length → surface + positionInSurface. */
+  private setupPositionListener(): void {
     this.globalPositionProperty.lazyLink((value) => {
       if (this.isWritingState) {
         return;
@@ -317,13 +303,17 @@ export class RampModel implements TimeSeriesClient {
       }
       this.setupForcesOnly();
     });
+  }
 
+  /** Object picker: propagate the selected object's mass and friction coefficients. */
+  private setupObjectSelectionListener(): void {
     this.selectedObjectProperty.lazyLink((obj) => {
       if (this.isWritingState) {
         return;
       }
       this.massProperty.value = obj.mass;
       if (this.frictionlessProperty.value) {
+        // Keep the saved coefficients in sync so restoring friction picks up the new object's values.
         this.savedStaticFriction = obj.staticFriction;
         this.savedKineticFriction = obj.kineticFriction;
       } else {
@@ -331,7 +321,10 @@ export class RampModel implements TimeSeriesClient {
         this.kineticFrictionProperty.value = obj.kineticFriction;
       }
     });
+  }
 
+  /** Frictionless toggle: swap coefficients to/from zero, preserving the originals. */
+  private setupFrictionlessListener(): void {
     this.frictionlessProperty.lazyLink((frictionless) => {
       if (this.isWritingState) {
         return;

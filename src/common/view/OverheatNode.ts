@@ -37,7 +37,7 @@ export class OverheatNode extends VBox {
     });
 
     this.visibleProperty = new DerivedProperty(
-      [model.thermalEnergyProperty],
+      [model.energy.thermalEnergyProperty],
       (thermalEnergy) => thermalEnergy >= OVERHEAT_THERMAL_ENERGY,
     );
   }

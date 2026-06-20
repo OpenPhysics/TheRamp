@@ -20,6 +20,41 @@ import { ObjectSelectionPanel } from "./ObjectSelectionPanel.js";
 import type { RampScreenViewFeatures } from "./RampScreenView.js";
 
 const LABEL_FONT = new PhetFont(13);
+
+/**
+ * Creates a NumberProperty that bidirectionally syncs with a model property
+ * via optional unit-conversion transforms. Handles range clamping on both ends,
+ * so callers don't need a local `syncing` flag or duplicate lazyLink boilerplate.
+ *
+ * @param modelProperty - the authoritative source-of-truth property on the model
+ * @param range - display range for the adapter (clamped on both read and write)
+ * @param toAdapter - transforms a model value to the display domain (default: identity)
+ * @param toModel - transforms a display value back to the model domain (default: identity)
+ */
+function createAdaptedNumberProperty(
+  modelProperty: NumberProperty,
+  range: Range,
+  toAdapter: (modelValue: number) => number = (v) => v,
+  toModel: (adapterValue: number) => number = (v) => v,
+): NumberProperty {
+  const adapterProperty = new NumberProperty(clamp(toAdapter(modelProperty.value), range.min, range.max), { range });
+  let syncing = false;
+  adapterProperty.lazyLink((value) => {
+    if (!syncing) {
+      syncing = true;
+      modelProperty.value = toModel(value);
+      syncing = false;
+    }
+  });
+  modelProperty.lazyLink((value) => {
+    if (!syncing) {
+      syncing = true;
+      adapterProperty.value = clamp(toAdapter(value), range.min, range.max);
+      syncing = false;
+    }
+  });
+  return adapterProperty;
+}
 const TITLE_FONT = new PhetFont({ size: 14, weight: "bold" });
 const SECTION_TITLE_FONT = new PhetFont({ size: 12, weight: "bold" });
 
@@ -58,53 +93,19 @@ function createNumberControl(
 
 function createAngleControl(model: RampModel): NumberControl {
   const controls = StringManager.getInstance().getControlStrings();
-
-  const angleDegreesProperty = new NumberProperty((model.rampAngleProperty.value * 180) / Math.PI, {
-    range: new Range(0, 90),
-  });
-
-  let syncing = false;
-  angleDegreesProperty.lazyLink((degrees) => {
-    if (!syncing) {
-      syncing = true;
-      model.rampAngleProperty.value = (degrees * Math.PI) / 180;
-      syncing = false;
-    }
-  });
-  model.rampAngleProperty.lazyLink((radians) => {
-    if (!syncing) {
-      syncing = true;
-      angleDegreesProperty.value = (radians * 180) / Math.PI;
-      syncing = false;
-    }
-  });
-
-  return createNumberControl(controls.rampAngleStringProperty, angleDegreesProperty, new Range(0, 90), 0);
+  const ANGLE_DISPLAY_RANGE = new Range(0, 90);
+  const angleDegreesProperty = createAdaptedNumberProperty(
+    model.rampAngleProperty,
+    ANGLE_DISPLAY_RANGE,
+    (rad) => (rad * 180) / Math.PI,
+    (deg) => (deg * Math.PI) / 180,
+  );
+  return createNumberControl(controls.rampAngleStringProperty, angleDegreesProperty, ANGLE_DISPLAY_RANGE, 0);
 }
 
 function createMassControl(model: RampModel): NumberControl {
   const controls = StringManager.getInstance().getControlStrings();
-
-  const massAdapterProperty = new NumberProperty(clamp(model.massProperty.value, MASS_RANGE.min, MASS_RANGE.max), {
-    range: MASS_RANGE,
-  });
-
-  let syncing = false;
-  massAdapterProperty.lazyLink((mass) => {
-    if (!syncing) {
-      syncing = true;
-      model.massProperty.value = mass;
-      syncing = false;
-    }
-  });
-  model.massProperty.lazyLink((mass) => {
-    if (!syncing) {
-      syncing = true;
-      massAdapterProperty.value = clamp(mass, MASS_RANGE.min, MASS_RANGE.max);
-      syncing = false;
-    }
-  });
-
+  const massAdapterProperty = createAdaptedNumberProperty(model.massProperty, MASS_RANGE);
   return createNumberControl(controls.massStringProperty, massAdapterProperty, MASS_RANGE, 0);
 }
 

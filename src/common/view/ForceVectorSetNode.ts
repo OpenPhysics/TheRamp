@@ -35,12 +35,12 @@ export function getForceVectors(model: RampModel): Record<ForceId, Vector2> {
   const mass = model.massProperty.value;
 
   return {
-    applied: uHat.times(model.appliedParallelProperty.value),
+    applied: uHat.times(model.forces.appliedParallelProperty.value),
     gravity: new Vector2(0, -mass * GRAVITY),
-    normal: nHat.times(model.normalPerpendicularProperty.value),
-    friction: uHat.times(model.frictionParallelProperty.value),
-    wall: uHat.times(model.wallParallelProperty.value),
-    total: uHat.times(model.netParallelProperty.value),
+    normal: nHat.times(model.forces.normalPerpendicularProperty.value),
+    friction: uHat.times(model.forces.frictionParallelProperty.value),
+    wall: uHat.times(model.forces.wallParallelProperty.value),
+    total: uHat.times(model.forces.netParallelProperty.value),
   };
 }
 
@@ -133,12 +133,12 @@ export class ForceVectorSetNode extends Node {
 
     new Multilink(
       [
-        model.appliedParallelProperty,
-        model.gravityParallelProperty,
-        model.frictionParallelProperty,
-        model.wallParallelProperty,
-        model.netParallelProperty,
-        model.normalPerpendicularProperty,
+        model.forces.appliedParallelProperty,
+        model.forces.gravityParallelProperty,
+        model.forces.frictionParallelProperty,
+        model.forces.wallParallelProperty,
+        model.forces.netParallelProperty,
+        model.forces.normalPerpendicularProperty,
         model.massProperty,
         model.surfaceProperty,
         model.rampAngleProperty,
