@@ -24,6 +24,8 @@ import {
   POSITION_RANGE,
   RAMP_LENGTH,
 } from "../RampConstants.js";
+import { RampEnergyModel } from "./RampEnergyModel.js";
+import { RampForcesModel } from "./RampForcesModel.js";
 import { RAMP_OBJECTS, type RampObjectDescription } from "./RampObjectDescription.js";
 import {
   type CollisionInfo,
@@ -40,8 +42,6 @@ import {
   stepPhysics,
   withGlobalPosition,
 } from "./RampPhysicsEngine.js";
-import { RampEnergyModel } from "./RampEnergyModel.js";
-import { RampForcesModel } from "./RampForcesModel.js";
 import { type TimeSeriesClient, TimeSeriesModel } from "./TimeSeriesModel.js";
 import { VectorVisibilityModel } from "./VectorVisibilityModel.js";
 

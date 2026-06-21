@@ -45,8 +45,13 @@ export class RampSurfaceNode extends Node {
       (thermal, cold, hot) => Color.interpolateRGBA(cold, hot, clamp(thermal / OVERHEAT_THERMAL_ENERGY, 0, 1)),
     );
 
+    // The board's TOP edge lies on the model surface line (y = 0); its thickness
+    // extends downward into the supporting wedge. This keeps the walking surface
+    // the block rides on continuous with the ground line at the hinge — drawing
+    // the board on top of the surface line instead left a board-thickness step
+    // (the "kink") at the base of the ramp.
     const boardLength = RAMP_LENGTH * MODEL_VIEW_SCALE;
-    const board = new Rectangle(0, -RAMP_BOARD_THICKNESS, boardLength, RAMP_BOARD_THICKNESS, {
+    const board = new Rectangle(0, 0, boardLength, RAMP_BOARD_THICKNESS, {
       lineWidth: 1,
       cursor: "pointer",
       fill: heatFillProperty,
@@ -58,7 +63,7 @@ export class RampSurfaceNode extends Node {
 
     const topBarrier = new BarrierNode();
     topBarrier.right = boardLength;
-    topBarrier.bottom = -RAMP_BOARD_THICKNESS;
+    topBarrier.bottom = 0;
     board.addChild(topBarrier);
 
     board.addInputListener(

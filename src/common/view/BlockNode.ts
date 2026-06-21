@@ -11,7 +11,7 @@ import { RampImages } from "../../assets/images.js";
 import { StringManager } from "../../i18n/StringManager.js";
 import type { RampModel } from "../model/RampModel.js";
 import type { RampObjectDescription } from "../model/RampObjectDescription.js";
-import { APPLIED_FORCE_PER_PIXEL, APPLIED_FORCE_RANGE, RAMP_BOARD_THICKNESS } from "../RampConstants.js";
+import { APPLIED_FORCE_PER_PIXEL, APPLIED_FORCE_RANGE } from "../RampConstants.js";
 
 export class BlockNode extends Node {
   public constructor(model: RampModel, modelViewTransform: ModelViewTransform2) {
@@ -47,12 +47,15 @@ export class BlockNode extends Node {
     let selectedObject: RampObjectDescription = model.selectedObjectProperty.value;
 
     const applyObjectPlacement = (): void => {
-      const surfaceTopOffset = model.surfaceProperty.value === "ramp" ? -RAMP_BOARD_THICKNESS : 0;
+      // The block sits directly on the surface line on both ground and ramp. The
+      // ramp board's thickness now extends below that line (see SurfaceNode), so
+      // no board-thickness lift is applied here — lifting only on the ramp left a
+      // step in the block's contact at the base of the ramp.
       const skateboardVisible = skateboardImage.visible;
-      skateboardImage.bottom = surfaceTopOffset;
+      skateboardImage.bottom = 0;
       skateboardImage.centerX = 0;
       objectImage.centerX = 0;
-      objectImage.bottom = skateboardVisible ? skateboardImage.top + 4 : surfaceTopOffset + selectedObject.yOffset;
+      objectImage.bottom = skateboardVisible ? skateboardImage.top + 4 : selectedObject.yOffset;
     };
 
     const applyObjectScale = (): void => {
