@@ -21,7 +21,11 @@ import { ForceVectorSetNode } from "./ForceVectorSetNode.js";
 import { SkyAndGroundNode } from "./SkyAndGroundNode.js";
 import { GroundSurfaceNode, RampSurfaceNode } from "./SurfaceNode.js";
 
-const BLOCK_TAIL_LIFT = 30;
+// Distance (px) along the surface normal from the block's contact point up to
+// its vertical center, where the force vectors emanate from. The block now rides
+// directly on the surface line on both ground and ramp (see BlockNode), so it
+// sits one board thickness lower than before; this lift drops by the same amount.
+const BLOCK_TAIL_LIFT = 18;
 
 export class RampSceneNode extends Node {
   public readonly modelViewTransform: ModelViewTransform2;
