@@ -5,7 +5,8 @@
  */
 import { DerivedProperty } from "scenerystack/axon";
 import { clamp } from "scenerystack/dot";
-import { Color, DragListener, Line, Node, Rectangle } from "scenerystack/scenery";
+import { Shape } from "scenerystack/kite";
+import { Color, DragListener, Line, Node, Path } from "scenerystack/scenery";
 import { StringManager } from "../../i18n/StringManager.js";
 import RampColors from "../../RampColors.js";
 import type { RampModel } from "../model/RampModel.js";
@@ -46,7 +47,7 @@ export class RampSurfaceNode extends Node {
     );
 
     const boardLength = RAMP_LENGTH * MODEL_VIEW_SCALE;
-    const board = new Rectangle(0, -RAMP_BOARD_THICKNESS, boardLength, RAMP_BOARD_THICKNESS, {
+    const board = new Path(null, {
       lineWidth: 1,
       cursor: "pointer",
       fill: heatFillProperty,
@@ -75,6 +76,19 @@ export class RampSurfaceNode extends Node {
     this.addChild(board);
 
     model.rampAngleProperty.link((angle) => {
+      // Plumb-cut the board's lower end so it stays flush with the hinge. With a
+      // square (perpendicular) end, the board's top corner swings out past the
+      // hinge as the ramp tilts, overhanging the ground and producing a small
+      // kink at the base. Trimming the lower corner to a vertical face removes it.
+      // (At angle 0 the cut vanishes and the board is the original rectangle.)
+      const cutX = Math.min(RAMP_BOARD_THICKNESS * Math.tan(angle), boardLength);
+      board.shape = new Shape()
+        .moveTo(0, 0)
+        .lineTo(boardLength, 0)
+        .lineTo(boardLength, -RAMP_BOARD_THICKNESS)
+        .lineTo(cutX, -RAMP_BOARD_THICKNESS)
+        .close();
+
       this.rotation = -angle;
     });
   }
