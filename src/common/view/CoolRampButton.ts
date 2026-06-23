@@ -4,7 +4,7 @@
  * Round icon button for clearing thermal energy (cooling the ramp).
  */
 import { Shape } from "scenerystack/kite";
-import type { StrictOmit } from "scenerystack/phet-core";
+import { type EmptySelfOptions, optionize, type StrictOmit } from "scenerystack/phet-core";
 import { Path } from "scenerystack/scenery";
 import { RoundPushButton, type RoundPushButtonOptions } from "scenerystack/sun";
 import { Tandem } from "scenerystack/tandem";
@@ -33,11 +33,15 @@ export class CoolRampButton extends RoundPushButton {
   public constructor(providedOptions?: CoolRampButtonOptions) {
     const radius = providedOptions?.radius ?? DEFAULT_RADIUS;
 
-    super({
-      radius,
-      content: createSnowflakeIcon(radius),
-      tandem: Tandem.OPT_OUT,
-      ...providedOptions,
-    });
+    const options = optionize<CoolRampButtonOptions, EmptySelfOptions, RoundPushButtonOptions>()(
+      {
+        radius,
+        content: createSnowflakeIcon(radius),
+        tandem: Tandem.OPT_OUT,
+      },
+      providedOptions,
+    );
+
+    super(options);
   }
 }

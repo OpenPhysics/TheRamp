@@ -5,6 +5,7 @@
  * together the model and view factories and passes screen-level options (name,
  * background color, tandem) to the parent Screen class.
  */
+import { type EmptySelfOptions, optionize } from "scenerystack/phet-core";
 import type { ScreenOptions } from "scenerystack/sim";
 import { Screen } from "scenerystack/sim";
 import type { Tandem } from "scenerystack/tandem";
@@ -28,12 +29,14 @@ export class MoreFeaturesScreen extends Screen<MoreFeaturesModel, MoreFeaturesSc
         new MoreFeaturesScreenView(model, {
           tandem: options.tandem.createTandem("view"),
         }),
-      {
-        backgroundColorProperty: RampColors.backgroundColorProperty,
-        createKeyboardHelpNode: () => new RampKeyboardHelpContent(),
-        homeScreenIcon: createMoreFeaturesScreenIcon(),
-        ...options,
-      },
+      optionize<MoreFeaturesScreenOptions, EmptySelfOptions, ScreenOptions>()(
+        {
+          backgroundColorProperty: RampColors.backgroundColorProperty,
+          createKeyboardHelpNode: () => new RampKeyboardHelpContent(),
+          homeScreenIcon: createMoreFeaturesScreenIcon(),
+        },
+        options,
+      ),
     );
   }
 }

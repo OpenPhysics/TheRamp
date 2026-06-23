@@ -4,7 +4,7 @@
  * Round play-icon button for starting time-series playback.
  */
 
-import type { StrictOmit } from "scenerystack/phet-core";
+import { type EmptySelfOptions, optionize, type StrictOmit } from "scenerystack/phet-core";
 import { Path } from "scenerystack/scenery";
 import { PlayIconShape } from "scenerystack/scenery-phet";
 import { RoundPushButton, type RoundPushButtonOptions } from "scenerystack/sun";
@@ -27,11 +27,15 @@ export class PlaybackButton extends RoundPushButton {
   public constructor(providedOptions?: PlaybackButtonOptions) {
     const radius = providedOptions?.radius ?? DEFAULT_RADIUS;
 
-    super({
-      radius,
-      content: createPlayIcon(radius),
-      tandem: Tandem.OPT_OUT,
-      ...providedOptions,
-    });
+    const options = optionize<PlaybackButtonOptions, EmptySelfOptions, RoundPushButtonOptions>()(
+      {
+        radius,
+        content: createPlayIcon(radius),
+        tandem: Tandem.OPT_OUT,
+      },
+      providedOptions,
+    );
+
+    super(options);
   }
 }

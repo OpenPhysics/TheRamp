@@ -4,7 +4,7 @@
  * Round record-icon button for starting time-series recording.
  */
 
-import type { StrictOmit } from "scenerystack/phet-core";
+import { type EmptySelfOptions, optionize, type StrictOmit } from "scenerystack/phet-core";
 import { Circle } from "scenerystack/scenery";
 import { PhetColorScheme } from "scenerystack/scenery-phet";
 import { RoundPushButton, type RoundPushButtonOptions } from "scenerystack/sun";
@@ -25,13 +25,17 @@ export class RecordButton extends RoundPushButton {
   public constructor(providedOptions?: RecordButtonOptions) {
     const radius = providedOptions?.radius ?? DEFAULT_RADIUS;
 
-    super({
-      radius,
-      xMargin: (radius * 16.5) / 30,
-      yMargin: (radius * 16.5) / 30,
-      content: createRecordIcon(radius),
-      tandem: Tandem.OPT_OUT,
-      ...providedOptions,
-    });
+    const options = optionize<RecordButtonOptions, EmptySelfOptions, RoundPushButtonOptions>()(
+      {
+        radius,
+        xMargin: (radius * 16.5) / 30,
+        yMargin: (radius * 16.5) / 30,
+        content: createRecordIcon(radius),
+        tandem: Tandem.OPT_OUT,
+      },
+      providedOptions,
+    );
+
+    super(options);
   }
 }
