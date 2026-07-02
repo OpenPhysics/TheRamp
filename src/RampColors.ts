@@ -209,6 +209,12 @@ const RampColors = {
     default: "#3399FF",
     projector: "#1F66B5",
   }),
+
+  /** Translucent fill of the pie-sector arc showing the current ramp angle. */
+  angleArcFillColorProperty: new ProfileColorProperty(RampNamespace, "angleArcFill", {
+    default: "rgba(255,255,255,0.18)",
+    projector: "rgba(0,0,0,0.10)",
+  }),
 };
 
 export default RampColors;

@@ -60,7 +60,7 @@ export class RampSceneNode extends Node {
     const angleArcNode = new Path(null, {
       stroke: RampColors.readoutTextColorProperty,
       lineWidth: 1.5,
-      fill: "rgba(255,255,255,0.18)",
+      fill: RampColors.angleArcFillColorProperty,
     });
 
     const rampSurfaceNode = new RampSurfaceNode(model);

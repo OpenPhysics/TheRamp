@@ -33,6 +33,13 @@ both screens. Run `npm run verify` for the automated gate. See
 | `src/more-features/view/MoreFeaturesScreenView.ts` | More Features visual nodes and layout |
 | `scripts/generate-icons.ts` | PNG icons from `public/icons/icon.svg` |
 
+## Documented deviations (CONVENTIONS.md §2)
+
+- **Constants are nested, not at `src/` root:** shared layout/panel values live in
+  `src/common/RampConstants.ts` and physics values in `src/common/model/RampPhysicsConstants.ts`,
+  next to their consumers. There is deliberately no root `RampConstants.ts`.
+- **`src/assets/`** holds bundled images/audio plus the `images.ts` manifest (extra root folder).
+
 ## Accessibility
 
 Follows the shared [OpenPhysics accessibility convention](https://github.com/OpenPhysics/Baton/blob/main/ACCESSIBILITY.md).
