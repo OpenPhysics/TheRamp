@@ -11,12 +11,16 @@ The sim has two screens, mirroring the original Java modules:
 
 ## Features
 
-- Two-screen SceneryStack scaffold with per-screen model/view separation
+- Two screens mirroring the original Java sim: **Introduction** (simple ramp) and **More Features** (advanced ramp)
+- Full ramp physics: friction, applied force, collisions, heat, and energy/work modeling
+- Force vectors, optional free-body diagram, measuring tape, and zero-point PE line (More Features)
+- Collapsible energy/work bar charts and time-series plots; record/playback on More Features
+- Per-screen model/view separation with shared `RampScreenView` layout and feature flags
 - English, French, and Spanish localization via `StringManager`
 - Default and projector color profiles
 - Progressive Web App (installable, offline-capable)
-- Git hooks for Biome pre-commit checks
-- Shared GitHub Actions CI via `OpenPhysics/Baton`
+- Automated verification via `npm run verify` (physics-check scenarios, lint, build)
+- Git hooks for Biome pre-commit checks; shared GitHub Actions CI via `OpenPhysics/Baton`
 
 ## Quick Start
 
