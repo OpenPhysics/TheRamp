@@ -56,6 +56,7 @@ each locale JSON, via `StringManager.getA11yStrings()`.
 
 - **Root constants:** `src/TheRampConstants.ts`; domain-specific `src/common/model/RampPhysicsConstants.ts` stays nested.
 - **`src/assets/`** holds bundled images/audio plus the `images.ts` manifest (extra root folder).
+- **Domain clock:** `TimeSeriesModel` owns record/playback scrubbing instead of composing fleet-standard `TimeModel` (`src/common/TimeModel.ts` is present for shared reference only).
 
 ## Testing
 
