@@ -4,53 +4,58 @@ Sim-specific context for AI assistants. General SceneryStack guidance: [OpenPhys
 
 ## Project
 
-A SceneryStack reimplementation of PhET's Java simulation **The Ramp** (forces on
-an inclined plane). A local `JAVA/` copy may exist but is gitignored).
-
-Two-screen sim, mirroring the Java modules:
+SceneryStack reimplementation of PhET's Java *The Ramp* (forces on an inclined plane). Two screens mirroring the Java modules:
 
 - **Introduction** (`src/intro/`) — Java `SimpleRampModule`
-- **More Features** (`src/more-features/`) — Java `RampModule` (advanced)
+- **More Features** (`src/more-features/`) — Java `RampModule` (charts, record/playback, FBD, measuring tape)
 
-Status: full ramp physics, record/playback, charts, and options-driven views for
-both screens. Run `npm run verify` for the automated gate. See
-`doc/implementation-notes.md` for architecture.
+Physics for educators: `doc/model.md`. Architecture: `doc/implementation-notes.md`.
 
 ## Key files
 
-| File | Purpose |
+| Area | Location |
 |---|---|
-| `src/RampColors.ts` | All `ProfileColorProperty` instances |
-| `src/RampNamespace.ts` | `the-ramp` namespace for color property names |
-| `src/i18n/StringManager.ts` | Singleton localized string accessor |
-| `src/common/view/RampKeyboardHelpContent.ts` | Keyboard-help dialog content (shared by all screens) |
-| `src/common/view/RampScreenSummaryContent.ts` | Accessible screen summary with live current-details (shared by all screens) |
-| `src/intro/IntroScreen.ts` | Introduction screen wrapper |
-| `src/intro/model/IntroModel.ts` | Introduction state and logic |
-| `src/intro/view/IntroScreenView.ts` | Introduction visual nodes and layout |
-| `src/more-features/MoreFeaturesScreen.ts` | More Features screen wrapper |
-| `src/more-features/model/MoreFeaturesModel.ts` | More Features state and logic |
-| `src/more-features/view/MoreFeaturesScreenView.ts` | More Features visual nodes and layout |
-| `scripts/generate-icons.ts` | PNG icons from `public/icons/icon.svg` |
+| Screens | `src/intro/IntroScreen.ts`, `src/more-features/MoreFeaturesScreen.ts` |
+| Shared model | `src/common/model/RampModel.ts`, `RampPhysicsEngine.ts` (pure physics), `RampPhysicsConstants.ts`, `TimeSeriesModel.ts`, `RampEnergyModel.ts`, `RampForcesModel.ts` |
+| Screen models | `src/intro/model/IntroModel.ts`, `src/more-features/model/MoreFeaturesModel.ts` |
+| Shared view | `src/common/view/RampScreenView.ts`, `RampScreenSummaryContent.ts`, `RampKeyboardHelpContent.ts` |
+| Screen views | `src/intro/view/IntroScreenView.ts`, `src/more-features/view/MoreFeaturesScreenView.ts` |
+| Layout constants | `src/common/RampConstants.ts` |
+| Colors / strings | `src/RampColors.ts`, `RampNamespace.ts`, `src/i18n/StringManager.ts` |
+| Icons | `scripts/generate-icons.ts` |
 
-## Documented deviations (CONVENTIONS.md §2)
+## Model
 
-- **Constants are nested, not at `src/` root:** shared layout/panel values live in
-  `src/common/RampConstants.ts` and physics values in `src/common/model/RampPhysicsConstants.ts`,
-  next to their consumers. There is deliberately no root `RampConstants.ts`.
-- **`src/assets/`** holds bundled images/audio plus the `images.ts` manifest (extra root folder).
+`RampPhysicsEngine` is a **zero-dependency pure module** (runs under Node for `scripts/physics-check.ts`). The screen models wrap it with Properties for ramp angle, friction, applied force, record/playback, and energy bookkeeping.
+
+| State / Property | Meaning |
+|---|---|
+| `surface` | `"ground"` \| `"ramp"` — current segment |
+| `positionInSurface` / `velocity` | arc-length position and speed along current surface |
+| `rampAngleProperty` | incline angle (radians) |
+| `staticFriction` / `kineticFriction` | μₛ / μₖ |
+| `appliedForceProperty` | user push/pull parallel to surface |
+| `thermalEnergy` | friction heat accumulator ("Cool Ramp" resets without moving block) |
+
+### Stepping & numerics
+
+- Block moves on a composite **ground + ramp** surface; global position spans 0–21 m.
+- Static friction holds until net parallel force exceeds μₛN; kinetic friction opposes motion at μₖN.
+- Work–energy bookkeeping tracks applied, gravity, and friction work; total energy conserved when thermal is included.
+- More Features adds time-series record/playback and chart sampling via `TimeSeriesModel`.
 
 ## Accessibility
 
 Follows the shared [OpenPhysics accessibility convention](https://github.com/OpenPhysics/Baton/blob/main/ACCESSIBILITY.md).
 `RampScreenView` registers `RampScreenSummaryContent` (live current-details derived from the
-model) and sets an explicit `pdomOrder`; the draggable `BlockNode` is keyboard-operable via a
-`KeyboardListener` (arrow keys push the object). A11y strings live under the `a11y` key in each
-locale JSON, exposed via `StringManager.getA11yStrings()`.
+model) and sets an explicit `pdomOrder` via a wrapper `Node`; the draggable block is
+keyboard-operable via a `KeyboardListener` (arrow keys). A11y strings live under the `a11y` key in
+each locale JSON, via `StringManager.getA11yStrings()`.
 
 ## Compliance carve-outs
 
-- **Nested constants:** `src/common/model/RampPhysicsConstants.ts` and related layout constants co-located with the ramp model.
+- **Nested constants:** `src/common/model/RampPhysicsConstants.ts` and `src/common/RampConstants.ts` co-located with the ramp model (no root `RampConstants.ts`).
+- **`src/assets/`** holds bundled images/audio plus the `images.ts` manifest (extra root folder).
 
 ## Testing
 
@@ -58,15 +63,26 @@ Fleet-standard Vitest layout:
 
 | Path | Purpose |
 |---|---|
-| `vitest.config.ts` | Test environment + `setupFiles` when present; `execArgv: ["--expose-gc"]` with memory-leak suite |
-| `tests/setup.ts` | Canvas / AudioContext mocks + `init({ name: "…" })` before SceneryStack imports (when required) |
+| `vitest.config.ts` | `happy-dom` environment, `setupFiles`, `execArgv: ["--expose-gc"]` |
+| `tests/setup.ts` | Canvas / AudioContext mocks + `init({ name: "…" })` before SceneryStack imports |
 | `tests/**/*.test.ts` | Model/physics unit tests — mirror `src/` under `tests/` |
 | `tests/memory-leak.test.ts` | WeakRef + `forceGC` dispose regression (fleet pattern) |
 
-- Put unit tests only under root `tests/` (never co-locate or use `__tests__/`).
-- Run `npm test`. CI runs the suite when a `test` script is present.
-- Expand `memory-leak.test.ts` for components that add/remove nodes or link Properties at runtime (see OpticsLab).
+Actual specs:
 
-## PWA
+- `tests/common/model/RampPhysicsEngine.test.ts`
+- `tests/memory-leak.test.ts`
 
-After `npm run build`, the sim is installable offline via Workbox (`dist/manifest.webmanifest`).
+Run `npm test`. CI runs the suite when a `test` script is present.
+
+## Commands
+
+```bash
+npm run lint && npm run check && npm run build
+npm test
+npm run verify   # check + lint + physics-check + build
+```
+
+## Development notes
+
+- After `npm run build`, the sim is installable offline via Workbox (`dist/manifest.webmanifest`).
