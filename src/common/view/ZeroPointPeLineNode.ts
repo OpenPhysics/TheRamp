@@ -6,7 +6,7 @@
 import type { BooleanProperty } from "scenerystack/axon";
 import { clamp } from "scenerystack/dot";
 import type { ModelViewTransform2 } from "scenerystack/phetcommon";
-import { DragListener, Line, Node, Text } from "scenerystack/scenery";
+import { DragListener, KeyboardDragListener, Line, Node, Text } from "scenerystack/scenery";
 import { PhetFont } from "scenerystack/scenery-phet";
 import { StringManager } from "../../i18n/StringManager.js";
 import RampColors from "../../RampColors.js";
@@ -28,6 +28,9 @@ export class ZeroPointPeLineNode extends Node {
       lineDash: [10, 6],
       lineWidth: 2,
       cursor: "ns-resize",
+      tagName: "div",
+      focusable: true,
+      accessibleName: StringManager.getInstance().getReadoutStrings().zeroPointPeStringProperty,
     });
 
     const label = new Text(StringManager.getInstance().getReadoutStrings().zeroPointPeStringProperty, {
@@ -51,6 +54,17 @@ export class ZeroPointPeLineNode extends Node {
         drag: (event) => {
           const parentPoint = this.globalToParentPoint(event.pointer.point);
           model.zeroPointYProperty.value = clamp(modelViewTransform.viewToModelY(parentPoint.y), -2, 12);
+        },
+      }),
+    );
+    line.addInputListener(
+      new KeyboardDragListener({
+        transform: modelViewTransform,
+        keyboardDragDirection: "upDown",
+        dragSpeed: 40,
+        shiftDragSpeed: 15,
+        drag: (_event, listener) => {
+          model.zeroPointYProperty.value = clamp(model.zeroPointYProperty.value + listener.modelDelta.y, -2, 12);
         },
       }),
     );

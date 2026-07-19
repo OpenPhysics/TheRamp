@@ -10,4 +10,4 @@ It is not an official PhET product. PhET® is a registered trademark of the Univ
 
 ## License
 
-GNU Affero General Public License v3.0 or later — see [`LICENSE`](./LICENSE).
+GNU Affero General Public License v3.0 or later — see [org LICENSE](https://github.com/OpenPhysics/.github/blob/main/LICENSE).

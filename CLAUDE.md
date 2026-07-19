@@ -48,6 +48,10 @@ model) and sets an explicit `pdomOrder`; the draggable `BlockNode` is keyboard-o
 `KeyboardListener` (arrow keys push the object). A11y strings live under the `a11y` key in each
 locale JSON, exposed via `StringManager.getA11yStrings()`.
 
+## Compliance carve-outs
+
+- **Nested constants:** `src/common/model/RampPhysicsConstants.ts` and related layout constants co-located with the ramp model.
+
 ## Testing
 
 Fleet-standard Vitest layout:

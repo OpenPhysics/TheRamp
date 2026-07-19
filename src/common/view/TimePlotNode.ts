@@ -8,7 +8,7 @@ import { DerivedProperty } from "scenerystack/axon";
 import { ChartRectangle, ChartTransform, GridLineSet, LinePlot, TickLabelSet, TickMarkSet } from "scenerystack/bamboo";
 import { clamp, Range, toFixed, Vector2 } from "scenerystack/dot";
 import { Orientation } from "scenerystack/phet-core";
-import { DragListener, HBox, Line, Node, Text, VBox } from "scenerystack/scenery";
+import { DragListener, HBox, KeyboardDragListener, Line, Node, Text, VBox } from "scenerystack/scenery";
 import { PhetFont } from "scenerystack/scenery-phet";
 import type { AccordionBoxOptions } from "scenerystack/sun";
 import { AccordionBox } from "scenerystack/sun";
@@ -136,6 +136,9 @@ export class TimePlotNode extends AccordionBox {
       stroke: RampColors.accentColorProperty,
       lineWidth: 2,
       cursor: "ew-resize",
+      tagName: "div",
+      focusable: true,
+      accessibleName: "Time cursor",
     });
 
     const updateCursorPosition = (time: number): void => {
@@ -145,11 +148,23 @@ export class TimePlotNode extends AccordionBox {
     };
     cursorTimeProperty.link(updateCursorPosition);
 
+    const scrubToViewX = (x: number): void => {
+      timeSeriesModel.setPlaybackTime(chartTransform.viewToModelX(clamp(x, 0, chartViewWidth)));
+    };
     cursorLine.addInputListener(
       new DragListener({
         drag: (event) => {
-          const x = chartNode.globalToLocalPoint(event.pointer.point).x;
-          timeSeriesModel.setPlaybackTime(chartTransform.viewToModelX(clamp(x, 0, chartViewWidth)));
+          scrubToViewX(chartNode.globalToLocalPoint(event.pointer.point).x);
+        },
+      }),
+    );
+    cursorLine.addInputListener(
+      new KeyboardDragListener({
+        keyboardDragDirection: "leftRight",
+        dragDelta: 8,
+        shiftDragDelta: 2,
+        drag: (_event, listener) => {
+          scrubToViewX(cursorLine.x1 + listener.modelDelta.x);
         },
       }),
     );
