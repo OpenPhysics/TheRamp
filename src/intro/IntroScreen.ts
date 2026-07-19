@@ -11,13 +11,13 @@ import { Screen } from "scenerystack/sim";
 import type { Tandem } from "scenerystack/tandem";
 import { createIntroIcon } from "../common/TheRampScreenIcons.js";
 import { RampKeyboardHelpContent } from "../common/view/RampKeyboardHelpContent.js";
-import type { RampPreferencesModel } from "../preferences/RampPreferencesModel.js";
-import RampColors from "../RampColors.js";
+import type { TheRampPreferencesModel } from "../preferences/TheRampPreferencesModel.js";
+import TheRampColors from "../TheRampColors.js";
 import { IntroModel } from "./model/IntroModel.js";
 import { IntroScreenView } from "./view/IntroScreenView.js";
 
 // Require tandem to be explicit — accidental omission would break PhET-iO.
-type IntroScreenOptions = ScreenOptions & { tandem: Tandem; preferences: RampPreferencesModel };
+type IntroScreenOptions = ScreenOptions & { tandem: Tandem; preferences: TheRampPreferencesModel };
 
 export class IntroScreen extends Screen<IntroModel, IntroScreenView> {
   public constructor(options: IntroScreenOptions) {
@@ -31,7 +31,7 @@ export class IntroScreen extends Screen<IntroModel, IntroScreenView> {
         }),
       optionize<IntroScreenOptions, EmptySelfOptions, ScreenOptions>()(
         {
-          backgroundColorProperty: RampColors.backgroundColorProperty,
+          backgroundColorProperty: TheRampColors.backgroundColorProperty,
           createKeyboardHelpNode: () => new RampKeyboardHelpContent(),
           homeScreenIcon: createIntroIcon(),
         },

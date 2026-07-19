@@ -36,7 +36,7 @@ src/more-features/             Java RampModule
   ├─ MoreFeaturesScreenView.ts
   └─ MoreFeaturesScreen.ts
 
-src/preferences/               RampPreferencesModel, rampQueryParameters
+src/preferences/               TheRampPreferencesModel, theRampQueryParameters
 src/common/audio/              CollisionSoundPlayer (optional impact sounds)
 ```
 
@@ -56,7 +56,7 @@ scenery.
   calls `setupForcesOnly()` without advancing time — matches Java static recomputation.
 - **Options-driven views.** `RampScreenViewFeatures` selects Intro vs More Features panels (plots,
   record/playback, FBD, tape, zero-point line) without duplicating layout code.
-- **Shared preferences.** `RampPreferencesModel` seeds initial angle, frictionless default, sound,
+- **Shared preferences.** `TheRampPreferencesModel` seeds initial angle, frictionless default, sound,
   and vector-component display on construction and Reset All.
 
 ## Model / view design
@@ -67,7 +67,7 @@ scenery.
   `withGlobalPosition` / `getGlobalPosition`.
 - `RampScreenView.reset()` restores accordion expansion, tape/zero-point visibility, and measuring-tape
   positions in addition to `model.reset()`.
-- Colors: all `ProfileColorProperty` instances in `RampColors.ts` (`the-ramp` namespace).
+- Colors: all `ProfileColorProperty` instances in `TheRampColors.ts` (`the-ramp` namespace).
 
 ## Disposal conventions
 

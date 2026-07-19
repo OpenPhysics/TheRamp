@@ -9,7 +9,7 @@ import { PhetFont } from "scenerystack/scenery-phet";
 import type { ComboBoxItem } from "scenerystack/sun";
 import { ComboBox } from "scenerystack/sun";
 import { StringManager } from "../../i18n/StringManager.js";
-import RampColors from "../../RampColors.js";
+import TheRampColors from "../../TheRampColors.js";
 import type { RampModel } from "../model/RampModel.js";
 import { RAMP_OBJECTS, type RampObjectDescription } from "../model/RampObjectDescription.js";
 
@@ -31,17 +31,17 @@ export class ObjectComboBox extends ComboBox<RampObjectDescription> {
       createNode: () =>
         new Text(nameProperties[obj.nameKey], {
           font: LABEL_FONT,
-          fill: RampColors.textColorProperty,
+          fill: TheRampColors.textColorProperty,
           maxWidth: 150,
         }),
     }));
 
     super(model.selectedObjectProperty, items, listParent, {
-      buttonFill: RampColors.backgroundColorProperty,
-      buttonStroke: RampColors.panelBorderColorProperty,
-      listFill: RampColors.panelBackgroundColorProperty,
-      listStroke: RampColors.panelBorderColorProperty,
-      highlightFill: RampColors.accentColorProperty,
+      buttonFill: TheRampColors.backgroundColorProperty,
+      buttonStroke: TheRampColors.panelBorderColorProperty,
+      listFill: TheRampColors.panelBackgroundColorProperty,
+      listStroke: TheRampColors.panelBorderColorProperty,
+      highlightFill: TheRampColors.accentColorProperty,
     });
 
     model.selectedObjectProperty.lazyLink(() => {

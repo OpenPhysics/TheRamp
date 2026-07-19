@@ -9,9 +9,9 @@ import { DragListener, KeyboardDragListener, Line, Node, Rectangle, Text } from 
 import { PhetFont } from "scenerystack/scenery-phet";
 import { AccordionBox } from "scenerystack/sun";
 import { StringManager } from "../../i18n/StringManager.js";
-import RampColors from "../../RampColors.js";
+import TheRampColors from "../../TheRampColors.js";
 import type { RampModel } from "../model/RampModel.js";
-import { APPLIED_FORCE_RANGE, FBD_FORCE_PER_PIXEL, FBD_FORCE_SCALE, FBD_SIZE } from "../RampConstants.js";
+import { APPLIED_FORCE_RANGE, FBD_FORCE_PER_PIXEL, FBD_FORCE_SCALE, FBD_SIZE } from "../TheRampConstants.js";
 import { ForceArrowNode } from "./ForceArrowNode.js";
 import { type ForceId, getForceVectors } from "./ForceVectorSetNode.js";
 
@@ -32,30 +32,30 @@ export class FreeBodyDiagramNode extends AccordionBox {
     const diagramNode = new Node();
 
     const background = new Rectangle(0, 0, FBD_SIZE, FBD_SIZE, {
-      fill: RampColors.chartBackgroundColorProperty,
-      stroke: RampColors.panelBorderColorProperty,
+      fill: TheRampColors.chartBackgroundColorProperty,
+      stroke: TheRampColors.panelBorderColorProperty,
       cursor: "ew-resize",
     });
     diagramNode.addChild(background);
 
     diagramNode.addChild(
       new Line(0, center, FBD_SIZE, center, {
-        stroke: RampColors.chartGridColorProperty,
+        stroke: TheRampColors.chartGridColorProperty,
       }),
     );
     diagramNode.addChild(
       new Line(center, 0, center, FBD_SIZE, {
-        stroke: RampColors.chartGridColorProperty,
+        stroke: TheRampColors.chartGridColorProperty,
       }),
     );
 
     const forceColors = {
-      applied: RampColors.appliedForceColorProperty,
-      gravity: RampColors.gravityForceColorProperty,
-      normal: RampColors.normalForceColorProperty,
-      friction: RampColors.frictionForceColorProperty,
-      wall: RampColors.wallForceColorProperty,
-      total: RampColors.totalForceColorProperty,
+      applied: TheRampColors.appliedForceColorProperty,
+      gravity: TheRampColors.gravityForceColorProperty,
+      normal: TheRampColors.normalForceColorProperty,
+      friction: TheRampColors.frictionForceColorProperty,
+      wall: TheRampColors.wallForceColorProperty,
+      total: TheRampColors.totalForceColorProperty,
     } as const;
 
     const forceLabels = {
@@ -131,11 +131,11 @@ export class FreeBodyDiagramNode extends AccordionBox {
     super(diagramNode, {
       titleNode: new Text(controls.freeBodyDiagramStringProperty, {
         font: new PhetFont(14),
-        fill: RampColors.textColorProperty,
+        fill: TheRampColors.textColorProperty,
       }),
       expandedProperty: visibility.fbdVisibleProperty,
-      fill: RampColors.panelBackgroundColorProperty,
-      stroke: RampColors.panelBorderColorProperty,
+      fill: TheRampColors.panelBackgroundColorProperty,
+      stroke: TheRampColors.panelBorderColorProperty,
     });
 
     new Multilink(

@@ -11,13 +11,13 @@ import { Screen } from "scenerystack/sim";
 import type { Tandem } from "scenerystack/tandem";
 import { createMoreFeaturesIcon } from "../common/TheRampScreenIcons.js";
 import { RampKeyboardHelpContent } from "../common/view/RampKeyboardHelpContent.js";
-import type { RampPreferencesModel } from "../preferences/RampPreferencesModel.js";
-import RampColors from "../RampColors.js";
+import type { TheRampPreferencesModel } from "../preferences/TheRampPreferencesModel.js";
+import TheRampColors from "../TheRampColors.js";
 import { MoreFeaturesModel } from "./model/MoreFeaturesModel.js";
 import { MoreFeaturesScreenView } from "./view/MoreFeaturesScreenView.js";
 
 // Require tandem to be explicit — accidental omission would break PhET-iO.
-type MoreFeaturesScreenOptions = ScreenOptions & { tandem: Tandem; preferences: RampPreferencesModel };
+type MoreFeaturesScreenOptions = ScreenOptions & { tandem: Tandem; preferences: TheRampPreferencesModel };
 
 export class MoreFeaturesScreen extends Screen<MoreFeaturesModel, MoreFeaturesScreenView> {
   public constructor(options: MoreFeaturesScreenOptions) {
@@ -31,7 +31,7 @@ export class MoreFeaturesScreen extends Screen<MoreFeaturesModel, MoreFeaturesSc
         }),
       optionize<MoreFeaturesScreenOptions, EmptySelfOptions, ScreenOptions>()(
         {
-          backgroundColorProperty: RampColors.backgroundColorProperty,
+          backgroundColorProperty: TheRampColors.backgroundColorProperty,
           createKeyboardHelpNode: () => new RampKeyboardHelpContent(),
           homeScreenIcon: createMoreFeaturesIcon(),
         },

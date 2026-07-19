@@ -10,11 +10,11 @@ import { MeasuringTapeNode, type MeasuringTapeUnits, ResetAllButton } from "scen
 import type { ScreenViewOptions } from "scenerystack/sim";
 import { ScreenView } from "scenerystack/sim";
 import { StringManager } from "../../i18n/StringManager.js";
-import RampColors from "../../RampColors.js";
+import TheRampColors from "../../TheRampColors.js";
 import { CollisionSoundPlayer } from "../audio/CollisionSoundPlayer.js";
 import { SynthesizedSounds } from "../audio/synthesizeSoundClip.js";
 import type { RampModel } from "../model/RampModel.js";
-import { MODEL_VIEW_SCALE, SCREEN_VIEW_MARGIN } from "../RampConstants.js";
+import { MODEL_VIEW_SCALE, SCREEN_VIEW_MARGIN } from "../TheRampConstants.js";
 import { showConfirmDialog } from "./ConfirmDialog.js";
 import { EnergyWorkBarChartsNode } from "./EnergyWorkBarChartsNode.js";
 import { FreeBodyDiagramNode } from "./FreeBodyDiagramNode.js";
@@ -163,7 +163,7 @@ export class RampScreenView extends ScreenView {
         visibleProperty: this.measuringTapeVisibleProperty,
         basePositionProperty: new Property(new Vector2(420, 450)),
         tipPositionProperty: new Property(new Vector2(520, 450)),
-        textColor: RampColors.readoutTextColorProperty,
+        textColor: TheRampColors.readoutTextColorProperty,
       });
       this.addChild(measuringTape);
       this.measuringTape = measuringTape;

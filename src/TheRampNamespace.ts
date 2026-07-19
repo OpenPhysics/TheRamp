@@ -1,5 +1,5 @@
 /**
- * RampNamespace.ts
+ * TheRampNamespace.ts
  *
  * The SceneryStack Namespace for this simulation. It is used as the first
  * argument to ProfileColorProperty (so color names are scoped to this sim)
@@ -10,6 +10,6 @@
  */
 import { Namespace } from "scenerystack/phet-core";
 
-const RampNamespace = new Namespace("the-ramp");
+const TheRampNamespace = new Namespace("the-ramp");
 
-export default RampNamespace;
+export default TheRampNamespace;

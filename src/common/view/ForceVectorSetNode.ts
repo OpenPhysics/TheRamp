@@ -7,10 +7,10 @@ import { DerivedProperty, Multilink, type ReadOnlyProperty } from "scenerystack/
 import { Vector2 } from "scenerystack/dot";
 import { Node } from "scenerystack/scenery";
 import { StringManager } from "../../i18n/StringManager.js";
-import RampColors from "../../RampColors.js";
+import TheRampColors from "../../TheRampColors.js";
 import type { RampModel } from "../model/RampModel.js";
 import type { SurfaceId } from "../model/RampPhysicsEngine.js";
-import { FORCE_ARROW_SCALE, GRAVITY } from "../RampConstants.js";
+import { FORCE_ARROW_SCALE, GRAVITY } from "../TheRampConstants.js";
 import { ForceArrowNode } from "./ForceArrowNode.js";
 
 export type ForceId = "applied" | "gravity" | "normal" | "friction" | "wall" | "total";
@@ -93,12 +93,12 @@ export class ForceVectorSetNode extends Node {
     };
 
     const forceColors = {
-      applied: RampColors.appliedForceColorProperty,
-      gravity: RampColors.gravityForceColorProperty,
-      normal: RampColors.normalForceColorProperty,
-      friction: RampColors.frictionForceColorProperty,
-      wall: RampColors.wallForceColorProperty,
-      total: RampColors.totalForceColorProperty,
+      applied: TheRampColors.appliedForceColorProperty,
+      gravity: TheRampColors.gravityForceColorProperty,
+      normal: TheRampColors.normalForceColorProperty,
+      friction: TheRampColors.frictionForceColorProperty,
+      wall: TheRampColors.wallForceColorProperty,
+      total: TheRampColors.totalForceColorProperty,
     } as const;
 
     const forceLabels = {

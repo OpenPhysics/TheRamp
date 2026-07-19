@@ -20,8 +20,8 @@ Physics for educators: `doc/model.md`. Architecture: `doc/implementation-notes.m
 | Screen models | `src/intro/model/IntroModel.ts`, `src/more-features/model/MoreFeaturesModel.ts` |
 | Shared view | `src/common/view/RampScreenView.ts`, `RampScreenSummaryContent.ts`, `RampKeyboardHelpContent.ts` |
 | Screen views | `src/intro/view/IntroScreenView.ts`, `src/more-features/view/MoreFeaturesScreenView.ts` |
-| Layout constants | `src/common/RampConstants.ts` |
-| Colors / strings | `src/RampColors.ts`, `RampNamespace.ts`, `src/i18n/StringManager.ts` |
+| Layout constants | `src/common/TheRampConstants.ts` |
+| Colors / strings | `src/TheRampColors.ts`, `TheRampNamespace.ts`, `src/i18n/StringManager.ts` |
 | Icons | `scripts/generate-icons.ts` |
 
 ## Model
@@ -54,7 +54,7 @@ each locale JSON, via `StringManager.getA11yStrings()`.
 
 ## Compliance carve-outs
 
-- **Nested constants:** `src/common/model/RampPhysicsConstants.ts` and `src/common/RampConstants.ts` co-located with the ramp model (no root `RampConstants.ts`).
+- **Nested constants:** `src/common/model/RampPhysicsConstants.ts` and `src/common/TheRampConstants.ts` co-located with the ramp model (no root `TheRampConstants.ts`).
 - **`src/assets/`** holds bundled images/audio plus the `images.ts` manifest (extra root folder).
 
 ## Testing

@@ -7,7 +7,7 @@ import { DerivedProperty } from "scenerystack/axon";
 import { Text, VBox } from "scenerystack/scenery";
 import { PhetFont } from "scenerystack/scenery-phet";
 import { StringManager } from "../../i18n/StringManager.js";
-import RampColors from "../../RampColors.js";
+import TheRampColors from "../../TheRampColors.js";
 import type { RampModel } from "../model/RampModel.js";
 import { OVERHEAT_THERMAL_ENERGY } from "../model/RampPhysicsConstants.js";
 import { CoolRampButton } from "./CoolRampButton.js";
@@ -23,7 +23,7 @@ export class OverheatNode extends VBox {
       children: [
         new Text(messages.overheatedStringProperty, {
           font: new PhetFont({ size: 16, weight: "bold" }),
-          fill: RampColors.thermalEnergyColorProperty,
+          fill: TheRampColors.thermalEnergyColorProperty,
         }),
         new CoolRampButton({
           radius: 22,

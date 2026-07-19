@@ -7,7 +7,7 @@ import { DerivedProperty } from "scenerystack/axon";
 import { clamp } from "scenerystack/dot";
 import { Color, DragListener, KeyboardDragListener, Line, Node, Rectangle } from "scenerystack/scenery";
 import { StringManager } from "../../i18n/StringManager.js";
-import RampColors from "../../RampColors.js";
+import TheRampColors from "../../TheRampColors.js";
 import type { RampModel } from "../model/RampModel.js";
 import { OVERHEAT_THERMAL_ENERGY } from "../model/RampPhysicsConstants.js";
 import {
@@ -16,7 +16,7 @@ import {
   RAMP_BOARD_THICKNESS,
   RAMP_LENGTH,
   WORLD_VIEW_ORIGIN,
-} from "../RampConstants.js";
+} from "../TheRampConstants.js";
 import { BarrierNode } from "./BarrierNode.js";
 
 /** Crisp ground walking surface from the left wall to the ramp hinge. */
@@ -27,7 +27,7 @@ export class GroundSurfaceNode extends Node {
     this.addChild(
       new Line(44, WORLD_VIEW_ORIGIN.y, WORLD_VIEW_ORIGIN.x, WORLD_VIEW_ORIGIN.y, {
         lineWidth: 3,
-        stroke: RampColors.rampSurfaceColorProperty,
+        stroke: TheRampColors.rampSurfaceColorProperty,
       }),
     );
   }
@@ -41,7 +41,11 @@ export class RampSurfaceNode extends Node {
     this.translation = WORLD_VIEW_ORIGIN;
 
     const heatFillProperty = new DerivedProperty(
-      [model.energy.thermalEnergyProperty, RampColors.rampSurfaceColorProperty, RampColors.rampSurfaceHotColorProperty],
+      [
+        model.energy.thermalEnergyProperty,
+        TheRampColors.rampSurfaceColorProperty,
+        TheRampColors.rampSurfaceHotColorProperty,
+      ],
       (thermal, cold, hot) => Color.interpolateRGBA(cold, hot, clamp(thermal / OVERHEAT_THERMAL_ENERGY, 0, 1)),
     );
 
@@ -55,7 +59,7 @@ export class RampSurfaceNode extends Node {
       lineWidth: 1,
       cursor: "pointer",
       fill: heatFillProperty,
-      stroke: RampColors.panelBorderColorProperty,
+      stroke: TheRampColors.panelBorderColorProperty,
       tagName: "div",
       focusable: true,
       accessibleName: StringManager.getInstance().getA11yStrings().controls.rampSurfaceStringProperty,

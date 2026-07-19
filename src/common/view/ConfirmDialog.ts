@@ -9,7 +9,7 @@ import { Text, VBox } from "scenerystack/scenery";
 import { PhetFont } from "scenerystack/scenery-phet";
 import { Dialog } from "scenerystack/sim";
 import { TextPushButton } from "scenerystack/sun";
-import RampColors from "../../RampColors.js";
+import TheRampColors from "../../TheRampColors.js";
 
 const LABEL_FONT = new PhetFont(13);
 const TITLE_FONT = new PhetFont({ size: 14, weight: "bold" });
@@ -22,7 +22,7 @@ export function showConfirmDialog(
 ): void {
   const messageText = new Text(messageProperty, {
     font: LABEL_FONT,
-    fill: RampColors.textColorProperty,
+    fill: TheRampColors.textColorProperty,
     maxWidth: 280,
   });
 
@@ -44,13 +44,13 @@ export function showConfirmDialog(
 
   const title = new Text(titleProperty, {
     font: TITLE_FONT,
-    fill: RampColors.textColorProperty,
+    fill: TheRampColors.textColorProperty,
   });
 
   dialog = new Dialog(content, {
-    fill: RampColors.panelBackgroundColorProperty,
-    stroke: RampColors.panelBorderColorProperty,
-    closeButtonColor: RampColors.textColorProperty,
+    fill: TheRampColors.panelBackgroundColorProperty,
+    stroke: TheRampColors.panelBorderColorProperty,
+    closeButtonColor: TheRampColors.textColorProperty,
     title,
     hideCallback: () => dialog.dispose(),
   });

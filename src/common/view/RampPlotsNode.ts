@@ -7,7 +7,7 @@ import type { BooleanProperty, ReadOnlyProperty } from "scenerystack/axon";
 import type { ProfileColorProperty } from "scenerystack/scenery";
 import { VBox } from "scenerystack/scenery";
 import { StringManager } from "../../i18n/StringManager.js";
-import RampColors from "../../RampColors.js";
+import TheRampColors from "../../TheRampColors.js";
 import type { RampModel } from "../model/RampModel.js";
 import {
   getKineticEnergy,
@@ -16,7 +16,7 @@ import {
   getTotalWork,
   type RampPhysicsState,
 } from "../model/RampPhysicsEngine.js";
-import { PLOT_ENERGY_RANGE, PLOT_FORCE_RANGE } from "../RampConstants.js";
+import { PLOT_ENERGY_RANGE, PLOT_FORCE_RANGE } from "../TheRampConstants.js";
 import { TimePlotNode } from "./TimePlotNode.js";
 
 export interface SeriesDescriptor {
@@ -34,25 +34,25 @@ function createEnergySeries(model: RampModel): SeriesDescriptor[] {
   return [
     {
       labelStringProperty: energyStrings.kineticStringProperty,
-      colorProperty: RampColors.kineticEnergyColorProperty,
+      colorProperty: TheRampColors.kineticEnergyColorProperty,
       liveProperty: model.energy.kineticEnergyProperty,
       accessor: getKineticEnergy,
     },
     {
       labelStringProperty: energyStrings.potentialStringProperty,
-      colorProperty: RampColors.potentialEnergyColorProperty,
+      colorProperty: TheRampColors.potentialEnergyColorProperty,
       liveProperty: model.energy.potentialEnergyProperty,
       accessor: getPotentialEnergy,
     },
     {
       labelStringProperty: energyStrings.thermalStringProperty,
-      colorProperty: RampColors.thermalEnergyColorProperty,
+      colorProperty: TheRampColors.thermalEnergyColorProperty,
       liveProperty: model.energy.thermalEnergyProperty,
       accessor: (s) => s.thermalEnergy,
     },
     {
       labelStringProperty: energyStrings.totalStringProperty,
-      colorProperty: RampColors.totalEnergyColorProperty,
+      colorProperty: TheRampColors.totalEnergyColorProperty,
       liveProperty: model.energy.totalEnergyProperty,
       accessor: getTotalEnergy,
     },
@@ -65,25 +65,25 @@ function createWorkSeries(model: RampModel): SeriesDescriptor[] {
   return [
     {
       labelStringProperty: workStrings.appliedStringProperty,
-      colorProperty: RampColors.appliedWorkColorProperty,
+      colorProperty: TheRampColors.appliedWorkColorProperty,
       liveProperty: model.energy.appliedWorkProperty,
       accessor: (s) => s.appliedWork,
     },
     {
       labelStringProperty: workStrings.gravityStringProperty,
-      colorProperty: RampColors.gravityWorkColorProperty,
+      colorProperty: TheRampColors.gravityWorkColorProperty,
       liveProperty: model.energy.gravityWorkProperty,
       accessor: (s) => s.gravityWork,
     },
     {
       labelStringProperty: workStrings.frictionStringProperty,
-      colorProperty: RampColors.frictionWorkColorProperty,
+      colorProperty: TheRampColors.frictionWorkColorProperty,
       liveProperty: model.energy.frictiveWorkProperty,
       accessor: (s) => s.frictiveWork,
     },
     {
       labelStringProperty: workStrings.totalStringProperty,
-      colorProperty: RampColors.totalWorkColorProperty,
+      colorProperty: TheRampColors.totalWorkColorProperty,
       liveProperty: model.energy.totalWorkProperty,
       accessor: getTotalWork,
     },
@@ -96,25 +96,25 @@ function createParallelForceSeries(model: RampModel): SeriesDescriptor[] {
   return [
     {
       labelStringProperty: forceStrings.appliedStringProperty,
-      colorProperty: RampColors.appliedForceColorProperty,
+      colorProperty: TheRampColors.appliedForceColorProperty,
       liveProperty: model.forces.appliedParallelProperty,
       accessor: (s) => s.appliedParallel,
     },
     {
       labelStringProperty: forceStrings.frictionStringProperty,
-      colorProperty: RampColors.frictionForceColorProperty,
+      colorProperty: TheRampColors.frictionForceColorProperty,
       liveProperty: model.forces.frictionParallelProperty,
       accessor: (s) => s.frictionParallel,
     },
     {
       labelStringProperty: forceStrings.gravityStringProperty,
-      colorProperty: RampColors.gravityForceColorProperty,
+      colorProperty: TheRampColors.gravityForceColorProperty,
       liveProperty: model.forces.gravityParallelProperty,
       accessor: (s) => s.gravityParallel,
     },
     {
       labelStringProperty: forceStrings.wallStringProperty,
-      colorProperty: RampColors.wallForceColorProperty,
+      colorProperty: TheRampColors.wallForceColorProperty,
       liveProperty: model.forces.wallParallelProperty,
       accessor: (s) => s.wallParallel,
     },
@@ -135,8 +135,8 @@ export class RampPlotsNode extends VBox {
     const timeSeriesModel = model.timeSeriesModel;
 
     const accordionOptions = {
-      fill: RampColors.panelBackgroundColorProperty,
-      stroke: RampColors.panelBorderColorProperty,
+      fill: TheRampColors.panelBackgroundColorProperty,
+      stroke: TheRampColors.panelBorderColorProperty,
     };
 
     const plotOptions = {

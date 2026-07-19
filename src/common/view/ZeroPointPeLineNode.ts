@@ -9,7 +9,7 @@ import type { ModelViewTransform2 } from "scenerystack/phetcommon";
 import { DragListener, KeyboardDragListener, Line, Node, Text } from "scenerystack/scenery";
 import { PhetFont } from "scenerystack/scenery-phet";
 import { StringManager } from "../../i18n/StringManager.js";
-import RampColors from "../../RampColors.js";
+import TheRampColors from "../../TheRampColors.js";
 import type { RampModel } from "../model/RampModel.js";
 
 const LINE_X_MIN = 20;
@@ -24,7 +24,7 @@ export class ZeroPointPeLineNode extends Node {
     super({ visibleProperty: zeroPointVisibleProperty });
 
     const line = new Line(LINE_X_MIN, 0, LINE_X_MAX, 0, {
-      stroke: RampColors.potentialEnergyColorProperty,
+      stroke: TheRampColors.potentialEnergyColorProperty,
       lineDash: [10, 6],
       lineWidth: 2,
       cursor: "ns-resize",
@@ -35,7 +35,7 @@ export class ZeroPointPeLineNode extends Node {
 
     const label = new Text(StringManager.getInstance().getReadoutStrings().zeroPointPeStringProperty, {
       font: new PhetFont(14),
-      fill: RampColors.potentialEnergyColorProperty,
+      fill: TheRampColors.potentialEnergyColorProperty,
       maxWidth: 80,
     });
 

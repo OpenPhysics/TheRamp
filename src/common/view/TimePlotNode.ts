@@ -12,7 +12,7 @@ import { DragListener, HBox, KeyboardDragListener, Line, Node, Text, VBox } from
 import { PhetFont } from "scenerystack/scenery-phet";
 import type { AccordionBoxOptions } from "scenerystack/sun";
 import { AccordionBox } from "scenerystack/sun";
-import RampColors from "../../RampColors.js";
+import TheRampColors from "../../TheRampColors.js";
 import { MAX_RECORDING_TIME } from "../model/RampPhysicsConstants.js";
 import type { TimeSeriesModel } from "../model/TimeSeriesModel.js";
 import type { SeriesDescriptor } from "./RampPlotsNode.js";
@@ -46,8 +46,8 @@ export class TimePlotNode extends AccordionBox {
     });
 
     const chartRectangle = new ChartRectangle(chartTransform, {
-      fill: RampColors.chartBackgroundColorProperty,
-      stroke: RampColors.panelBorderColorProperty,
+      fill: TheRampColors.chartBackgroundColorProperty,
+      stroke: TheRampColors.panelBorderColorProperty,
     });
 
     const chartNode = new Node({
@@ -55,27 +55,27 @@ export class TimePlotNode extends AccordionBox {
       children: [
         chartRectangle,
         new GridLineSet(chartTransform, Orientation.HORIZONTAL, yRange.max / 2, {
-          stroke: RampColors.chartGridColorProperty,
+          stroke: TheRampColors.chartGridColorProperty,
         }),
         new GridLineSet(chartTransform, Orientation.VERTICAL, 5, {
-          stroke: RampColors.chartGridColorProperty,
+          stroke: TheRampColors.chartGridColorProperty,
         }),
         new TickMarkSet(chartTransform, Orientation.HORIZONTAL, 10, {
           edge: "min",
-          stroke: RampColors.textColorProperty,
+          stroke: TheRampColors.textColorProperty,
         }),
         new TickLabelSet(chartTransform, Orientation.HORIZONTAL, 10, {
           edge: "min",
           createLabel: (value) =>
             new Text(`${value}`, {
               font: READOUT_FONT,
-              fill: RampColors.textColorProperty,
+              fill: TheRampColors.textColorProperty,
             }),
         }),
         new TickMarkSet(chartTransform, Orientation.VERTICAL, yRange.max, {
           edge: "min",
           origin: -yRange.max,
-          stroke: RampColors.textColorProperty,
+          stroke: TheRampColors.textColorProperty,
         }),
         new TickLabelSet(chartTransform, Orientation.VERTICAL, yRange.max, {
           edge: "min",
@@ -83,7 +83,7 @@ export class TimePlotNode extends AccordionBox {
           createLabel: (value) =>
             new Text(`${value}`, {
               font: READOUT_FONT,
-              fill: RampColors.textColorProperty,
+              fill: TheRampColors.textColorProperty,
             }),
         }),
       ],
@@ -133,7 +133,7 @@ export class TimePlotNode extends AccordionBox {
     );
 
     const cursorLine = new Line(0, 0, 0, CHART_VIEW_HEIGHT, {
-      stroke: RampColors.accentColorProperty,
+      stroke: TheRampColors.accentColorProperty,
       lineWidth: 2,
       cursor: "ew-resize",
       tagName: "div",
@@ -174,7 +174,7 @@ export class TimePlotNode extends AccordionBox {
     const readoutRows = series.map((descriptor) => {
       const valueText = new Text("0", {
         font: READOUT_FONT,
-        fill: RampColors.textColorProperty,
+        fill: TheRampColors.textColorProperty,
       });
 
       const formattedValueProperty = new DerivedProperty([descriptor.liveProperty], (value) => toFixed(value, 0));
@@ -213,7 +213,7 @@ export class TimePlotNode extends AccordionBox {
       ...options.accordionOptions,
       titleNode: new Text(titleStringProperty, {
         font: TITLE_FONT,
-        fill: RampColors.textColorProperty,
+        fill: TheRampColors.textColorProperty,
       }),
       expandedProperty,
       // Collapsed plots show only the title bar (Java minimized state), not the full chart width.

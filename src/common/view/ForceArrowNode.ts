@@ -7,7 +7,7 @@ import type { ReadOnlyProperty } from "scenerystack/axon";
 import type { Vector2 } from "scenerystack/dot";
 import { Node, type ProfileColorProperty, RichText } from "scenerystack/scenery";
 import { ArrowNode, PhetFont } from "scenerystack/scenery-phet";
-import RampColors from "../../RampColors.js";
+import TheRampColors from "../../TheRampColors.js";
 
 const LABEL_OFFSET = 12;
 
@@ -20,7 +20,7 @@ export class ForceArrowNode extends Node {
 
     this.arrowNode = new ArrowNode(0, 0, 1, 0, {
       fill: colorProperty,
-      stroke: RampColors.panelBorderColorProperty,
+      stroke: TheRampColors.panelBorderColorProperty,
       lineWidth: 0.5,
       tailWidth: 4,
       headWidth: 14,

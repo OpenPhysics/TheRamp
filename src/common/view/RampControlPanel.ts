@@ -11,9 +11,9 @@ import type { VerticalCheckboxGroupItem } from "scenerystack/sun";
 import { AccordionBox, Checkbox, Panel, VerticalCheckboxGroup } from "scenerystack/sun";
 import { Tandem } from "scenerystack/tandem";
 import { StringManager } from "../../i18n/StringManager.js";
-import RampColors from "../../RampColors.js";
+import TheRampColors from "../../TheRampColors.js";
 import type { RampModel } from "../model/RampModel.js";
-import { APPLIED_FORCE_RANGE, FRICTION_RANGE, MASS_RANGE, POSITION_RANGE } from "../RampConstants.js";
+import { APPLIED_FORCE_RANGE, FRICTION_RANGE, MASS_RANGE, POSITION_RANGE } from "../TheRampConstants.js";
 import { CoolRampButton } from "./CoolRampButton.js";
 import { ObjectComboBox } from "./ObjectComboBox.js";
 import { ObjectSelectionPanel } from "./ObjectSelectionPanel.js";
@@ -60,7 +60,7 @@ const SECTION_TITLE_FONT = new PhetFont({ size: 12, weight: "bold" });
 
 const numberControlTitleOptions = {
   font: LABEL_FONT,
-  fill: RampColors.textColorProperty,
+  fill: TheRampColors.textColorProperty,
   maxWidth: 140,
 };
 
@@ -75,14 +75,14 @@ function createNumberControl(
     titleNodeOptions: typeof numberControlTitleOptions;
     numberDisplayOptions: {
       decimalPlaces: number;
-      textOptions: { font: PhetFont; fill: typeof RampColors.readoutTextColorProperty };
+      textOptions: { font: PhetFont; fill: typeof TheRampColors.readoutTextColorProperty };
     };
     sliderOptions?: { startDrag?: () => void };
   } = {
     titleNodeOptions: numberControlTitleOptions,
     numberDisplayOptions: {
       decimalPlaces,
-      textOptions: { font: LABEL_FONT, fill: RampColors.readoutTextColorProperty },
+      textOptions: { font: LABEL_FONT, fill: TheRampColors.readoutTextColorProperty },
     },
   };
   if (sliderOptions !== undefined) {
@@ -160,37 +160,37 @@ function createForceVisibilitySection(model: RampModel): AccordionBox {
   const forceItems: {
     property: BooleanProperty;
     label: ReadOnlyProperty<string>;
-    color: typeof RampColors.appliedForceColorProperty;
+    color: typeof TheRampColors.appliedForceColorProperty;
   }[] = [
     {
       property: visibility.appliedVisibleProperty,
       label: forces.appliedStringProperty,
-      color: RampColors.appliedForceColorProperty,
+      color: TheRampColors.appliedForceColorProperty,
     },
     {
       property: visibility.gravityVisibleProperty,
       label: forces.gravityStringProperty,
-      color: RampColors.gravityForceColorProperty,
+      color: TheRampColors.gravityForceColorProperty,
     },
     {
       property: visibility.normalVisibleProperty,
       label: forces.normalStringProperty,
-      color: RampColors.normalForceColorProperty,
+      color: TheRampColors.normalForceColorProperty,
     },
     {
       property: visibility.frictionVisibleProperty,
       label: forces.frictionStringProperty,
-      color: RampColors.frictionForceColorProperty,
+      color: TheRampColors.frictionForceColorProperty,
     },
     {
       property: visibility.wallVisibleProperty,
       label: forces.wallStringProperty,
-      color: RampColors.wallForceColorProperty,
+      color: TheRampColors.wallForceColorProperty,
     },
     {
       property: visibility.totalVisibleProperty,
       label: forces.totalStringProperty,
-      color: RampColors.totalForceColorProperty,
+      color: TheRampColors.totalForceColorProperty,
     },
   ];
 
@@ -212,12 +212,12 @@ function createForceVisibilitySection(model: RampModel): AccordionBox {
   return new AccordionBox(checkboxGroup, {
     titleNode: new Text(controls.forcesToShowStringProperty, {
       font: SECTION_TITLE_FONT,
-      fill: RampColors.textColorProperty,
+      fill: TheRampColors.textColorProperty,
       maxWidth: 200,
     }),
     expandedProperty: new BooleanProperty(false),
-    fill: RampColors.panelBackgroundColorProperty,
-    stroke: RampColors.panelBorderColorProperty,
+    fill: TheRampColors.panelBackgroundColorProperty,
+    stroke: TheRampColors.panelBorderColorProperty,
     tandem: Tandem.OPT_OUT,
   });
 }
@@ -239,7 +239,7 @@ function createCoordinateFramesSection(model: RampModel): AccordionBox {
     createNode: () =>
       new Text(item.label, {
         font: LABEL_FONT,
-        fill: RampColors.textColorProperty,
+        fill: TheRampColors.textColorProperty,
         maxWidth: 180,
       }),
   }));
@@ -252,12 +252,12 @@ function createCoordinateFramesSection(model: RampModel): AccordionBox {
   return new AccordionBox(checkboxGroup, {
     titleNode: new Text(controls.coordinateFramesStringProperty, {
       font: SECTION_TITLE_FONT,
-      fill: RampColors.textColorProperty,
+      fill: TheRampColors.textColorProperty,
       maxWidth: 200,
     }),
     expandedProperty: new BooleanProperty(false),
-    fill: RampColors.panelBackgroundColorProperty,
-    stroke: RampColors.panelBorderColorProperty,
+    fill: TheRampColors.panelBackgroundColorProperty,
+    stroke: TheRampColors.panelBorderColorProperty,
     tandem: Tandem.OPT_OUT,
   });
 }
@@ -279,7 +279,7 @@ export class RampControlPanel extends Panel {
       const objectComboBox = new ObjectComboBox(model, listParent);
       const chooseTitle = new Text(controls.chooseObjectStringProperty, {
         font: TITLE_FONT,
-        fill: RampColors.textColorProperty,
+        fill: TheRampColors.textColorProperty,
         maxWidth: 150,
       });
       children.push(
@@ -302,7 +302,7 @@ export class RampControlPanel extends Panel {
         model.frictionlessProperty,
         new Text(controls.frictionlessStringProperty, {
           font: LABEL_FONT,
-          fill: RampColors.textColorProperty,
+          fill: TheRampColors.textColorProperty,
           maxWidth: 150,
         }),
       ),
@@ -328,7 +328,7 @@ export class RampControlPanel extends Panel {
         model.soundEnabledProperty,
         new Text(controls.soundStringProperty, {
           font: LABEL_FONT,
-          fill: RampColors.textColorProperty,
+          fill: TheRampColors.textColorProperty,
           maxWidth: 150,
         }),
       ),
@@ -356,7 +356,7 @@ export class RampControlPanel extends Panel {
           measuringTapeVisibleProperty,
           new Text(controls.measuringTapeStringProperty, {
             font: LABEL_FONT,
-            fill: RampColors.textColorProperty,
+            fill: TheRampColors.textColorProperty,
             maxWidth: 150,
           }),
         ),
@@ -369,7 +369,7 @@ export class RampControlPanel extends Panel {
           zeroPointVisibleProperty,
           new Text(controls.showZeroPointPeStringProperty, {
             font: LABEL_FONT,
-            fill: RampColors.textColorProperty,
+            fill: TheRampColors.textColorProperty,
             maxWidth: 150,
           }),
         ),
@@ -384,8 +384,8 @@ export class RampControlPanel extends Panel {
     });
 
     super(content, {
-      fill: RampColors.panelBackgroundColorProperty,
-      stroke: RampColors.panelBorderColorProperty,
+      fill: TheRampColors.panelBackgroundColorProperty,
+      stroke: TheRampColors.panelBorderColorProperty,
       xMargin: 8,
       yMargin: 8,
     });

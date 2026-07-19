@@ -15,8 +15,8 @@ import { Dialog } from "scenerystack/sim";
 import { AccordionBox, ColorConstants } from "scenerystack/sun";
 import { Tandem } from "scenerystack/tandem";
 import { StringManager } from "../../i18n/StringManager.js";
-import RampColors from "../../RampColors.js";
-import { ENERGY_BAR_SCALE } from "../RampConstants.js";
+import TheRampColors from "../../TheRampColors.js";
+import { ENERGY_BAR_SCALE } from "../TheRampConstants.js";
 import { type BarChartGroup, BarChartNode } from "./BarChartNode.js";
 
 export interface LegendItem {
@@ -73,8 +73,8 @@ export class BarChartAccordionBox extends AccordionBox {
     });
 
     const background = new Rectangle(0, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGHT, {
-      fill: RampColors.chartBackgroundColorProperty,
-      stroke: RampColors.chartGridColorProperty,
+      fill: TheRampColors.chartBackgroundColorProperty,
+      stroke: TheRampColors.chartGridColorProperty,
       lineWidth: 0.8,
       cornerRadius: PANEL_CORNER_RADIUS,
     });
@@ -118,7 +118,7 @@ export class BarChartAccordionBox extends AccordionBox {
       children: options.legendItems.map((item) => {
         const colorSwatch = new Rectangle(0, 0, 13, 13, {
           fill: item.colorProperty,
-          stroke: RampColors.textColorProperty,
+          stroke: TheRampColors.textColorProperty,
         });
 
         return new HBox({
@@ -131,7 +131,7 @@ export class BarChartAccordionBox extends AccordionBox {
                   colorSwatch,
                   new RichText(item.abbreviationStringProperty, {
                     font: legendAbbreviationFont,
-                    fill: RampColors.textColorProperty,
+                    fill: TheRampColors.textColorProperty,
                     maxWidth: LEGEND_ABBREVIATION_MAX_WIDTH,
                   }),
                 ],
@@ -144,7 +144,7 @@ export class BarChartAccordionBox extends AccordionBox {
             new AlignBox(
               new Text(item.descriptionStringProperty, {
                 font: legendDescriptionFont,
-                fill: RampColors.textColorProperty,
+                fill: TheRampColors.textColorProperty,
               }),
               {
                 group: descriptionGroup,
@@ -167,14 +167,14 @@ export class BarChartAccordionBox extends AccordionBox {
       listener: () => {
         if (!legendDialog) {
           legendDialog = new Dialog(dialogContent, {
-            fill: RampColors.panelBackgroundColorProperty,
-            stroke: RampColors.panelBorderColorProperty,
-            closeButtonColor: RampColors.textColorProperty,
+            fill: TheRampColors.panelBackgroundColorProperty,
+            stroke: TheRampColors.panelBorderColorProperty,
+            closeButtonColor: TheRampColors.textColorProperty,
             ySpacing: 20,
             bottomMargin: 20,
             title: new Text(options.legendTitleStringProperty, {
               font: new PhetFont(28),
-              fill: RampColors.textColorProperty,
+              fill: TheRampColors.textColorProperty,
               maxWidth: LEGEND_ABBREVIATION_MAX_WIDTH * 2,
             }),
             hideCallback: () => {
@@ -199,13 +199,13 @@ export class BarChartAccordionBox extends AccordionBox {
     });
 
     super(accordionBoxContent, {
-      fill: RampColors.panelBackgroundColorProperty,
-      stroke: RampColors.panelBorderColorProperty,
+      fill: TheRampColors.panelBackgroundColorProperty,
+      stroke: TheRampColors.panelBorderColorProperty,
       cornerRadius: PANEL_CORNER_RADIUS,
       buttonYMargin: 4,
       titleNode: new Text(options.titleStringProperty, {
         font: new PhetFont(14),
-        fill: RampColors.textColorProperty,
+        fill: TheRampColors.textColorProperty,
         maxWidth: LEGEND_ABBREVIATION_MAX_WIDTH + 40,
       }),
       expandedProperty: options.expandedProperty,

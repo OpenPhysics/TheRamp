@@ -13,7 +13,7 @@ import { Shape } from "scenerystack/kite";
 import { Circle, Node, Path, Rectangle } from "scenerystack/scenery";
 import { ArrowNode } from "scenerystack/scenery-phet";
 import { ScreenIcon } from "scenerystack/sim";
-import RampColors from "../RampColors.js";
+import TheRampColors from "../TheRampColors.js";
 
 // ── Canvas dimensions ───────────────────────────────────────────────────────
 const W = 100;
@@ -57,7 +57,7 @@ const BCX = blockSX + BLOCK_LIFT * NX; // block center x ≈ 41
 const BCY = blockSY + BLOCK_LIFT * NY; // block center y ≈ 44
 
 // ── Arrow factory ───────────────────────────────────────────────────────────
-type ColorProp = typeof RampColors.appliedForceColorProperty;
+type ColorProp = typeof TheRampColors.appliedForceColorProperty;
 
 function arrow(
   x1: number,
@@ -80,21 +80,21 @@ function arrow(
 // ── Shared ramp builder ─────────────────────────────────────────────────────
 function buildBase(): Node[] {
   // Sky
-  const sky = new Rectangle(0, 0, W, GROUND_Y, 6, 6, { fill: RampColors.skyColorProperty });
+  const sky = new Rectangle(0, 0, W, GROUND_Y, 6, 6, { fill: TheRampColors.skyColorProperty });
 
   // Earth strip below ground line
-  const earth = new Rectangle(0, GROUND_Y, W, H - GROUND_Y, { fill: RampColors.earthColorProperty });
+  const earth = new Rectangle(0, GROUND_Y, W, H - GROUND_Y, { fill: TheRampColors.earthColorProperty });
 
   // Ramp body (solid triangle)
   const rampShape = Shape.polygon([new Vector2(BLX, BLY), new Vector2(BRX, BRY), new Vector2(TRX, TRY)]);
-  const rampFill = new Path(rampShape, { fill: RampColors.rampSurfaceColorProperty });
+  const rampFill = new Path(rampShape, { fill: TheRampColors.rampSurfaceColorProperty });
 
   // Ramp outline (slightly darker edge for definition)
-  const rampStroke = new Path(rampShape, { lineWidth: 1.5, stroke: RampColors.earthColorProperty });
+  const rampStroke = new Path(rampShape, { lineWidth: 1.5, stroke: TheRampColors.earthColorProperty });
 
   // Block on ramp (rotated flush to the surface)
   const block = new Rectangle(-BLOCK_SIZE / 2, -BLOCK_SIZE / 2, BLOCK_SIZE, BLOCK_SIZE, 2, 2, {
-    fill: RampColors.accentColorProperty,
+    fill: TheRampColors.accentColorProperty,
   });
   block.translation = new Vector2(BCX, BCY);
   block.rotation = RAMP_ANGLE;
@@ -109,12 +109,12 @@ function createIntroIconNode(): Node {
   const children = buildBase();
 
   // Sun (top-left corner)
-  const sun = new Circle(7, { centerX: 14, centerY: 12, fill: RampColors.totalEnergyColorProperty });
+  const sun = new Circle(7, { centerX: 14, centerY: 12, fill: TheRampColors.totalEnergyColorProperty });
 
   // Applied force — orange arrow up the slope
   const AX = BCX + 22 * SX;
   const AY = BCY + 22 * SY;
-  const appliedArrow = arrow(BCX, BCY, AX, AY, RampColors.appliedForceColorProperty, 8, 3.5);
+  const appliedArrow = arrow(BCX, BCY, AX, AY, TheRampColors.appliedForceColorProperty, 8, 3.5);
 
   children.push(sun, appliedArrow);
   return new Node({ children });
@@ -127,13 +127,13 @@ function createMoreFeaturesIconNode(): Node {
   const children = buildBase();
 
   // Applied force — orange, up the slope
-  const appliedArrow = arrow(BCX, BCY, BCX + 20 * SX, BCY + 20 * SY, RampColors.appliedForceColorProperty, 7, 3);
+  const appliedArrow = arrow(BCX, BCY, BCX + 20 * SX, BCY + 20 * SY, TheRampColors.appliedForceColorProperty, 7, 3);
 
   // Gravity — blue, straight down
-  const gravityArrow = arrow(BCX, BCY, BCX, BCY + 17, RampColors.gravityForceColorProperty, 7, 3);
+  const gravityArrow = arrow(BCX, BCY, BCX, BCY + 17, TheRampColors.gravityForceColorProperty, 7, 3);
 
   // Normal force — magenta, perpendicular away from ramp surface
-  const normalArrow = arrow(BCX, BCY, BCX + 16 * NX, BCY + 16 * NY, RampColors.normalForceColorProperty, 7, 3);
+  const normalArrow = arrow(BCX, BCY, BCX + 16 * NX, BCY + 16 * NY, TheRampColors.normalForceColorProperty, 7, 3);
 
   children.push(appliedArrow, gravityArrow, normalArrow);
   return new Node({ children });
@@ -144,7 +144,7 @@ export function createIntroIcon(): ScreenIcon {
   return new ScreenIcon(createIntroIconNode(), {
     maxIconWidthProportion: 0.9,
     maxIconHeightProportion: 0.9,
-    fill: RampColors.skyColorProperty,
+    fill: TheRampColors.skyColorProperty,
   });
 }
 
@@ -152,6 +152,6 @@ export function createMoreFeaturesIcon(): ScreenIcon {
   return new ScreenIcon(createMoreFeaturesIconNode(), {
     maxIconWidthProportion: 0.9,
     maxIconHeightProportion: 0.9,
-    fill: RampColors.skyColorProperty,
+    fill: TheRampColors.skyColorProperty,
   });
 }

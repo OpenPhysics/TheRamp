@@ -12,9 +12,9 @@ import { ModelViewTransform2 } from "scenerystack/phetcommon";
 import { Node, Path, Text } from "scenerystack/scenery";
 import { PhetFont } from "scenerystack/scenery-phet";
 import { StringManager } from "../../i18n/StringManager.js";
-import RampColors from "../../RampColors.js";
+import TheRampColors from "../../TheRampColors.js";
 import type { RampModel } from "../model/RampModel.js";
-import { MODEL_VIEW_SCALE, RAMP_LENGTH, WORLD_VIEW_ORIGIN } from "../RampConstants.js";
+import { MODEL_VIEW_SCALE, RAMP_LENGTH, WORLD_VIEW_ORIGIN } from "../TheRampConstants.js";
 import { BarrierNode } from "./BarrierNode.js";
 import { BlockNode } from "./BlockNode.js";
 import { ForceVectorSetNode } from "./ForceVectorSetNode.js";
@@ -50,17 +50,17 @@ export class RampSceneNode extends Node {
 
     // Triangular wedge that props up the ramp (matches icon geometry)
     const wedgeNode = new Path(null, {
-      fill: RampColors.rampSurfaceColorProperty,
-      stroke: RampColors.panelBorderColorProperty,
+      fill: TheRampColors.rampSurfaceColorProperty,
+      stroke: TheRampColors.panelBorderColorProperty,
       lineWidth: 1,
     });
 
     // Pie-sector arc at the hinge showing the current ramp angle
     const ANGLE_ARC_RADIUS = 46;
     const angleArcNode = new Path(null, {
-      stroke: RampColors.readoutTextColorProperty,
+      stroke: TheRampColors.readoutTextColorProperty,
       lineWidth: 1.5,
-      fill: RampColors.angleArcFillColorProperty,
+      fill: TheRampColors.angleArcFillColorProperty,
     });
 
     const rampSurfaceNode = new RampSurfaceNode(model);
@@ -88,7 +88,7 @@ export class RampSceneNode extends Node {
       }),
       {
         font: new PhetFont(14),
-        fill: RampColors.readoutTextColorProperty,
+        fill: TheRampColors.readoutTextColorProperty,
         left: WORLD_VIEW_ORIGIN.x + 8,
         top: WORLD_VIEW_ORIGIN.y + 6,
       },
@@ -100,7 +100,7 @@ export class RampSceneNode extends Node {
       }),
       {
         font: new PhetFont(14),
-        fill: RampColors.readoutTextColorProperty,
+        fill: TheRampColors.readoutTextColorProperty,
       },
     );
 

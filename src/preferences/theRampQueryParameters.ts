@@ -1,17 +1,17 @@
 /**
- * rampQueryParameters.ts
+ * theRampQueryParameters.ts
  *
  * Sim-specific startup query parameters for The Ramp. All entries are public
  * (end-user facing) and document the configurable initial state of the sim.
- * Ranges are validated against the canonical control ranges in RampConstants.
+ * Ranges are validated against the canonical control ranges in TheRampConstants.
  *
  * Usage: append e.g. `?rampAngle=30&frictionless=true` to the sim URL.
  */
 
 import { logGlobal } from "scenerystack/phet-core";
 import { QueryStringMachine } from "scenerystack/query-string-machine";
-import { APPLIED_FORCE_RANGE, FRICTION_RANGE, MASS_RANGE } from "../common/RampConstants.js";
-import RampNamespace from "../RampNamespace.js";
+import { APPLIED_FORCE_RANGE, FRICTION_RANGE, MASS_RANGE } from "../common/TheRampConstants.js";
+import TheRampNamespace from "../TheRampNamespace.js";
 
 // Default object (file cabinet) values — kept in sync with RAMP_OBJECTS[0].
 const DEFAULT_MASS = 100;
@@ -22,7 +22,7 @@ const RAMP_ANGLE_MIN_DEG = 0;
 const RAMP_ANGLE_MAX_DEG = 90;
 const DEFAULT_RAMP_ANGLE_DEG = 10;
 
-const rampQueryParameters = QueryStringMachine.getAll({
+const theRampQueryParameters = QueryStringMachine.getAll({
   /** Initial ramp angle, in degrees (0–90). */
   rampAngle: {
     type: "number" as const,
@@ -85,9 +85,9 @@ const rampQueryParameters = QueryStringMachine.getAll({
   },
 });
 
-RampNamespace.register("rampQueryParameters", rampQueryParameters);
+TheRampNamespace.register("theRampQueryParameters", theRampQueryParameters);
 
 // Log query parameters (for the console / PhET-iO).
 logGlobal("phet.chipper.queryParameters");
 
-export default rampQueryParameters;
+export default theRampQueryParameters;

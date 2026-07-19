@@ -20,16 +20,16 @@ import { Tandem } from "scenerystack/tandem";
 import { StringManager } from "./i18n/StringManager.js";
 import { IntroScreen } from "./intro/IntroScreen.js";
 import { MoreFeaturesScreen } from "./more-features/MoreFeaturesScreen.js";
-import { RampPreferencesModel } from "./preferences/RampPreferencesModel.js";
-import { RampPreferencesNode } from "./preferences/RampPreferencesNode.js";
-import RampColors from "./RampColors.js";
+import { TheRampPreferencesModel } from "./preferences/TheRampPreferencesModel.js";
+import { TheRampPreferencesNode } from "./preferences/TheRampPreferencesNode.js";
+import TheRampColors from "./TheRampColors.js";
 
 onReadyToLaunch(() => {
   const stringManager = StringManager.getInstance();
   const screenNames = stringManager.getScreenNames();
 
-  // Simulation-specific preferences; initial values come from rampQueryParameters.
-  const rampPreferences = new RampPreferencesModel(Tandem.ROOT.createTandem("preferences"));
+  // Simulation-specific preferences; initial values come from theRampQueryParameters.
+  const rampPreferences = new TheRampPreferencesModel(Tandem.ROOT.createTandem("preferences"));
 
   const screens = [
     new IntroScreen({
@@ -37,13 +37,13 @@ onReadyToLaunch(() => {
       // The screen name Property updates automatically when the locale changes
       name: screenNames.introStringProperty,
       tandem: Tandem.ROOT.createTandem("introScreen"),
-      backgroundColorProperty: RampColors.backgroundColorProperty,
+      backgroundColorProperty: TheRampColors.backgroundColorProperty,
     }),
     new MoreFeaturesScreen({
       preferences: rampPreferences,
       name: screenNames.moreFeaturesStringProperty,
       tandem: Tandem.ROOT.createTandem("moreFeaturesScreen"),
-      backgroundColorProperty: RampColors.backgroundColorProperty,
+      backgroundColorProperty: TheRampColors.backgroundColorProperty,
     }),
   ];
 
@@ -58,7 +58,7 @@ onReadyToLaunch(() => {
       simulationOptions: {
         customPreferences: [
           {
-            createContent: (tandem: Tandem) => new RampPreferencesNode(rampPreferences, tandem),
+            createContent: (tandem: Tandem) => new TheRampPreferencesNode(rampPreferences, tandem),
           },
         ],
       },

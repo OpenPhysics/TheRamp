@@ -8,7 +8,7 @@ import { HBox } from "scenerystack/scenery";
 import { MoveToTrashLegendButton } from "scenerystack/scenery-phet";
 import { Tandem } from "scenerystack/tandem";
 import { StringManager } from "../../i18n/StringManager.js";
-import RampColors from "../../RampColors.js";
+import TheRampColors from "../../TheRampColors.js";
 import type { RampModel } from "../model/RampModel.js";
 import { BarChartAccordionBox } from "./BarChartAccordionBox.js";
 
@@ -26,7 +26,7 @@ export class EnergyWorkBarChartsNode extends HBox {
     const workStrings = StringManager.getInstance().getWorkStrings();
 
     const clearThermalButton = new MoveToTrashLegendButton({
-      arrowColor: RampColors.thermalEnergyColorProperty,
+      arrowColor: TheRampColors.thermalEnergyColorProperty,
       listener: () => {
         model.clearHeat();
         playCoolSound();
@@ -41,28 +41,28 @@ export class EnergyWorkBarChartsNode extends HBox {
     });
 
     const kineticEntry = {
-      colorProperty: RampColors.kineticEnergyColorProperty,
+      colorProperty: TheRampColors.kineticEnergyColorProperty,
       valueProperty: model.energy.kineticEnergyProperty,
     };
     const potentialEntry = {
-      colorProperty: RampColors.potentialEnergyColorProperty,
+      colorProperty: TheRampColors.potentialEnergyColorProperty,
       valueProperty: model.energy.potentialEnergyProperty,
     };
     const thermalEntry = {
-      colorProperty: RampColors.thermalEnergyColorProperty,
+      colorProperty: TheRampColors.thermalEnergyColorProperty,
       valueProperty: model.energy.thermalEnergyProperty,
     };
 
     const appliedEntry = {
-      colorProperty: RampColors.appliedWorkColorProperty,
+      colorProperty: TheRampColors.appliedWorkColorProperty,
       valueProperty: model.energy.appliedWorkProperty,
     };
     const gravityEntry = {
-      colorProperty: RampColors.gravityWorkColorProperty,
+      colorProperty: TheRampColors.gravityWorkColorProperty,
       valueProperty: model.energy.gravityWorkProperty,
     };
     const frictionEntry = {
-      colorProperty: RampColors.frictionWorkColorProperty,
+      colorProperty: TheRampColors.frictionWorkColorProperty,
       valueProperty: model.energy.frictiveWorkProperty,
     };
 
@@ -74,22 +74,22 @@ export class EnergyWorkBarChartsNode extends HBox {
         {
           abbreviationStringProperty: energyStrings.kineticStringProperty,
           descriptionStringProperty: energyStrings.kineticEnergyStringProperty,
-          colorProperty: RampColors.kineticEnergyColorProperty,
+          colorProperty: TheRampColors.kineticEnergyColorProperty,
         },
         {
           abbreviationStringProperty: energyStrings.potentialStringProperty,
           descriptionStringProperty: energyStrings.potentialEnergyStringProperty,
-          colorProperty: RampColors.potentialEnergyColorProperty,
+          colorProperty: TheRampColors.potentialEnergyColorProperty,
         },
         {
           abbreviationStringProperty: energyStrings.thermalStringProperty,
           descriptionStringProperty: energyStrings.thermalEnergyStringProperty,
-          colorProperty: RampColors.thermalEnergyColorProperty,
+          colorProperty: TheRampColors.thermalEnergyColorProperty,
         },
         {
           abbreviationStringProperty: energyStrings.totalStringProperty,
           descriptionStringProperty: energyStrings.totalEnergyStringProperty,
-          colorProperty: RampColors.totalEnergyColorProperty,
+          colorProperty: TheRampColors.totalEnergyColorProperty,
         },
       ],
       groups: [
@@ -121,22 +121,22 @@ export class EnergyWorkBarChartsNode extends HBox {
         {
           abbreviationStringProperty: workStrings.appliedStringProperty,
           descriptionStringProperty: workStrings.appliedWorkStringProperty,
-          colorProperty: RampColors.appliedWorkColorProperty,
+          colorProperty: TheRampColors.appliedWorkColorProperty,
         },
         {
           abbreviationStringProperty: workStrings.gravityStringProperty,
           descriptionStringProperty: workStrings.gravityWorkStringProperty,
-          colorProperty: RampColors.gravityWorkColorProperty,
+          colorProperty: TheRampColors.gravityWorkColorProperty,
         },
         {
           abbreviationStringProperty: workStrings.frictionStringProperty,
           descriptionStringProperty: workStrings.frictionWorkStringProperty,
-          colorProperty: RampColors.frictionWorkColorProperty,
+          colorProperty: TheRampColors.frictionWorkColorProperty,
         },
         {
           abbreviationStringProperty: workStrings.totalStringProperty,
           descriptionStringProperty: workStrings.totalWorkStringProperty,
-          colorProperty: RampColors.totalWorkColorProperty,
+          colorProperty: TheRampColors.totalWorkColorProperty,
         },
       ],
       groups: [

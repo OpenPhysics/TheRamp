@@ -1,5 +1,5 @@
 /**
- * RampConstants.ts
+ * TheRampConstants.ts
  *
  * View-layer constants for The Ramp. Physics constants live in
  * common/model/RampPhysicsConstants.ts (zero-import file) and are re-exported

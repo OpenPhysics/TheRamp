@@ -8,7 +8,7 @@ import { Text, VBox } from "scenerystack/scenery";
 import { PhetFont } from "scenerystack/scenery-phet";
 import { VerticalAquaRadioButtonGroup } from "scenerystack/sun";
 import { StringManager } from "../../i18n/StringManager.js";
-import RampColors from "../../RampColors.js";
+import TheRampColors from "../../TheRampColors.js";
 import type { RampModel } from "../model/RampModel.js";
 import { RAMP_OBJECTS } from "../model/RampObjectDescription.js";
 
@@ -31,7 +31,7 @@ export class ObjectSelectionPanel extends VBox {
 
     const title = new Text(controls.chooseObjectStringProperty, {
       font: TITLE_FONT,
-      fill: RampColors.textColorProperty,
+      fill: TheRampColors.textColorProperty,
       maxWidth: 150,
     });
 
@@ -47,7 +47,7 @@ export class ObjectSelectionPanel extends VBox {
             }),
             {
               font: LABEL_FONT,
-              fill: RampColors.textColorProperty,
+              fill: TheRampColors.textColorProperty,
               maxWidth: 150,
             },
           ),

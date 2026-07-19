@@ -8,7 +8,7 @@ import { type EmptySelfOptions, optionize, type StrictOmit } from "scenerystack/
 import { Path } from "scenerystack/scenery";
 import { RoundPushButton, type RoundPushButtonOptions } from "scenerystack/sun";
 import { Tandem } from "scenerystack/tandem";
-import RampColors from "../../RampColors.js";
+import TheRampColors from "../../TheRampColors.js";
 
 const DEFAULT_RADIUS = 20;
 
@@ -21,7 +21,7 @@ function createSnowflakeIcon(radius: number): Path {
     shape.lineTo(armLength * Math.cos(angle), armLength * Math.sin(angle));
   }
   return new Path(shape, {
-    stroke: RampColors.coolRampSnowflakeColorProperty,
+    stroke: TheRampColors.coolRampSnowflakeColorProperty,
     lineWidth: 2,
     lineCap: "round",
   });

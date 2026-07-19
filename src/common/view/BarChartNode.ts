@@ -10,8 +10,8 @@ import { clamp } from "scenerystack/dot";
 import { Shape } from "scenerystack/kite";
 import { Line, Node, Path, type ProfileColorProperty, Rectangle, Text } from "scenerystack/scenery";
 import { ArrowNode, PhetFont } from "scenerystack/scenery-phet";
-import RampColors from "../../RampColors.js";
-import { ENERGY_BAR_SCALE } from "../RampConstants.js";
+import TheRampColors from "../../TheRampColors.js";
+import { ENERGY_BAR_SCALE } from "../TheRampConstants.js";
 
 export interface BarDataEntry {
   readonly colorProperty: ProfileColorProperty;
@@ -95,7 +95,7 @@ export class BarChartNode extends Node {
 
     this.addChild(
       new ArrowNode(0, 0, 0, -(this.maxBarHeightUp - Y_AXIS_TOP_MARGIN), {
-        fill: RampColors.readoutTextColorProperty,
+        fill: TheRampColors.readoutTextColorProperty,
         stroke: null,
         headHeight: 8,
         headWidth: 8,
@@ -105,7 +105,7 @@ export class BarChartNode extends Node {
 
     this.addChild(
       new Line(0, 0, chartWidth, 0, {
-        stroke: RampColors.chartGridColorProperty,
+        stroke: TheRampColors.chartGridColorProperty,
         lineWidth: 1,
       }),
     );
@@ -123,11 +123,11 @@ export class BarChartNode extends Node {
         visible: false,
       });
 
-      // The chart background is RampColors.chartBackgroundColorProperty (light in both
+      // The chart background is TheRampColors.chartBackgroundColorProperty (light in both
       // profiles), so labels use the readout text color rather than the panel text color.
       const labelText = new Text(group.labelStringProperty, {
         font: new PhetFont(11),
-        fill: RampColors.readoutTextColorProperty,
+        fill: TheRampColors.readoutTextColorProperty,
         maxWidth: 60,
         rotation: -Math.PI / 4,
       });
@@ -137,7 +137,7 @@ export class BarChartNode extends Node {
       });
 
       const labelBackground = new Rectangle(0, 0, 1, 1, {
-        fill: RampColors.chartBackgroundColorProperty,
+        fill: TheRampColors.chartBackgroundColorProperty,
         opacity: LABEL_BACKGROUND_OPACITY,
         stroke: null,
       });
@@ -202,12 +202,12 @@ export class BarChartNode extends Node {
         if (clampedTop) {
           overflowTriangle.shape = createUpTriangle(barCenterX, -positiveOffset, OVERFLOW_SIZE);
           overflowTriangle.fill =
-            group.entries[group.entries.length - 1]?.colorProperty ?? RampColors.readoutTextColorProperty;
+            group.entries[group.entries.length - 1]?.colorProperty ?? TheRampColors.readoutTextColorProperty;
           overflowTriangle.visible = true;
         } else if (clampedBottom) {
           overflowTriangle.shape = createDownTriangle(barCenterX, negativeOffset, OVERFLOW_SIZE);
           overflowTriangle.fill =
-            group.entries[group.entries.length - 1]?.colorProperty ?? RampColors.readoutTextColorProperty;
+            group.entries[group.entries.length - 1]?.colorProperty ?? TheRampColors.readoutTextColorProperty;
           overflowTriangle.visible = true;
         } else {
           overflowTriangle.visible = false;
