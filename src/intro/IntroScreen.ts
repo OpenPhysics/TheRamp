@@ -9,8 +9,8 @@ import { type EmptySelfOptions, optionize } from "scenerystack/phet-core";
 import type { ScreenOptions } from "scenerystack/sim";
 import { Screen } from "scenerystack/sim";
 import type { Tandem } from "scenerystack/tandem";
+import { createIntroIcon } from "../common/TheRampScreenIcons.js";
 import { RampKeyboardHelpContent } from "../common/view/RampKeyboardHelpContent.js";
-import { createIntroScreenIcon } from "../common/view/RampScreenIcons.js";
 import type { RampPreferencesModel } from "../preferences/RampPreferencesModel.js";
 import RampColors from "../RampColors.js";
 import { IntroModel } from "./model/IntroModel.js";
@@ -33,7 +33,7 @@ export class IntroScreen extends Screen<IntroModel, IntroScreenView> {
         {
           backgroundColorProperty: RampColors.backgroundColorProperty,
           createKeyboardHelpNode: () => new RampKeyboardHelpContent(),
-          homeScreenIcon: createIntroScreenIcon(),
+          homeScreenIcon: createIntroIcon(),
         },
         options,
       ),

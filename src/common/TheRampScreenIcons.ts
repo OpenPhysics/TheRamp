@@ -1,5 +1,5 @@
 /**
- * RampScreenIcons.ts
+ * TheRampScreenIcons.ts
  *
  * Programmatic home-screen / navigation-bar icons for both Ramp screens.
  *
@@ -13,7 +13,7 @@ import { Shape } from "scenerystack/kite";
 import { Circle, Node, Path, Rectangle } from "scenerystack/scenery";
 import { ArrowNode } from "scenerystack/scenery-phet";
 import { ScreenIcon } from "scenerystack/sim";
-import RampColors from "../../RampColors.js";
+import RampColors from "../RampColors.js";
 
 // ── Canvas dimensions ───────────────────────────────────────────────────────
 const W = 100;
@@ -140,7 +140,7 @@ function createMoreFeaturesIconNode(): Node {
 }
 
 // ── Public factory functions ────────────────────────────────────────────────
-export function createIntroScreenIcon(): ScreenIcon {
+export function createIntroIcon(): ScreenIcon {
   return new ScreenIcon(createIntroIconNode(), {
     maxIconWidthProportion: 0.9,
     maxIconHeightProportion: 0.9,
@@ -148,7 +148,7 @@ export function createIntroScreenIcon(): ScreenIcon {
   });
 }
 
-export function createMoreFeaturesScreenIcon(): ScreenIcon {
+export function createMoreFeaturesIcon(): ScreenIcon {
   return new ScreenIcon(createMoreFeaturesIconNode(), {
     maxIconWidthProportion: 0.9,
     maxIconHeightProportion: 0.9,
