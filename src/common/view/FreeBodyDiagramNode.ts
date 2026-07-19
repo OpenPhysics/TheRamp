@@ -10,8 +10,8 @@ import { PhetFont } from "scenerystack/scenery-phet";
 import { AccordionBox } from "scenerystack/sun";
 import { StringManager } from "../../i18n/StringManager.js";
 import TheRampColors from "../../TheRampColors.js";
+import { APPLIED_FORCE_RANGE, FBD_FORCE_PER_PIXEL, FBD_FORCE_SCALE, FBD_SIZE } from "../../TheRampConstants.js";
 import type { RampModel } from "../model/RampModel.js";
-import { APPLIED_FORCE_RANGE, FBD_FORCE_PER_PIXEL, FBD_FORCE_SCALE, FBD_SIZE } from "../TheRampConstants.js";
 import { ForceArrowNode } from "./ForceArrowNode.js";
 import { type ForceId, getForceVectors } from "./ForceVectorSetNode.js";
 

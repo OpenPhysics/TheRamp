@@ -23,7 +23,7 @@ import {
   MAX_DT,
   POSITION_RANGE,
   RAMP_LENGTH,
-} from "../TheRampConstants.js";
+} from "../../TheRampConstants.js";
 import { RampEnergyModel } from "./RampEnergyModel.js";
 import { RampForcesModel } from "./RampForcesModel.js";
 import { RAMP_OBJECTS, type RampObjectDescription } from "./RampObjectDescription.js";

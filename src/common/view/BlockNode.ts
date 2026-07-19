@@ -9,9 +9,9 @@ import type { ModelViewTransform2 } from "scenerystack/phetcommon";
 import { DragListener, Image, KeyboardListener, Node } from "scenerystack/scenery";
 import { RampImages } from "../../assets/images.js";
 import { StringManager } from "../../i18n/StringManager.js";
+import { APPLIED_FORCE_PER_PIXEL, APPLIED_FORCE_RANGE } from "../../TheRampConstants.js";
 import type { RampModel } from "../model/RampModel.js";
 import type { RampObjectDescription } from "../model/RampObjectDescription.js";
-import { APPLIED_FORCE_PER_PIXEL, APPLIED_FORCE_RANGE } from "../TheRampConstants.js";
 
 export class BlockNode extends Node {
   public constructor(model: RampModel, modelViewTransform: ModelViewTransform2) {

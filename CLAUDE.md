@@ -20,7 +20,7 @@ Physics for educators: `doc/model.md`. Architecture: `doc/implementation-notes.m
 | Screen models | `src/intro/model/IntroModel.ts`, `src/more-features/model/MoreFeaturesModel.ts` |
 | Shared view | `src/common/view/RampScreenView.ts`, `RampScreenSummaryContent.ts`, `RampKeyboardHelpContent.ts` |
 | Screen views | `src/intro/view/IntroScreenView.ts`, `src/more-features/view/MoreFeaturesScreenView.ts` |
-| Layout constants | `src/common/TheRampConstants.ts` |
+| Layout constants | `src/TheRampConstants.ts` |
 | Colors / strings | `src/TheRampColors.ts`, `TheRampNamespace.ts`, `src/i18n/StringManager.ts` |
 | Icons | `scripts/generate-icons.ts` |
 
@@ -54,7 +54,7 @@ each locale JSON, via `StringManager.getA11yStrings()`.
 
 ## Compliance carve-outs
 
-- **Nested constants:** `src/common/model/RampPhysicsConstants.ts` and `src/common/TheRampConstants.ts` co-located with the ramp model (no root `TheRampConstants.ts`).
+- **Root constants:** `src/TheRampConstants.ts`; domain-specific `src/common/model/RampPhysicsConstants.ts` stays nested.
 - **`src/assets/`** holds bundled images/audio plus the `images.ts` manifest (extra root folder).
 
 ## Testing

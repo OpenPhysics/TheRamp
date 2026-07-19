@@ -12,8 +12,8 @@ import { AccordionBox, Checkbox, Panel, VerticalCheckboxGroup } from "scenerysta
 import { Tandem } from "scenerystack/tandem";
 import { StringManager } from "../../i18n/StringManager.js";
 import TheRampColors from "../../TheRampColors.js";
+import { APPLIED_FORCE_RANGE, FRICTION_RANGE, MASS_RANGE, POSITION_RANGE } from "../../TheRampConstants.js";
 import type { RampModel } from "../model/RampModel.js";
-import { APPLIED_FORCE_RANGE, FRICTION_RANGE, MASS_RANGE, POSITION_RANGE } from "../TheRampConstants.js";
 import { CoolRampButton } from "./CoolRampButton.js";
 import { ObjectComboBox } from "./ObjectComboBox.js";
 import { ObjectSelectionPanel } from "./ObjectSelectionPanel.js";

@@ -16,7 +16,7 @@ import { AccordionBox, ColorConstants } from "scenerystack/sun";
 import { Tandem } from "scenerystack/tandem";
 import { StringManager } from "../../i18n/StringManager.js";
 import TheRampColors from "../../TheRampColors.js";
-import { ENERGY_BAR_SCALE } from "../TheRampConstants.js";
+import { ENERGY_BAR_SCALE } from "../../TheRampConstants.js";
 import { type BarChartGroup, BarChartNode } from "./BarChartNode.js";
 
 export interface LegendItem {

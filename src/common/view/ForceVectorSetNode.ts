@@ -8,9 +8,9 @@ import { Vector2 } from "scenerystack/dot";
 import { Node } from "scenerystack/scenery";
 import { StringManager } from "../../i18n/StringManager.js";
 import TheRampColors from "../../TheRampColors.js";
+import { FORCE_ARROW_SCALE, GRAVITY } from "../../TheRampConstants.js";
 import type { RampModel } from "../model/RampModel.js";
 import type { SurfaceId } from "../model/RampPhysicsEngine.js";
-import { FORCE_ARROW_SCALE, GRAVITY } from "../TheRampConstants.js";
 import { ForceArrowNode } from "./ForceArrowNode.js";
 
 export type ForceId = "applied" | "gravity" | "normal" | "friction" | "wall" | "total";

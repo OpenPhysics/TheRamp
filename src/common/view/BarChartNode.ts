@@ -11,7 +11,7 @@ import { Shape } from "scenerystack/kite";
 import { Line, Node, Path, type ProfileColorProperty, Rectangle, Text } from "scenerystack/scenery";
 import { ArrowNode, PhetFont } from "scenerystack/scenery-phet";
 import TheRampColors from "../../TheRampColors.js";
-import { ENERGY_BAR_SCALE } from "../TheRampConstants.js";
+import { ENERGY_BAR_SCALE } from "../../TheRampConstants.js";
 
 export interface BarDataEntry {
   readonly colorProperty: ProfileColorProperty;

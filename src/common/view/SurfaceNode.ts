@@ -8,15 +8,15 @@ import { clamp } from "scenerystack/dot";
 import { Color, DragListener, KeyboardDragListener, Line, Node, Rectangle } from "scenerystack/scenery";
 import { StringManager } from "../../i18n/StringManager.js";
 import TheRampColors from "../../TheRampColors.js";
-import type { RampModel } from "../model/RampModel.js";
-import { OVERHEAT_THERMAL_ENERGY } from "../model/RampPhysicsConstants.js";
 import {
   ANGLE_RANGE,
   MODEL_VIEW_SCALE,
   RAMP_BOARD_THICKNESS,
   RAMP_LENGTH,
   WORLD_VIEW_ORIGIN,
-} from "../TheRampConstants.js";
+} from "../../TheRampConstants.js";
+import type { RampModel } from "../model/RampModel.js";
+import { OVERHEAT_THERMAL_ENERGY } from "../model/RampPhysicsConstants.js";
 import { BarrierNode } from "./BarrierNode.js";
 
 /** Crisp ground walking surface from the left wall to the ramp hinge. */

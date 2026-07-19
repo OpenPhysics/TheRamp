@@ -8,6 +8,7 @@ import type { ProfileColorProperty } from "scenerystack/scenery";
 import { VBox } from "scenerystack/scenery";
 import { StringManager } from "../../i18n/StringManager.js";
 import TheRampColors from "../../TheRampColors.js";
+import { PLOT_ENERGY_RANGE, PLOT_FORCE_RANGE } from "../../TheRampConstants.js";
 import type { RampModel } from "../model/RampModel.js";
 import {
   getKineticEnergy,
@@ -16,7 +17,6 @@ import {
   getTotalWork,
   type RampPhysicsState,
 } from "../model/RampPhysicsEngine.js";
-import { PLOT_ENERGY_RANGE, PLOT_FORCE_RANGE } from "../TheRampConstants.js";
 import { TimePlotNode } from "./TimePlotNode.js";
 
 export interface SeriesDescriptor {

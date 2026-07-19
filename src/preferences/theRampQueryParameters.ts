@@ -10,7 +10,7 @@
 
 import { logGlobal } from "scenerystack/phet-core";
 import { QueryStringMachine } from "scenerystack/query-string-machine";
-import { APPLIED_FORCE_RANGE, FRICTION_RANGE, MASS_RANGE } from "../common/TheRampConstants.js";
+import { APPLIED_FORCE_RANGE, FRICTION_RANGE, MASS_RANGE } from "../TheRampConstants.js";
 import TheRampNamespace from "../TheRampNamespace.js";
 
 // Default object (file cabinet) values — kept in sync with RAMP_OBJECTS[0].

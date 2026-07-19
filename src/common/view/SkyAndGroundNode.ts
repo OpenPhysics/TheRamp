@@ -7,7 +7,7 @@ import type { ReadOnlyProperty } from "scenerystack/axon";
 import type { Bounds2 } from "scenerystack/dot";
 import { Node, Rectangle } from "scenerystack/scenery";
 import TheRampColors from "../../TheRampColors.js";
-import { WORLD_VIEW_ORIGIN } from "../TheRampConstants.js";
+import { WORLD_VIEW_ORIGIN } from "../../TheRampConstants.js";
 
 export class SkyAndGroundNode extends Node {
   public constructor(visibleBoundsProperty: ReadOnlyProperty<Bounds2>) {

@@ -11,10 +11,11 @@ import type { ScreenViewOptions } from "scenerystack/sim";
 import { ScreenView } from "scenerystack/sim";
 import { StringManager } from "../../i18n/StringManager.js";
 import TheRampColors from "../../TheRampColors.js";
+import { MODEL_VIEW_SCALE, SCREEN_VIEW_MARGIN } from "../../TheRampConstants.js";
 import { CollisionSoundPlayer } from "../audio/CollisionSoundPlayer.js";
 import { SynthesizedSounds } from "../audio/synthesizeSoundClip.js";
 import type { RampModel } from "../model/RampModel.js";
-import { MODEL_VIEW_SCALE, SCREEN_VIEW_MARGIN } from "../TheRampConstants.js";
+import { FLAT_RESET_ALL_BUTTON_OPTIONS } from "../TheRampButtonOptions.js";
 import { showConfirmDialog } from "./ConfirmDialog.js";
 import { EnergyWorkBarChartsNode } from "./EnergyWorkBarChartsNode.js";
 import { FreeBodyDiagramNode } from "./FreeBodyDiagramNode.js";
@@ -186,6 +187,7 @@ export class RampScreenView extends ScreenView {
     new CollisionSoundPlayer(model.collisionEmitter, model.soundEnabledProperty);
 
     const resetAllButton = new ResetAllButton({
+      ...FLAT_RESET_ALL_BUTTON_OPTIONS,
       listener: () => {
         model.reset();
         this.reset();

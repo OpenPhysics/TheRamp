@@ -215,6 +215,29 @@ const TheRampColors = {
     default: "rgba(255,255,255,0.18)",
     projector: "rgba(0,0,0,0.10)",
   }),
+
+  // ── Light control surfaces ───────────────────────────────────────────────────
+  // White chrome (combo boxes, flat push buttons, editable input fields) stays light
+  // in both profiles; its text stays dark. Same values in default and projector mode,
+  // but defined here so every color lives in one themeable place.
+
+  /** Fill of light control surfaces: combo-box button/list, editable input fields. */
+  controlSurfaceColorProperty: new ProfileColorProperty(TheRampNamespace, "controlSurface", {
+    default: "#ffffff",
+    projector: "#ffffff",
+  }),
+
+  /** Fill of a disabled control surface (grayed-out editable input field). */
+  controlSurfaceDisabledColorProperty: new ProfileColorProperty(TheRampNamespace, "controlSurfaceDisabled", {
+    default: "#cccccc",
+    projector: "#cccccc",
+  }),
+
+  /** Text on light control surfaces: combo items, flat-button labels, field values, preferences. */
+  controlSurfaceTextColorProperty: new ProfileColorProperty(TheRampNamespace, "controlSurfaceText", {
+    default: "#1a1a1a",
+    projector: "#1a1a1a",
+  }),
 };
 
 export default TheRampColors;
