@@ -7,7 +7,7 @@
  */
 import { Range, Vector2 } from "scenerystack/dot";
 
-export * from "./model/RampPhysicsConstants.js";
+export * from "./common/model/RampPhysicsConstants.js";
 
 /** Ramp angle control range, radians */
 export const ANGLE_RANGE = new Range(0, Math.PI / 2);
@@ -59,3 +59,6 @@ export const PLOT_FORCE_RANGE = new Range(-1000, 1000);
 
 /** Margin between screen-view edge and content, px */
 export const SCREEN_VIEW_MARGIN = 10;
+
+/** Corner radius shared by themed panels (px). */
+export const PANEL_CORNER_RADIUS = 5;
