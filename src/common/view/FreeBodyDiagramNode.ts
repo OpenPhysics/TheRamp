@@ -5,7 +5,7 @@
  */
 import { Multilink } from "scenerystack/axon";
 import { clamp, Vector2 } from "scenerystack/dot";
-import { DragListener, Line, Node, Rectangle, Text } from "scenerystack/scenery";
+import { DragListener, KeyboardDragListener, Line, Node, Rectangle, Text } from "scenerystack/scenery";
 import { PhetFont } from "scenerystack/scenery-phet";
 import { AccordionBox } from "scenerystack/sun";
 import { StringManager } from "../../i18n/StringManager.js";
@@ -89,6 +89,9 @@ export class FreeBodyDiagramNode extends AccordionBox {
     }
 
     let dragStartX = 0;
+    const clearAppliedForce = (): void => {
+      model.appliedForceProperty.value = 0;
+    };
     background.addInputListener(
       new DragListener({
         start: (event) => {
@@ -103,9 +106,25 @@ export class FreeBodyDiagramNode extends AccordionBox {
             APPLIED_FORCE_RANGE.max,
           );
         },
-        end: () => {
-          model.appliedForceProperty.value = 0;
+        end: clearAppliedForce,
+      }),
+    );
+    background.addInputListener(
+      new KeyboardDragListener({
+        keyboardDragDirection: "leftRight",
+        dragDelta: 40,
+        shiftDragDelta: 10,
+        start: () => {
+          model.timeSeriesModel.ensureRecordMode();
         },
+        drag: (_event, listener) => {
+          model.appliedForceProperty.value = clamp(
+            listener.modelDelta.x * FBD_FORCE_PER_PIXEL,
+            APPLIED_FORCE_RANGE.min,
+            APPLIED_FORCE_RANGE.max,
+          );
+        },
+        end: clearAppliedForce,
       }),
     );
 

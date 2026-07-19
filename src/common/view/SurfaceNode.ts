@@ -5,7 +5,7 @@
  */
 import { DerivedProperty } from "scenerystack/axon";
 import { clamp } from "scenerystack/dot";
-import { Color, DragListener, Line, Node, Rectangle } from "scenerystack/scenery";
+import { Color, DragListener, KeyboardDragListener, Line, Node, Rectangle } from "scenerystack/scenery";
 import { StringManager } from "../../i18n/StringManager.js";
 import RampColors from "../../RampColors.js";
 import type { RampModel } from "../model/RampModel.js";
@@ -73,6 +73,21 @@ export class RampSurfaceNode extends Node {
           const dx = parentPoint.x - WORLD_VIEW_ORIGIN.x;
           const dy = WORLD_VIEW_ORIGIN.y - parentPoint.y;
           model.rampAngleProperty.value = clamp(Math.atan2(dy, Math.max(dx, 1e-6)), ANGLE_RANGE.min, ANGLE_RANGE.max);
+        },
+      }),
+    );
+    // Arrow keys nudge the ramp angle (radians). Left/Down lower the ramp; Right/Up raise it.
+    board.addInputListener(
+      new KeyboardDragListener({
+        keyboardDragDirection: "leftRight",
+        dragDelta: 0.02,
+        shiftDragDelta: 0.005,
+        drag: (_event, listener) => {
+          model.rampAngleProperty.value = clamp(
+            model.rampAngleProperty.value + listener.modelDelta.x,
+            ANGLE_RANGE.min,
+            ANGLE_RANGE.max,
+          );
         },
       }),
     );
