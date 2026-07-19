@@ -74,8 +74,9 @@ const TheRampColors = {
 
   /** Applied force vector and applied-work bar color. */
   appliedForceColorProperty: new ProfileColorProperty(TheRampNamespace, "appliedForce", {
-    default: "#EC9937",
-    projector: "#C97A1B",
+    // Darkened from PhET Java #EC9937 for ≥3:1 contrast on white chart backgrounds.
+    default: "#C8821C",
+    projector: "#A86A14",
   }),
 
   /** Gravity (weight) force vector color. */
@@ -98,20 +99,22 @@ const TheRampColors = {
 
   /** Wall reaction force vector color. */
   wallForceColorProperty: new ProfileColorProperty(TheRampNamespace, "wallForce", {
-    default: "#BEBE00",
-    projector: "#8F8F00",
+    // Darkened from PhET Java #BEBE00 for ≥3:1 contrast on white chart backgrounds.
+    default: "#969600",
+    projector: "#6E6E00",
   }),
 
   /** Net (total) force vector color. */
   totalForceColorProperty: new ProfileColorProperty(TheRampNamespace, "totalForce", {
-    default: "#00CC1A",
-    projector: "#009913",
+    // Darkened from PhET Java #00CC1A for ≥3:1 contrast on white chart backgrounds.
+    default: "#00A816",
+    projector: "#007A0E",
   }),
 
   /** Kinetic energy bar and plot series color. */
   kineticEnergyColorProperty: new ProfileColorProperty(TheRampNamespace, "kineticEnergy", {
-    default: "#00CC1A",
-    projector: "#009913",
+    default: "#00A816",
+    projector: "#007A0E",
   }),
 
   /** Potential energy bar and plot series color. */
@@ -128,14 +131,14 @@ const TheRampColors = {
 
   /** Total energy bar color. */
   totalEnergyColorProperty: new ProfileColorProperty(TheRampNamespace, "totalEnergy", {
-    default: "#EC9937",
-    projector: "#C97A1B",
+    default: "#C8821C",
+    projector: "#A86A14",
   }),
 
   /** Applied work bar color. */
   appliedWorkColorProperty: new ProfileColorProperty(TheRampNamespace, "appliedWork", {
-    default: "#EC9937",
-    projector: "#C97A1B",
+    default: "#C8821C",
+    projector: "#A86A14",
   }),
 
   /** Gravity work bar color. */
@@ -152,8 +155,8 @@ const TheRampColors = {
 
   /** Total work bar color. */
   totalWorkColorProperty: new ProfileColorProperty(TheRampNamespace, "totalWork", {
-    default: "#00CC1A",
-    projector: "#009913",
+    default: "#00A816",
+    projector: "#007A0E",
   }),
 
   /** Sky background fill above the ground line. */
@@ -237,6 +240,15 @@ const TheRampColors = {
   controlSurfaceTextColorProperty: new ProfileColorProperty(TheRampNamespace, "controlSurfaceText", {
     default: "#1a1a1a",
     projector: "#1a1a1a",
+  }),
+
+  /**
+   * Base fill for chart zoom-in/zoom-out buttons.
+   * Matches sun ColorConstants.LIGHT_BLUE (rgb 153,206,255); slightly deeper in projector mode.
+   */
+  zoomButtonColorProperty: new ProfileColorProperty(TheRampNamespace, "zoomButton", {
+    default: "#99CEFF",
+    projector: "#6BB0E8",
   }),
 };
 

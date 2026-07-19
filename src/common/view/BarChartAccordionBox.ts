@@ -12,7 +12,7 @@ import type { ProfileColorProperty } from "scenerystack/scenery";
 import { AlignBox, AlignGroup, HBox, HStrut, Node, Rectangle, RichText, Text, VBox } from "scenerystack/scenery";
 import { InfoButton, PhetFont, ZoomButton } from "scenerystack/scenery-phet";
 import { Dialog } from "scenerystack/sim";
-import { AccordionBox, ColorConstants } from "scenerystack/sun";
+import { AccordionBox } from "scenerystack/sun";
 import { Tandem } from "scenerystack/tandem";
 import { StringManager } from "../../i18n/StringManager.js";
 import TheRampColors from "../../TheRampColors.js";
@@ -42,7 +42,7 @@ const DEFAULT_ZOOM_LEVEL = 0;
 const ZOOM_LEVEL_RANGE = new Range(-2, 4);
 
 const zoomButtonOptions = {
-  baseColor: ColorConstants.LIGHT_BLUE,
+  baseColor: TheRampColors.zoomButtonColorProperty,
   xMargin: 8,
   yMargin: 4,
   magnifyingGlassOptions: {

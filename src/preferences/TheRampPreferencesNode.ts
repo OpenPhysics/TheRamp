@@ -15,13 +15,16 @@ import TheRampColors from "../TheRampColors.js";
 import TheRampNamespace from "../TheRampNamespace.js";
 import { INITIAL_RAMP_ANGLE_RANGE_DEG, type TheRampPreferencesModel } from "./TheRampPreferencesModel.js";
 
+/** Preferences dialog content sits on a light background regardless of color profile. */
+const PREFERENCES_TEXT_FILL = TheRampColors.controlSurfaceTextColorProperty;
+
 export class TheRampPreferencesNode extends VBox {
   public constructor(preferencesModel: TheRampPreferencesModel, tandem?: Tandem) {
     const prefStrings = StringManager.getInstance().getPreferences();
 
     const header = new Text(prefStrings.titleStringProperty, {
       font: new PhetFont({ size: 18, weight: "bold" }),
-      fill: TheRampColors.textColorProperty,
+      fill: PREFERENCES_TEXT_FILL,
     });
 
     const checkbox = (
@@ -33,11 +36,11 @@ export class TheRampPreferencesNode extends VBox {
         property,
         new Text(labelProperty, {
           font: new PhetFont(14),
-          fill: TheRampColors.textColorProperty,
+          fill: PREFERENCES_TEXT_FILL,
         }),
         {
-          checkboxColor: TheRampColors.textColorProperty,
-          checkboxColorBackground: TheRampColors.panelBackgroundColorProperty,
+          checkboxColor: PREFERENCES_TEXT_FILL,
+          checkboxColorBackground: TheRampColors.controlSurfaceColorProperty,
           spacing: 8,
           ...(tandem && { tandem: tandem.createTandem(tandemName) }),
         },
@@ -52,14 +55,14 @@ export class TheRampPreferencesNode extends VBox {
         numberDisplayOptions: {
           decimalPlaces: 0,
           valuePattern: "{{value}}°",
-          textOptions: { fill: TheRampColors.textColorProperty },
+          textOptions: { fill: PREFERENCES_TEXT_FILL },
         },
         titleNodeOptions: {
           font: new PhetFont(14),
-          fill: TheRampColors.textColorProperty,
+          fill: PREFERENCES_TEXT_FILL,
           maxWidth: 200,
         },
-        sliderOptions: { trackFillEnabled: TheRampColors.textColorProperty },
+        sliderOptions: { trackFillEnabled: PREFERENCES_TEXT_FILL },
         arrowButtonOptions: { scale: 0.75 },
         layoutFunction: NumberControl.createLayoutFunction4({ sliderPadding: 5 }),
         ...(tandem && { tandem: tandem.createTandem("initialRampAngleControl") }),
