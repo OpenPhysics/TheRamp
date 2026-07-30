@@ -8,7 +8,7 @@
  * (object, ramp angle, applied force, speed) at any time.
  *
  * Follows the OpenPhysics accessibility convention; see ../../../Baton/ACCESSIBILITY.md
- * and the canonical TemplateSingleSim/SimScreenSummaryContent.ts.
+ * and the canonical SceneryStackTemplate/SimScreenSummaryContent.ts.
  */
 
 import { DerivedProperty } from "scenerystack/axon";
