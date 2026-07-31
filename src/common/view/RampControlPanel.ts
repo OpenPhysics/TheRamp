@@ -207,6 +207,10 @@ function createForceVisibilitySection(model: RampModel): AccordionBox {
   const checkboxGroup = new VerticalCheckboxGroup(items, {
     spacing: 4,
     tandem: Tandem.OPT_OUT,
+    checkboxOptions: {
+      checkboxColor: TheRampColors.textColorProperty,
+      checkboxColorBackground: TheRampColors.panelBackgroundColorProperty,
+    },
   });
 
   return new AccordionBox(checkboxGroup, {
@@ -247,6 +251,10 @@ function createCoordinateFramesSection(model: RampModel): AccordionBox {
   const checkboxGroup = new VerticalCheckboxGroup(items, {
     spacing: 4,
     tandem: Tandem.OPT_OUT,
+    checkboxOptions: {
+      checkboxColor: TheRampColors.textColorProperty,
+      checkboxColorBackground: TheRampColors.panelBackgroundColorProperty,
+    },
   });
 
   return new AccordionBox(checkboxGroup, {
@@ -305,6 +313,10 @@ export class RampControlPanel extends Panel {
           fill: TheRampColors.textColorProperty,
           maxWidth: 150,
         }),
+        {
+          checkboxColor: TheRampColors.textColorProperty,
+          checkboxColorBackground: TheRampColors.panelBackgroundColorProperty,
+        },
       ),
       createAngleControl(model),
       createNumberControl(controls.positionStringProperty, model.globalPositionProperty, POSITION_RANGE, 1, {
@@ -331,6 +343,10 @@ export class RampControlPanel extends Panel {
           fill: TheRampColors.textColorProperty,
           maxWidth: 150,
         }),
+        {
+          checkboxColor: TheRampColors.textColorProperty,
+          checkboxColorBackground: TheRampColors.panelBackgroundColorProperty,
+        },
       ),
       new CoolRampButton({
         radius: 18,
@@ -359,6 +375,10 @@ export class RampControlPanel extends Panel {
             fill: TheRampColors.textColorProperty,
             maxWidth: 150,
           }),
+          {
+            checkboxColor: TheRampColors.textColorProperty,
+            checkboxColorBackground: TheRampColors.panelBackgroundColorProperty,
+          },
         ),
       );
     }
@@ -372,6 +392,10 @@ export class RampControlPanel extends Panel {
             fill: TheRampColors.textColorProperty,
             maxWidth: 150,
           }),
+          {
+            checkboxColor: TheRampColors.textColorProperty,
+            checkboxColorBackground: TheRampColors.panelBackgroundColorProperty,
+          },
         ),
       );
     }
