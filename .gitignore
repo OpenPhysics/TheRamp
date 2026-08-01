@@ -38,8 +38,6 @@ Thumbs.db
 # Claude Code - local settings excluded, hooks tracked
 .claude/settings.local.json
 
-# Local copy of PhET Java reference source (not tracked)
-JAVA/
 
 # CI / local npm audit artifact (must not be linted)
 audit.json

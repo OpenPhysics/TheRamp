@@ -9,7 +9,7 @@ SceneryStack reimplementation of PhET's Java *The Ramp* (forces on an inclined p
 - **Introduction** (`src/intro/`) — Java `SimpleRampModule`
 - **More Features** (`src/more-features/`) — Java `RampModule` (charts, record/playback, FBD, measuring tape)
 
-Physics for educators: `doc/model.md`. Architecture: `doc/implementation-notes.md`.
+Upstream Java ground truth: `../Baseline/TheRamp/java` (OpenPhysics/Baseline). Physics for educators: `doc/model.md`. Architecture: `doc/implementation-notes.md`.
 
 ## Key files
 
