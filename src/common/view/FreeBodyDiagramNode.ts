@@ -5,12 +5,19 @@
  */
 import { Multilink } from "scenerystack/axon";
 import { clamp, Vector2 } from "scenerystack/dot";
-import { DragListener, KeyboardDragListener, Line, Node, Rectangle, Text } from "scenerystack/scenery";
+import { Line, Node, Rectangle, RichDragListener, Text } from "scenerystack/scenery";
 import { PhetFont } from "scenerystack/scenery-phet";
 import { AccordionBox } from "scenerystack/sun";
 import { StringManager } from "../../i18n/StringManager.js";
 import TheRampColors from "../../TheRampColors.js";
-import { APPLIED_FORCE_RANGE, FBD_FORCE_PER_PIXEL, FBD_FORCE_SCALE, FBD_SIZE } from "../../TheRampConstants.js";
+import {
+  APPLIED_FORCE_RANGE,
+  FBD_FORCE_PER_PIXEL,
+  FBD_FORCE_SCALE,
+  FBD_SIZE,
+  FORCE_KEY_DRAG_DELTA_PX,
+  FORCE_KEY_SHIFT_DRAG_DELTA_PX,
+} from "../../TheRampConstants.js";
 import type { RampModel } from "../model/RampModel.js";
 import { ForceArrowNode } from "./ForceArrowNode.js";
 import { type ForceId, getForceVectors } from "./ForceVectorSetNode.js";
@@ -93,38 +100,38 @@ export class FreeBodyDiagramNode extends AccordionBox {
       model.appliedForceProperty.value = 0;
     };
     background.addInputListener(
-      new DragListener({
-        start: (event) => {
-          model.timeSeriesModel.ensureRecordMode();
-          dragStartX = background.globalToParentPoint(event.pointer.point).x;
+      new RichDragListener({
+        dragListenerOptions: {
+          start: (event) => {
+            model.timeSeriesModel.ensureRecordMode();
+            dragStartX = background.globalToParentPoint(event.pointer.point).x;
+          },
+          drag: (event) => {
+            const dx = background.globalToParentPoint(event.pointer.point).x - dragStartX;
+            model.appliedForceProperty.value = clamp(
+              dx * FBD_FORCE_PER_PIXEL,
+              APPLIED_FORCE_RANGE.min,
+              APPLIED_FORCE_RANGE.max,
+            );
+          },
+          end: clearAppliedForce,
         },
-        drag: (event) => {
-          const dx = background.globalToParentPoint(event.pointer.point).x - dragStartX;
-          model.appliedForceProperty.value = clamp(
-            dx * FBD_FORCE_PER_PIXEL,
-            APPLIED_FORCE_RANGE.min,
-            APPLIED_FORCE_RANGE.max,
-          );
+        keyboardDragListenerOptions: {
+          keyboardDragDirection: "leftRight",
+          dragDelta: FORCE_KEY_DRAG_DELTA_PX,
+          shiftDragDelta: FORCE_KEY_SHIFT_DRAG_DELTA_PX,
+          start: () => {
+            model.timeSeriesModel.ensureRecordMode();
+          },
+          drag: (_event, listener) => {
+            model.appliedForceProperty.value = clamp(
+              listener.modelDelta.x * FBD_FORCE_PER_PIXEL,
+              APPLIED_FORCE_RANGE.min,
+              APPLIED_FORCE_RANGE.max,
+            );
+          },
+          end: clearAppliedForce,
         },
-        end: clearAppliedForce,
-      }),
-    );
-    background.addInputListener(
-      new KeyboardDragListener({
-        keyboardDragDirection: "leftRight",
-        dragDelta: 40,
-        shiftDragDelta: 10,
-        start: () => {
-          model.timeSeriesModel.ensureRecordMode();
-        },
-        drag: (_event, listener) => {
-          model.appliedForceProperty.value = clamp(
-            listener.modelDelta.x * FBD_FORCE_PER_PIXEL,
-            APPLIED_FORCE_RANGE.min,
-            APPLIED_FORCE_RANGE.max,
-          );
-        },
-        end: clearAppliedForce,
       }),
     );
 

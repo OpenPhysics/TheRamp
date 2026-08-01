@@ -48,6 +48,13 @@ export const APPLIED_FORCE_PER_PIXEL = 1 / 1.2;
 /** FBD drag: applied newtons per pixel of horizontal drag */
 export const FBD_FORCE_PER_PIXEL = 20;
 
+/**
+ * Keyboard push: view-pixel drag delta an arrow-key press stands in for, so a held arrow applies
+ * the same force a pointer drag of that many pixels would. Shift is the fine step.
+ */
+export const FORCE_KEY_DRAG_DELTA_PX = 40;
+export const FORCE_KEY_SHIFT_DRAG_DELTA_PX = 10;
+
 /** Bar chart scale, px per J */
 export const ENERGY_BAR_SCALE = 0.005;
 

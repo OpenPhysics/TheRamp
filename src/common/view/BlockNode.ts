@@ -6,10 +6,15 @@
 import { DerivedProperty, Multilink } from "scenerystack/axon";
 import { clamp } from "scenerystack/dot";
 import type { ModelViewTransform2 } from "scenerystack/phetcommon";
-import { DragListener, Image, KeyboardListener, Node } from "scenerystack/scenery";
+import { Image, Node, RichDragListener } from "scenerystack/scenery";
 import { RampImages } from "../../assets/images.js";
 import { StringManager } from "../../i18n/StringManager.js";
-import { APPLIED_FORCE_PER_PIXEL, APPLIED_FORCE_RANGE } from "../../TheRampConstants.js";
+import {
+  APPLIED_FORCE_PER_PIXEL,
+  APPLIED_FORCE_RANGE,
+  FORCE_KEY_DRAG_DELTA_PX,
+  FORCE_KEY_SHIFT_DRAG_DELTA_PX,
+} from "../../TheRampConstants.js";
 import type { RampModel } from "../model/RampModel.js";
 import type { RampObjectDescription } from "../model/RampObjectDescription.js";
 
@@ -92,39 +97,41 @@ export class BlockNode extends Node {
     );
 
     let dragStartX = 0;
+    const clearAppliedForce = (): void => {
+      model.appliedForceProperty.value = 0;
+    };
     this.addInputListener(
-      new DragListener({
-        start: (event) => {
-          model.timeSeriesModel.ensureRecordMode();
-          dragStartX = this.globalToParentPoint(event.pointer.point).x;
+      new RichDragListener({
+        dragListenerOptions: {
+          start: (event) => {
+            model.timeSeriesModel.ensureRecordMode();
+            dragStartX = this.globalToParentPoint(event.pointer.point).x;
+          },
+          drag: (event) => {
+            const dx = this.globalToParentPoint(event.pointer.point).x - dragStartX;
+            model.appliedForceProperty.value = clamp(
+              dx * APPLIED_FORCE_PER_PIXEL,
+              APPLIED_FORCE_RANGE.min,
+              APPLIED_FORCE_RANGE.max,
+            );
+          },
+          end: clearAppliedForce,
         },
-        drag: (event) => {
-          const dx = this.globalToParentPoint(event.pointer.point).x - dragStartX;
-          model.appliedForceProperty.value = clamp(
-            dx * APPLIED_FORCE_PER_PIXEL,
-            APPLIED_FORCE_RANGE.min,
-            APPLIED_FORCE_RANGE.max,
-          );
-        },
-        end: () => {
-          model.appliedForceProperty.value = 0;
-        },
-      }),
-    );
-
-    // Keyboard equivalent of the drag: hold an arrow key to push the object,
-    // release to stop — mirroring the mouse drag's momentary applied force.
-    this.addInputListener(
-      new KeyboardListener({
-        keys: ["arrowLeft", "arrowRight"],
-        fireOnHold: true,
-        press: (_event, keysPressed) => {
-          model.timeSeriesModel.ensureRecordMode();
-          model.appliedForceProperty.value =
-            keysPressed === "arrowRight" ? APPLIED_FORCE_RANGE.max : APPLIED_FORCE_RANGE.min;
-        },
-        release: () => {
-          model.appliedForceProperty.value = 0;
+        keyboardDragListenerOptions: {
+          keyboardDragDirection: "leftRight",
+          dragDelta: FORCE_KEY_DRAG_DELTA_PX,
+          shiftDragDelta: FORCE_KEY_SHIFT_DRAG_DELTA_PX,
+          start: () => {
+            model.timeSeriesModel.ensureRecordMode();
+          },
+          drag: (_event, listener) => {
+            model.appliedForceProperty.value = clamp(
+              listener.modelDelta.x * APPLIED_FORCE_PER_PIXEL,
+              APPLIED_FORCE_RANGE.min,
+              APPLIED_FORCE_RANGE.max,
+            );
+          },
+          end: clearAppliedForce,
         },
       }),
     );

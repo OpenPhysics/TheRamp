@@ -6,7 +6,7 @@
 import type { BooleanProperty } from "scenerystack/axon";
 import { clamp } from "scenerystack/dot";
 import type { ModelViewTransform2 } from "scenerystack/phetcommon";
-import { DragListener, KeyboardDragListener, Line, Node, Text } from "scenerystack/scenery";
+import { Line, Node, RichDragListener, Text } from "scenerystack/scenery";
 import { PhetFont } from "scenerystack/scenery-phet";
 import { StringManager } from "../../i18n/StringManager.js";
 import TheRampColors from "../../TheRampColors.js";
@@ -50,21 +50,21 @@ export class ZeroPointPeLineNode extends Node {
     model.zeroPointYProperty.link(updatePositions);
 
     line.addInputListener(
-      new DragListener({
-        drag: (event) => {
-          const parentPoint = this.globalToParentPoint(event.pointer.point);
-          model.zeroPointYProperty.value = clamp(modelViewTransform.viewToModelY(parentPoint.y), -2, 12);
-        },
-      }),
-    );
-    line.addInputListener(
-      new KeyboardDragListener({
+      new RichDragListener({
         transform: modelViewTransform,
-        keyboardDragDirection: "upDown",
-        dragSpeed: 40,
-        shiftDragSpeed: 15,
-        drag: (_event, listener) => {
-          model.zeroPointYProperty.value = clamp(model.zeroPointYProperty.value + listener.modelDelta.y, -2, 12);
+        dragListenerOptions: {
+          drag: (event) => {
+            const parentPoint = this.globalToParentPoint(event.pointer.point);
+            model.zeroPointYProperty.value = clamp(modelViewTransform.viewToModelY(parentPoint.y), -2, 12);
+          },
+        },
+        keyboardDragListenerOptions: {
+          keyboardDragDirection: "upDown",
+          dragSpeed: 40,
+          shiftDragSpeed: 15,
+          drag: (_event, listener) => {
+            model.zeroPointYProperty.value = clamp(model.zeroPointYProperty.value + listener.modelDelta.y, -2, 12);
+          },
         },
       }),
     );
