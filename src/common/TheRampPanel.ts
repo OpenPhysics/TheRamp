@@ -25,21 +25,26 @@
  *   const panel = new TheRampPanel(content, { fill: "transparent" });
  */
 
+import { type EmptySelfOptions, optionize } from "scenerystack/phet-core";
 import type { Node } from "scenerystack/scenery";
-import type { PanelOptions } from "scenerystack/sun";
-import { Panel } from "scenerystack/sun";
+import { Panel, type PanelOptions } from "scenerystack/sun";
 import TheRampColors from "../TheRampColors.js";
 import { PANEL_CORNER_RADIUS } from "../TheRampConstants.js";
 
+export type TheRampPanelOptions = PanelOptions;
+
 export class TheRampPanel extends Panel {
-  public constructor(content: Node, providedOptions?: PanelOptions) {
-    super(content, {
-      fill: TheRampColors.panelBackgroundColorProperty,
-      stroke: TheRampColors.panelBorderColorProperty,
-      cornerRadius: PANEL_CORNER_RADIUS,
-      xMargin: 12,
-      yMargin: 10,
-      ...providedOptions,
-    });
+  public constructor(content: Node, providedOptions?: TheRampPanelOptions) {
+    const options = optionize<TheRampPanelOptions, EmptySelfOptions, PanelOptions>()(
+      {
+        fill: TheRampColors.panelBackgroundColorProperty,
+        stroke: TheRampColors.panelBorderColorProperty,
+        cornerRadius: PANEL_CORNER_RADIUS,
+        xMargin: 12,
+        yMargin: 10,
+      },
+      providedOptions,
+    );
+    super(content, options);
   }
 }

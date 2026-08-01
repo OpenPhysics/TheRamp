@@ -5,10 +5,10 @@
  */
 import { BooleanProperty, Property } from "scenerystack/axon";
 import { Vector2 } from "scenerystack/dot";
+import { type EmptySelfOptions, optionize } from "scenerystack/phet-core";
 import { Node } from "scenerystack/scenery";
 import { MeasuringTapeNode, type MeasuringTapeUnits, ResetAllButton } from "scenerystack/scenery-phet";
-import type { ScreenViewOptions } from "scenerystack/sim";
-import { ScreenView } from "scenerystack/sim";
+import { ScreenView, type ScreenViewOptions } from "scenerystack/sim";
 import { StringManager } from "../../i18n/StringManager.js";
 import TheRampColors from "../../TheRampColors.js";
 import { MODEL_VIEW_SCALE, SCREEN_VIEW_MARGIN } from "../../TheRampConstants.js";
@@ -46,6 +46,8 @@ export interface RampScreenViewFeatures {
   plotViewWidth?: number;
 }
 
+export type RampScreenViewOptions = ScreenViewOptions;
+
 export class RampScreenView extends ScreenView {
   protected readonly sceneNode: RampSceneNode;
   protected readonly controlPanel: RampControlPanel;
@@ -61,13 +63,16 @@ export class RampScreenView extends ScreenView {
   protected readonly zeroPointVisibleProperty: BooleanProperty;
   private measuringTape: MeasuringTapeNode | null = null;
 
-  public constructor(model: RampModel, features: RampScreenViewFeatures = {}, options?: ScreenViewOptions) {
+  public constructor(model: RampModel, features: RampScreenViewFeatures = {}, providedOptions?: RampScreenViewOptions) {
     // Register the accessible screen summary (Interactive Description). Shared by
     // both Ramp screens; current details are derived live from the model.
-    super({
-      screenSummaryContent: new RampScreenSummaryContent(model),
-      ...options,
-    });
+    const options = optionize<RampScreenViewOptions, EmptySelfOptions, ScreenViewOptions>()(
+      {
+        screenSummaryContent: new RampScreenSummaryContent(model),
+      },
+      providedOptions,
+    );
+    super(options);
 
     this.energyBarsExpandedProperty = new BooleanProperty(features.energyBarsExpanded ?? false);
     this.workBarsExpandedProperty = new BooleanProperty(features.workBarsExpanded ?? false);

@@ -8,6 +8,7 @@
 import { NumberProperty, type ReadOnlyProperty } from "scenerystack/axon";
 import { clamp } from "scenerystack/dot";
 import { Shape } from "scenerystack/kite";
+import { combineOptions } from "scenerystack/phet-core";
 import { Line, Node, Path, type ProfileColorProperty, Rectangle, Text } from "scenerystack/scenery";
 import { ArrowNode, PhetFont } from "scenerystack/scenery-phet";
 import TheRampColors from "../../TheRampColors.js";
@@ -24,13 +25,15 @@ export interface BarChartGroup {
   readonly labelNode?: Node | null;
 }
 
-export interface BarChartNodeOptions {
+type BarChartNodeSelfOptions = {
   readonly scaleProperty?: ReadOnlyProperty<number>;
   readonly barWidth?: number;
   readonly barSpacing?: number;
   readonly maxBarHeightUp?: number;
   readonly maxBarHeightDown?: number;
-}
+};
+
+export type BarChartNodeOptions = BarChartNodeSelfOptions;
 
 const DEFAULT_BAR_WIDTH = 16;
 const DEFAULT_BAR_SPACING = 5;
@@ -85,11 +88,21 @@ export class BarChartNode extends Node {
   public constructor(groups: readonly BarChartGroup[], providedOptions?: BarChartNodeOptions) {
     super();
 
-    const barWidth = providedOptions?.barWidth ?? DEFAULT_BAR_WIDTH;
-    const barSpacing = providedOptions?.barSpacing ?? DEFAULT_BAR_SPACING;
-    this.maxBarHeightUp = providedOptions?.maxBarHeightUp ?? DEFAULT_MAX_BAR_HEIGHT_UP;
-    this.maxBarHeightDown = providedOptions?.maxBarHeightDown ?? DEFAULT_MAX_BAR_HEIGHT_DOWN;
-    this.scaleProperty = providedOptions?.scaleProperty ?? new NumberProperty(ENERGY_BAR_SCALE);
+    const options = combineOptions<BarChartNodeOptions>(
+      {
+        barWidth: DEFAULT_BAR_WIDTH,
+        barSpacing: DEFAULT_BAR_SPACING,
+        maxBarHeightUp: DEFAULT_MAX_BAR_HEIGHT_UP,
+        maxBarHeightDown: DEFAULT_MAX_BAR_HEIGHT_DOWN,
+      },
+      providedOptions,
+    );
+
+    const barWidth = options.barWidth ?? DEFAULT_BAR_WIDTH;
+    const barSpacing = options.barSpacing ?? DEFAULT_BAR_SPACING;
+    this.maxBarHeightUp = options.maxBarHeightUp ?? DEFAULT_MAX_BAR_HEIGHT_UP;
+    this.maxBarHeightDown = options.maxBarHeightDown ?? DEFAULT_MAX_BAR_HEIGHT_DOWN;
+    this.scaleProperty = options.scaleProperty ?? new NumberProperty(ENERGY_BAR_SCALE);
 
     const chartWidth = groups.length * (barWidth + barSpacing) - barSpacing;
 
