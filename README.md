@@ -1,5 +1,7 @@
 # The Ramp
 
+[![CI](https://github.com/OpenPhysics/TheRamp/actions/workflows/ci.yml/badge.svg)](https://github.com/OpenPhysics/TheRamp/actions/workflows/ci.yml)
+
 A SceneryStack reimplementation of PhET's classic **The Ramp** simulation —
 forces on an inclined plane. Built with [SceneryStack](https://scenerystack.org/),
 Vite 8, TypeScript 7, and Biome 2.
