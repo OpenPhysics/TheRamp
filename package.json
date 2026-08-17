@@ -4,7 +4,7 @@
   "version": "0.9.0",
   "type": "module",
   "description": "The Ramp — a SceneryStack simulation of forces on an inclined plane.",
-  "license": "MIT",
+  "license": "AGPL-3.0-or-later",
   "repository": {
     "type": "git",
     "url": "https://github.com/OpenPhysics/TheRamp.git"
@@ -30,17 +30,17 @@
     "format": "biome format --write .",
     "fix": "biome check --write .",
     "check": "tsc --noEmit && tsc -p tsconfig.scripts.json --noEmit && tsc -p tsconfig.test.json --noEmit",
-    "test": "vitest run",
-    "test:watch": "vitest",
     "release": "npm run check && npm run lint && npm run build && npm version patch && git push && git push --tags",
     "watch": "tsc --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:fuzz": "playwright test --project=chromium",
+    "test:fuzz:quick": "FUZZ_DURATION=10 playwright test --project=chromium",
     "icons": "tsx scripts/generate-icons.ts",
     "physics-check": "tsx scripts/physics-check.ts",
     "verify": "npm run check && npm run lint && npm run physics-check && npm run build",
     "clean": "rm -rf dist",
-    "prepare": "git rev-parse --is-inside-work-tree >/dev/null 2>&1 && git config core.hooksPath .githooks || true",
-    "test:fuzz": "playwright test --project=chromium",
-    "test:fuzz:quick": "FUZZ_DURATION=10 playwright test --project=chromium"
+    "prepare": "git rev-parse --is-inside-work-tree >/dev/null 2>&1 && git config core.hooksPath .githooks || true"
   },
   "dependencies": {
     "scenerystack": "^3.0.0"
